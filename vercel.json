@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "buildCommand": "node fix-build.js && next build",
+  "buildCommand": "prisma generate && node fix-build.js && next build",
   "installCommand": "npm install",
   "framework": "nextjs",
   "devCommand": "next dev",
