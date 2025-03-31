@@ -5,6 +5,7 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
 import Button from '@/components/ui/Button';
+import { supabase } from '@/lib/supabase';
 
 const volunteerSchema = z.object({
   name: z.string().min(2, 'Name must be at least 2 characters'),
@@ -56,28 +57,44 @@ export default function VolunteerForm() {
     console.log('Form data to submit:', data);
 
     try {
-      const response = await fetch('/api/volunteer', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(data),
-      });
-
-      const responseJson = await response.json().catch(e => {
-        console.error('Failed to parse response JSON:', e);
-        return { message: 'Failed to parse response' };
-      });
+      // Insert data directly into Supabase
+      const { data: responseData, error } = await supabase
+        .from('volunteers')
+        .insert([
+          { 
+            name: data.name,
+            email: data.email,
+            phone: data.phone,
+            interests: data.interests,
+            availability: data.availability,
+            message: data.message || '',
+            created_at: new Date().toISOString(),
+          }
+        ])
+        .select();
       
-      console.log('Response status:', response.status);
-      console.log('Response data:', responseJson);
+      console.log('Supabase response:', responseData);
       
-      setResponseData(responseJson);
+      if (error) {
+        console.error('Supabase error:', error);
+        setErrorMessage(error.message || 'Failed to submit form');
+        setResponseData({ error });
+        setSubmitStatus('error');
+        return;
+      }
 
-      if (!response.ok) {
-        const errorMsg = responseJson.error || responseJson.message || 'Failed to submit form';
-        setErrorMessage(errorMsg);
-        throw new Error(errorMsg);
+      // Send notification email (optional fallback)
+      try {
+        await fetch('/api/email', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            subject: 'New Volunteer Application',
+            text: `New volunteer: ${data.name} (${data.email})\nPhone: ${data.phone}\nInterests: ${data.interests.join(', ')}\nAvailability: ${data.availability}\nMessage: ${data.message || 'None'}`,
+          }),
+        });
+      } catch (emailError) {
+        console.warn('Email notification failed, but data was saved:', emailError);
       }
 
       setSubmitStatus('success');
@@ -85,9 +102,7 @@ export default function VolunteerForm() {
     } catch (error) {
       console.error('Form submission error:', error);
       setSubmitStatus('error');
-      if (!errorMessage) {
-        setErrorMessage(error.message || 'An unexpected error occurred');
-      }
+      setErrorMessage(error.message || 'An unexpected error occurred');
     } finally {
       setIsSubmitting(false);
     }

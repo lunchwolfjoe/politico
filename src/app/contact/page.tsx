@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import Image from 'next/image';
 import { EnvelopeIcon, PhoneIcon, MapPinIcon } from '@heroicons/react/24/outline';
+import { supabase } from '@/lib/supabase';
 
 const contactInfo = [
   {
@@ -54,43 +55,60 @@ export default function ContactPage() {
     console.log('Submitting contact form with data:', formData);
 
     try {
-      const response = await fetch('/api/contact', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(formData)
-      });
+      // Insert data directly into Supabase
+      const { data, error } = await supabase
+        .from('contact_messages')
+        .insert([
+          {
+            first_name: formData.firstName,
+            last_name: formData.lastName,
+            email: formData.email,
+            phone: formData.phoneNumber || null,
+            message: formData.message,
+            created_at: new Date().toISOString(),
+          }
+        ])
+        .select();
 
-      let responseData;
-      try {
-        responseData = await response.json();
-        console.log('Response data:', responseData);
-      } catch (parseError) {
-        console.error('Failed to parse response:', parseError);
-        responseData = { message: 'Failed to parse server response' };
-      }
-      
-      if (response.ok) {
-        setFormStatus({
-          success: true,
-          message: responseData.message || 'Your message has been sent!'
-        });
-        setFormData({
-          firstName: '',
-          lastName: '',
-          email: '',
-          phoneNumber: '',
-          message: ''
-        });
-      } else {
+      if (error) {
+        console.error('Supabase error:', error);
         setFormStatus({
           success: false,
-          message: responseData.message || 'Failed to send message. Please try again.',
-          error: responseData.error || 'Server error',
-          details: responseData
+          message: 'Failed to send message. Please try again.',
+          error: error.message,
+          details: error
         });
+        return;
       }
+
+      console.log('Supabase response:', data);
+      
+      // Send email notification (optional fallback)
+      try {
+        await fetch('/api/email', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            subject: 'New Contact Form Submission',
+            text: `New message from: ${formData.firstName} ${formData.lastName} (${formData.email})\nPhone: ${formData.phoneNumber || 'Not provided'}\nMessage: ${formData.message}`,
+          }),
+        });
+      } catch (emailError) {
+        console.warn('Email notification failed, but data was saved:', emailError);
+      }
+
+      // Reset form and show success message
+      setFormStatus({
+        success: true,
+        message: 'Your message has been sent!'
+      });
+      setFormData({
+        firstName: '',
+        lastName: '',
+        email: '',
+        phoneNumber: '',
+        message: ''
+      });
     } catch (error) {
       console.error('Form submission error:', error);
       setFormStatus({
