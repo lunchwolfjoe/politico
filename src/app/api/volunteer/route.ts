@@ -3,8 +3,6 @@ import { PrismaClient } from '@prisma/client';
 import { z } from 'zod';
 import { sendVolunteerNotification, sendVolunteerConfirmation } from '@/lib/email';
 
-const prisma = new PrismaClient();
-
 const volunteerSchema = z.object({
   name: z.string().min(2),
   email: z.string().email(),
@@ -14,6 +12,43 @@ const volunteerSchema = z.object({
   message: z.string().optional(),
 });
 
+// Create a simple test route that only tests database connectivity
+export async function GET(request: Request) {
+  console.log('======== TESTING DATABASE CONNECTION ========');
+  console.log('DATABASE_URL exists:', !!process.env.DATABASE_URL);
+  
+  const prisma = new PrismaClient();
+  
+  try {
+    console.log('Connecting to database...');
+    await prisma.$connect();
+    console.log('Database connected successfully');
+    
+    // Try a simple query
+    const count = await prisma.volunteer.count();
+    console.log('Volunteer count:', count);
+    
+    await prisma.$disconnect();
+    console.log('Database disconnected');
+    
+    return NextResponse.json({ 
+      success: true, 
+      message: 'Database connection successful',
+      count: count,
+      databaseUrl: process.env.DATABASE_URL ? 'Set (hidden for security)' : 'Not set'
+    });
+  } catch (error) {
+    console.error('Database connection error:', error);
+    
+    return NextResponse.json({ 
+      success: false, 
+      message: 'Database connection failed',
+      error: error.message,
+      databaseUrl: process.env.DATABASE_URL ? 'Set (hidden for security)' : 'Not set'
+    }, { status: 500 });
+  }
+}
+
 export async function POST(request: Request) {
   console.log('======== VOLUNTEER FORM SUBMISSION - START ========');
   console.log('Environment check:');
@@ -22,15 +57,16 @@ export async function POST(request: Request) {
   console.log('ADMIN_EMAIL exists:', !!process.env.ADMIN_EMAIL);
   console.log('EMAIL_FROM exists:', !!process.env.EMAIL_FROM);
   
+  const prisma = new PrismaClient();
+  
   try {
     console.log('Parsing request body...');
     const body = await request.json();
     console.log('Request body:', JSON.stringify(body, null, 2));
     
-    console.log('Validating data with Zod...');
-    const validatedData = volunteerSchema.parse(body);
-    console.log('Data validated successfully');
-
+    // Skip validation temporarily to test database connection
+    const formData = body;
+    
     console.log('Connecting to database...');
     try {
       await prisma.$connect();
@@ -39,64 +75,37 @@ export async function POST(request: Request) {
       console.error('Database connection error:', dbError);
       throw new Error(`Failed to connect to database: ${dbError.message}`);
     }
-
+    
     console.log('Creating volunteer record...');
-    const volunteer = await prisma.volunteer.create({
-      data: {
-        name: validatedData.name,
-        email: validatedData.email,
-        phone: validatedData.phone,
-        interests: validatedData.interests.join(', '),
-        availability: validatedData.availability,
-        message: validatedData.message,
-      },
-    });
-    console.log('Volunteer record created successfully:', volunteer.id);
-
-    console.log('Sending email notifications...');
+    // Try a simplified record creation
     try {
-      const notificationResult = await sendVolunteerNotification({
-        name: validatedData.name,
-        email: validatedData.email,
-        phone: validatedData.phone,
-        interests: validatedData.interests.join(', '),
-        availability: validatedData.availability,
-        message: validatedData.message,
+      const volunteer = await prisma.volunteer.create({
+        data: {
+          name: formData.name || 'Test Name',
+          email: formData.email || 'test@example.com',
+          phone: formData.phone || '1234567890',
+          interests: Array.isArray(formData.interests) ? formData.interests.join(', ') : 'Test Interest',
+          availability: formData.availability || 'Weekdays',
+          message: formData.message || '',
+        },
       });
+      console.log('Volunteer record created successfully:', volunteer.id);
       
-      console.log('Admin notification email result:', notificationResult);
-      
-      const confirmationResult = await sendVolunteerConfirmation({
-        name: validatedData.name,
-        email: validatedData.email,
-      });
-      
-      console.log('Confirmation email result:', confirmationResult);
-      
-      if (!notificationResult || !confirmationResult) {
-        console.warn('One or both emails failed to send');
-      }
-    } catch (emailError) {
-      console.error('Error sending emails:', emailError);
-      // Don't throw here - we still want to return success since the DB record was created
+      return NextResponse.json(
+        { 
+          message: 'Volunteer record created successfully', 
+          volunteer: volunteer,
+          step: 'Database only - no email sent'
+        },
+        { status: 201 }
+      );
+    } catch (createError) {
+      console.error('Error creating volunteer record:', createError);
+      throw new Error(`Failed to create volunteer record: ${createError.message}`);
     }
-
-    console.log('======== VOLUNTEER FORM SUBMISSION - SUCCESS ========');
-    return NextResponse.json(
-      { message: 'Volunteer application submitted successfully', volunteer },
-      { status: 201 }
-    );
+    
   } catch (error) {
     console.error('======== VOLUNTEER FORM SUBMISSION - ERROR ========');
-    
-    if (error instanceof z.ZodError) {
-      console.error('Validation error:', JSON.stringify(error.errors, null, 2));
-      return NextResponse.json(
-        { message: 'Invalid form data', errors: error.errors },
-        { status: 400 }
-      );
-    }
-
     console.error('Error details:', {
       name: error.name,
       message: error.message,
