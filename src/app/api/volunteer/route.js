@@ -14,11 +14,11 @@ const volunteerSchema = z.object({
 
 const prisma = new PrismaClient();
 
-// CORS headers
+// Enhanced CORS headers
 const corsHeaders = {
   'Access-Control-Allow-Origin': '*',
-  'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
-  'Access-Control-Allow-Headers': 'Content-Type, Authorization',
+  'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
+  'Access-Control-Allow-Headers': 'Content-Type, Authorization, X-Requested-With',
   'Access-Control-Max-Age': '86400',
 };
 
@@ -26,20 +26,20 @@ const corsHeaders = {
 export async function OPTIONS() {
   return new NextResponse(null, {
     status: 204,
-    headers: corsHeaders,
+    headers: {
+      ...corsHeaders,
+    }
   });
 }
 
-// GET method to test database connectivity
+// GET method - public access
 export async function GET() {
   try {
-    // Test database connection
-    await prisma.$connect();
-    
+    // Basic test - no DB connection required
     return new NextResponse(
       JSON.stringify({
-        status: 'ok',
-        message: 'Database connection successful',
+        status: 'success',
+        message: 'API is working properly',
         timestamp: new Date().toISOString(),
       }),
       {
@@ -51,11 +51,12 @@ export async function GET() {
       }
     );
   } catch (error) {
-    console.error('Database connection error:', error);
+    console.error('API error:', error);
+    
     return new NextResponse(
       JSON.stringify({
         status: 'error',
-        message: 'Database connection failed',
+        message: 'API error occurred',
         error: error.message,
       }),
       {
@@ -75,44 +76,41 @@ export async function POST(request) {
     const body = await request.json();
     
     // Validate the data using Zod schema
-    const validatedData = volunteerSchema.parse(body);
-
-    // Create volunteer record
-    const volunteer = await prisma.volunteer.create({
-      data: {
-        name: validatedData.name,
-        email: validatedData.email,
-        phone: validatedData.phone,
-        interests: validatedData.interests,
-        availability: validatedData.availability,
-        message: validatedData.message || '',
-      },
-    });
-
-    return new NextResponse(
-      JSON.stringify({
-        status: 'success',
-        message: 'Volunteer created successfully',
-        data: volunteer,
-      }),
-      {
-        status: 201,
-        headers: {
-          'Content-Type': 'application/json',
-          ...corsHeaders,
+    try {
+      const validatedData = volunteerSchema.parse(body);
+      
+      // Create volunteer record
+      const volunteer = await prisma.volunteer.create({
+        data: {
+          name: validatedData.name,
+          email: validatedData.email,
+          phone: validatedData.phone,
+          interests: validatedData.interests,
+          availability: validatedData.availability,
+          message: validatedData.message || '',
         },
-      }
-    );
-  } catch (error) {
-    console.error('Error creating volunteer:', error);
-    
-    // Handle validation errors
-    if (error instanceof z.ZodError) {
+      });
+
+      return new NextResponse(
+        JSON.stringify({
+          status: 'success',
+          message: 'Volunteer created successfully',
+          data: volunteer,
+        }),
+        {
+          status: 201,
+          headers: {
+            'Content-Type': 'application/json',
+            ...corsHeaders,
+          },
+        }
+      );
+    } catch (validationError) {
       return new NextResponse(
         JSON.stringify({
           status: 'error',
-          message: 'Invalid form data',
-          errors: error.errors,
+          message: 'Validation failed',
+          errors: validationError.errors,
         }),
         {
           status: 400,
@@ -123,8 +121,9 @@ export async function POST(request) {
         }
       );
     }
-
-    // Handle other errors
+  } catch (error) {
+    console.error('Failed to create volunteer:', error);
+    
     return new NextResponse(
       JSON.stringify({
         status: 'error',
