@@ -6,7 +6,7 @@ if (process.env.SENDGRID_API_KEY) {
   sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 }
 
-export async function GET(request) {
+export async function GET() {
   console.log('======== TESTING EMAIL SERVICE ========');
   console.log('Environment check:');
   console.log('SENDGRID_API_KEY exists:', !!process.env.SENDGRID_API_KEY);
@@ -16,14 +16,24 @@ export async function GET(request) {
   if (!process.env.SENDGRID_API_KEY) {
     return NextResponse.json({
       success: false,
-      message: 'SendGrid API key not found in environment variables'
+      message: 'SendGrid API key not found in environment variables',
+      environmentCheck: {
+        sendgridApiKey: false,
+        adminEmail: !!process.env.ADMIN_EMAIL,
+        emailFrom: !!process.env.EMAIL_FROM
+      }
     }, { status: 500 });
   }
   
   if (!process.env.EMAIL_FROM) {
     return NextResponse.json({
       success: false,
-      message: 'Sender email not found in environment variables'
+      message: 'Sender email not found in environment variables',
+      environmentCheck: {
+        sendgridApiKey: true,
+        adminEmail: !!process.env.ADMIN_EMAIL,
+        emailFrom: false
+      }
     }, { status: 500 });
   }
   
@@ -42,14 +52,19 @@ export async function GET(request) {
     
     // Send the email
     const response = await sgMail.send(msg);
-    console.log('Email sent successfully, status code:', response[0].statusCode);
+    console.log('Email sent successfully, status code:', response[0]?.statusCode);
     
     return NextResponse.json({
       success: true,
       message: 'Test email sent successfully',
-      statusCode: response[0].statusCode,
+      statusCode: response[0]?.statusCode,
       to: msg.to,
-      from: msg.from
+      from: msg.from,
+      environmentCheck: {
+        sendgridApiKey: true,
+        adminEmail: !!process.env.ADMIN_EMAIL,
+        emailFrom: true
+      }
     });
   } catch (error) {
     console.error('Error sending test email:', error);
@@ -67,7 +82,12 @@ export async function GET(request) {
       success: false,
       message: 'Failed to send test email',
       error: error.message,
-      details: error.response ? error.response.body : null
+      details: error.response ? error.response.body : null,
+      environmentCheck: {
+        sendgridApiKey: true,
+        adminEmail: !!process.env.ADMIN_EMAIL,
+        emailFrom: true
+      }
     }, { status: 500 });
   }
 } 
