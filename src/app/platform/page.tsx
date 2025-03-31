@@ -4,7 +4,7 @@ import {
   CurrencyDollarIcon, 
   ShieldCheckIcon, 
   ChartBarIcon,
-  BuildingIcon,
+  BuildingOfficeIcon,
   AcademicCapIcon,
   HeartIcon,
   RocketLaunchIcon,
