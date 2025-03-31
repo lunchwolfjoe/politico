@@ -74,32 +74,18 @@ export async function POST(request) {
   try {
     const body = await request.json();
     
-    // Validate required fields
-    if (!body.name || !body.email || !body.phone) {
-      return new NextResponse(
-        JSON.stringify({
-          status: 'error',
-          message: 'Missing required fields',
-        }),
-        {
-          status: 400,
-          headers: {
-            'Content-Type': 'application/json',
-            ...corsHeaders,
-          },
-        }
-      );
-    }
+    // Validate the data using Zod schema
+    const validatedData = volunteerSchema.parse(body);
 
     // Create volunteer record
     const volunteer = await prisma.volunteer.create({
       data: {
-        name: body.name,
-        email: body.email,
-        phone: body.phone,
-        interests: body.interests || [],
-        availability: body.availability || '',
-        message: body.message || '',
+        name: validatedData.name,
+        email: validatedData.email,
+        phone: validatedData.phone,
+        interests: validatedData.interests,
+        availability: validatedData.availability,
+        message: validatedData.message || '',
       },
     });
 
@@ -119,6 +105,26 @@ export async function POST(request) {
     );
   } catch (error) {
     console.error('Error creating volunteer:', error);
+    
+    // Handle validation errors
+    if (error instanceof z.ZodError) {
+      return new NextResponse(
+        JSON.stringify({
+          status: 'error',
+          message: 'Invalid form data',
+          errors: error.errors,
+        }),
+        {
+          status: 400,
+          headers: {
+            'Content-Type': 'application/json',
+            ...corsHeaders,
+          },
+        }
+      );
+    }
+
+    // Handle other errors
     return new NextResponse(
       JSON.stringify({
         status: 'error',
