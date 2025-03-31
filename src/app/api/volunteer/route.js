@@ -189,13 +189,21 @@ export async function POST(request) {
         console.log('Skipping email notifications - SENDGRID_API_KEY not set');
       }
       
-      return NextResponse.json(
-        { 
+      return new NextResponse(
+        JSON.stringify({ 
           success: true,
           message: 'Volunteer application submitted successfully',
           volunteer: volunteer
-        },
-        { status: 201 }
+        }),
+        {
+          status: 201,
+          headers: {
+            'Content-Type': 'application/json',
+            'Access-Control-Allow-Origin': '*',
+            'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
+            'Access-Control-Allow-Headers': 'Content-Type',
+          },
+        }
       );
     } catch (createError) {
       console.error('Error creating volunteer record:', createError);
@@ -211,24 +219,40 @@ export async function POST(request) {
     });
     
     if (error instanceof z.ZodError) {
-      return NextResponse.json(
-        { 
+      return new NextResponse(
+        JSON.stringify({ 
           success: false,
           message: 'Invalid form data',
           error: 'Validation failed',
           details: error.errors
-        },
-        { status: 400 }
+        }),
+        {
+          status: 400,
+          headers: {
+            'Content-Type': 'application/json',
+            'Access-Control-Allow-Origin': '*',
+            'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
+            'Access-Control-Allow-Headers': 'Content-Type',
+          },
+        }
       );
     }
     
-    return NextResponse.json(
-      { 
+    return new NextResponse(
+      JSON.stringify({ 
         success: false,
         message: 'Internal server error',
         error: error.message,
-      },
-      { status: 500 }
+      }),
+      {
+        status: 500,
+        headers: {
+          'Content-Type': 'application/json',
+          'Access-Control-Allow-Origin': '*',
+          'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
+          'Access-Control-Allow-Headers': 'Content-Type',
+        },
+      }
     );
   } finally {
     try {
