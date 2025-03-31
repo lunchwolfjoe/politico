@@ -1,13 +1,20 @@
 {
+  "version": 2,
+  "buildCommand": "node fix-build.js && next build",
+  "installCommand": "npm install",
+  "framework": "nextjs",
+  "devCommand": "next dev",
   "git": {
     "deploymentEnabled": {
       "main": true
     }
   },
-  "buildCommand": "npm run build",
-  "framework": "nextjs",
-  "devCommand": "npm run dev",
-  "installCommand": "npm install",
+  "builds": [
+    {
+      "src": "package.json",
+      "use": "@vercel/next"
+    }
+  ],
   "images": {
     "domains": ["images.unsplash.com"],
     "sizes": [640, 750, 828, 1080, 1200, 1920, 2048, 3840]
