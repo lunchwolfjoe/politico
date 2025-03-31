@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import Image from 'next/image';
 import { EnvelopeIcon, PhoneIcon, MapPinIcon } from '@heroicons/react/24/outline';
-import { supabase } from '@/lib/supabase';
+import { supabase, submitContactForm } from '@/lib/supabase';
 
 const contactInfo = [
   {
@@ -55,34 +55,45 @@ export default function ContactPage() {
     console.log('Submitting contact form with data:', formData);
 
     try {
-      // Insert data directly into Supabase
-      const { data, error } = await supabase
-        .from('contact_messages')
-        .insert([
-          {
-            first_name: formData.firstName,
-            last_name: formData.lastName,
-            email: formData.email,
-            phone: formData.phoneNumber || null,
-            message: formData.message,
-            created_at: new Date().toISOString(),
-          }
-        ])
-        .select();
-
+      // Test connection first
+      let connected = false;
+      let connectionError = null;
+      
+      try {
+        const result = await supabase.from('contact_messages').select('count', { count: 'exact', head: true });
+        connected = !result.error;
+        connectionError = result.error;
+      } catch (error) {
+        connected = false;
+        connectionError = error;
+      }
+      
+      if (!connected) {
+        setFormStatus({
+          success: false,
+          message: 'Could not connect to the database. Please try again later.',
+          error: connectionError?.message || 'Connection failed',
+          details: connectionError
+        });
+        setIsSubmitting(false);
+        return;
+      }
+      
+      // Use the helper function to submit the form
+      const { data, error } = await submitContactForm(formData);
+      
       if (error) {
-        console.error('Supabase error:', error);
+        console.error('Error submitting contact form:', error);
         setFormStatus({
           success: false,
           message: 'Failed to send message. Please try again.',
-          error: error.message,
+          error: error.message || 'Form submission failed',
           details: error
         });
+        setIsSubmitting(false);
         return;
       }
 
-      console.log('Supabase response:', data);
-      
       // Send email notification (optional fallback)
       try {
         await fetch('/api/email', {
@@ -114,7 +125,7 @@ export default function ContactPage() {
       setFormStatus({
         success: false,
         message: 'An unexpected error occurred. Please try again later.',
-        error: error.message,
+        error: error.message || 'Unknown error',
         details: { message: error.message, stack: error.stack }
       });
     } finally {

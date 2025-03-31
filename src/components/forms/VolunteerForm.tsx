@@ -5,7 +5,7 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
 import Button from '@/components/ui/Button';
-import { supabase } from '@/lib/supabase';
+import { supabase, submitVolunteer } from '@/lib/supabase';
 
 const volunteerSchema = z.object({
   name: z.string().min(2, 'Name must be at least 2 characters'),
@@ -57,29 +57,36 @@ export default function VolunteerForm() {
     console.log('Form data to submit:', data);
 
     try {
-      // Insert data directly into Supabase
-      const { data: responseData, error } = await supabase
-        .from('volunteers')
-        .insert([
-          { 
-            name: data.name,
-            email: data.email,
-            phone: data.phone,
-            interests: data.interests,
-            availability: data.availability,
-            message: data.message || '',
-            created_at: new Date().toISOString(),
-          }
-        ])
-        .select();
+      // Test connection first
+      let connected = false;
+      let connectionError = null;
       
-      console.log('Supabase response:', responseData);
+      try {
+        const result = await supabase.from('volunteers').select('count', { count: 'exact', head: true });
+        connected = !result.error;
+        connectionError = result.error;
+      } catch (error) {
+        connected = false;
+        connectionError = error;
+      }
+      
+      if (!connected) {
+        setResponseData({ error: connectionError });
+        setErrorMessage(connectionError?.message || 'Could not connect to the database. Please try again later.');
+        setSubmitStatus('error');
+        setIsSubmitting(false);
+        return;
+      }
+      
+      // Use the helper function to submit the form
+      const { data: responseData, error } = await submitVolunteer(data);
       
       if (error) {
-        console.error('Supabase error:', error);
-        setErrorMessage(error.message || 'Failed to submit form');
+        console.error('Error submitting volunteer data:', error);
         setResponseData({ error });
+        setErrorMessage(error.message || 'Failed to submit form');
         setSubmitStatus('error');
+        setIsSubmitting(false);
         return;
       }
 
