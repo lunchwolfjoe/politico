@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import Image from 'next/image';
 import { EnvelopeIcon, PhoneIcon, MapPinIcon } from '@heroicons/react/24/outline';
+import { supabase } from '@/lib/supabase';
 
 const contactInfo = [
   {
@@ -27,269 +28,135 @@ const contactInfo = [
 
 export default function ContactPage() {
   const [formData, setFormData] = useState({
-    firstName: '',
-    lastName: '',
+    name: '',
     email: '',
-    phoneNumber: '',
+    phone: '',
     message: ''
   });
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [formStatus, setFormStatus] = useState<{
-    success?: boolean;
-    message?: string;
-    error?: string;
-    details?: any;
-  }>({});
+  const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
+  const [errorMessage, setErrorMessage] = useState('');
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setStatus('loading');
+    setErrorMessage('');
+
+    try {
+      const { error } = await supabase
+        .from('contact_submissions')
+        .insert([formData]);
+
+      if (error) throw error;
+
+      setStatus('success');
+      setFormData({ name: '', email: '', phone: '', message: '' });
+    } catch (error) {
+      console.error('Error submitting form:', error);
+      setStatus('error');
+      setErrorMessage('Failed to submit form. Please try again.');
+    }
+  };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
     setFormData(prev => ({ ...prev, [name]: value }));
   };
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setIsSubmitting(true);
-    setFormStatus({});
-    
-    console.log('Submitting contact form with data:', formData);
-
-    try {
-      // Create formData object
-      const submitData = new FormData();
-      submitData.append('firstName', formData.firstName);
-      submitData.append('lastName', formData.lastName);
-      submitData.append('name', `${formData.firstName} ${formData.lastName}`);
-      submitData.append('email', formData.email);
-      submitData.append('phone', formData.phoneNumber || 'Not provided');
-      submitData.append('message', formData.message);
-      submitData.append('_subject', 'New Campaign Contact Form Message');
-      // This prevents formsubmit.co from showing their thank you page
-      submitData.append('_captcha', 'false');
-      // Redirect back to the current page
-      submitData.append('_next', window.location.href);
-      
-      // Submit to formsubmit.co service
-      const response = await fetch('https://formsubmit.co/info@nleeplumb.com', {
-        method: 'POST',
-        body: submitData,
-        headers: {
-          'Accept': 'application/json'
-        }
-      });
-      
-      const responseJson = await response.json().catch(() => null);
-      console.log('Form submission response:', response.status, responseJson);
-      
-      if (!response.ok) {
-        setFormStatus({
-          success: false,
-          message: 'Failed to send message. Please try again later.',
-          error: response.statusText,
-          details: responseJson || { status: response.status }
-        });
-        setIsSubmitting(false);
-        return;
-      }
-
-      // Reset form and show success message
-      setFormStatus({
-        success: true,
-        message: 'Your message has been sent!'
-      });
-      setFormData({
-        firstName: '',
-        lastName: '',
-        email: '',
-        phoneNumber: '',
-        message: ''
-      });
-    } catch (error) {
-      console.error('Form submission error:', error);
-      setFormStatus({
-        success: false,
-        message: 'An unexpected error occurred. Please try again later.',
-        error: error.message || 'Unknown error',
-        details: { message: error.message, stack: error.stack }
-      });
-    } finally {
-      setIsSubmitting(false);
-    }
-  };
-
   return (
-    <div className="bg-white">
-      {/* Hero Section */}
-      <div className="relative isolate overflow-hidden">
-        <div className="absolute inset-0">
-          <Image
-            src="/images/contact-hero.jpg"
-            alt="Campaign office"
-            className="h-full w-full object-cover brightness-75"
-            width={1920}
-            height={1080}
-            priority
-          />
-          <div className="absolute inset-0 bg-gradient-to-r from-blue-900/80 to-red-900/50 mix-blend-multiply" />
-        </div>
-        <div className="relative py-24 px-6 sm:py-32 lg:px-8">
-          <div className="mx-auto max-w-2xl text-center">
-            <h1 className="text-4xl font-bold tracking-tight text-white sm:text-6xl">
-              Get in Touch
-            </h1>
-            <p className="mt-6 text-xl leading-8 text-gray-100">
-              We're here to answer your questions and hear your ideas. Join us in building a stronger America.
-            </p>
-          </div>
-        </div>
-      </div>
-
-      {/* Contact Information */}
-      <div className="mx-auto max-w-7xl px-6 lg:px-8 py-24 sm:py-32">
-        <div className="mx-auto max-w-2xl lg:mx-0">
-          <h2 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">Connect With Us</h2>
-          <p className="mt-6 text-lg leading-8 text-gray-600">
-            Whether you want to volunteer, donate, or just learn more about our campaign, we have multiple ways to reach us.
+    <div className="min-h-screen bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
+      <div className="max-w-3xl mx-auto">
+        <div className="text-center">
+          <h2 className="text-3xl font-extrabold text-gray-900 sm:text-4xl">
+            Contact Us
+          </h2>
+          <p className="mt-4 text-lg text-gray-500">
+            Have questions? We'd love to hear from you.
           </p>
         </div>
-        <div className="mx-auto mt-16 grid max-w-2xl grid-cols-1 gap-x-8 gap-y-16 lg:mx-0 lg:mt-10 lg:max-w-none lg:grid-cols-3">
-          {contactInfo.map((item) => (
-            <div key={item.name} className="flex flex-col items-start bg-white rounded-2xl shadow-sm ring-1 ring-gray-200 p-8">
-              <div className="rounded-lg bg-red-700 p-3">
-                <item.icon className="h-6 w-6 text-white" aria-hidden="true" />
-              </div>
-              <h3 className="mt-6 text-2xl font-semibold leading-8 text-gray-900">{item.name}</h3>
-              <a
-                href={item.href}
-                className="mt-4 text-lg leading-8 text-gray-600 hover:text-red-700"
-              >
-                {item.description}
-              </a>
-            </div>
-          ))}
-        </div>
-      </div>
 
-      {/* Contact Form */}
-      <div className="mx-auto max-w-7xl px-6 lg:px-8 py-24 sm:py-32 bg-gray-50">
-        <div className="mx-auto max-w-2xl lg:mx-0">
-          <h2 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">Send Us a Message</h2>
-          <p className="mt-6 text-lg leading-8 text-gray-600">
-            Fill out the form below and we'll get back to you as soon as possible. Your voice matters to us.
-          </p>
-        </div>
-        <form onSubmit={handleSubmit} className="mx-auto mt-16 max-w-2xl bg-white rounded-2xl shadow-sm ring-1 ring-gray-200 p-8">
-          {formStatus.message && (
-            <div className={`mb-6 p-4 rounded-md ${formStatus.success ? 'bg-green-50 text-green-700' : 'bg-red-50 text-red-700'}`}>
-              <p className="font-medium">{formStatus.message}</p>
-              
-              {formStatus.error && (
-                <p className="mt-1 text-sm">{formStatus.error}</p>
-              )}
-              
-              {!formStatus.success && formStatus.details && (
-                <details className="mt-2">
-                  <summary className="text-sm cursor-pointer">View technical details</summary>
-                  <pre className="mt-2 p-2 bg-gray-100 rounded text-xs overflow-auto max-h-40">
-                    {JSON.stringify(formStatus.details, null, 2)}
-                  </pre>
-                </details>
-              )}
-            </div>
-          )}
-          
-          <div className="grid grid-cols-1 gap-x-8 gap-y-6 sm:grid-cols-2">
+        <form onSubmit={handleSubmit} className="mt-8 space-y-6">
+          <div className="rounded-md shadow-sm -space-y-px">
             <div>
-              <label htmlFor="firstName" className="block text-sm font-semibold leading-6 text-gray-900">
-                First name
+              <label htmlFor="name" className="sr-only">
+                Name
               </label>
-              <div className="mt-2.5">
-                <input
-                  type="text"
-                  name="firstName"
-                  id="firstName"
-                  value={formData.firstName}
-                  onChange={handleChange}
-                  autoComplete="given-name"
-                  required
-                  className="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-red-700 sm:text-sm sm:leading-6"
-                />
-              </div>
+              <input
+                id="name"
+                name="name"
+                type="text"
+                required
+                className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-primary-500 focus:border-primary-500 focus:z-10 sm:text-sm"
+                placeholder="Name"
+                value={formData.name}
+                onChange={handleChange}
+              />
             </div>
             <div>
-              <label htmlFor="lastName" className="block text-sm font-semibold leading-6 text-gray-900">
-                Last name
+              <label htmlFor="email" className="sr-only">
+                Email address
               </label>
-              <div className="mt-2.5">
-                <input
-                  type="text"
-                  name="lastName"
-                  id="lastName"
-                  value={formData.lastName}
-                  onChange={handleChange}
-                  autoComplete="family-name"
-                  required
-                  className="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-red-700 sm:text-sm sm:leading-6"
-                />
-              </div>
+              <input
+                id="email"
+                name="email"
+                type="email"
+                autoComplete="email"
+                required
+                className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-primary-500 focus:border-primary-500 focus:z-10 sm:text-sm"
+                placeholder="Email address"
+                value={formData.email}
+                onChange={handleChange}
+              />
             </div>
-            <div className="sm:col-span-2">
-              <label htmlFor="email" className="block text-sm font-semibold leading-6 text-gray-900">
-                Email
-              </label>
-              <div className="mt-2.5">
-                <input
-                  type="email"
-                  name="email"
-                  id="email"
-                  value={formData.email}
-                  onChange={handleChange}
-                  autoComplete="email"
-                  required
-                  className="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-red-700 sm:text-sm sm:leading-6"
-                />
-              </div>
-            </div>
-            <div className="sm:col-span-2">
-              <label htmlFor="phoneNumber" className="block text-sm font-semibold leading-6 text-gray-900">
+            <div>
+              <label htmlFor="phone" className="sr-only">
                 Phone number
               </label>
-              <div className="mt-2.5">
-                <input
-                  type="tel"
-                  name="phoneNumber"
-                  id="phoneNumber"
-                  value={formData.phoneNumber}
-                  onChange={handleChange}
-                  autoComplete="tel"
-                  className="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-red-700 sm:text-sm sm:leading-6"
-                />
-              </div>
+              <input
+                id="phone"
+                name="phone"
+                type="tel"
+                autoComplete="tel"
+                className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-primary-500 focus:border-primary-500 focus:z-10 sm:text-sm"
+                placeholder="Phone number (optional)"
+                value={formData.phone}
+                onChange={handleChange}
+              />
             </div>
-            <div className="sm:col-span-2">
-              <label htmlFor="message" className="block text-sm font-semibold leading-6 text-gray-900">
+            <div>
+              <label htmlFor="message" className="sr-only">
                 Message
               </label>
-              <div className="mt-2.5">
-                <textarea
-                  name="message"
-                  id="message"
-                  rows={4}
-                  value={formData.message}
-                  onChange={handleChange}
-                  required
-                  className="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-red-700 sm:text-sm sm:leading-6"
-                />
-              </div>
+              <textarea
+                id="message"
+                name="message"
+                required
+                rows={4}
+                className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-primary-500 focus:border-primary-500 focus:z-10 sm:text-sm"
+                placeholder="Your message"
+                value={formData.message}
+                onChange={handleChange}
+              />
             </div>
-            <div className="sm:col-span-2">
-              <button
-                type="submit"
-                disabled={isSubmitting}
-                className="block w-full rounded-md bg-red-700 px-3.5 py-2.5 text-center text-sm font-semibold text-white shadow-sm hover:bg-red-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-700 disabled:opacity-75"
-              >
-                {isSubmitting ? 'Sending...' : 'Send message'}
-              </button>
+          </div>
+
+          {status === 'error' && (
+            <div className="text-red-600 text-sm">{errorMessage}</div>
+          )}
+
+          {status === 'success' && (
+            <div className="text-green-600 text-sm">
+              Thank you for your message! We'll get back to you soon.
             </div>
+          )}
+
+          <div>
+            <button
+              type="submit"
+              disabled={status === 'loading'}
+              className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-primary-600 hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500 disabled:opacity-50 disabled:cursor-not-allowed"
+            >
+              {status === 'loading' ? 'Sending...' : 'Send Message'}
+            </button>
           </div>
         </form>
       </div>

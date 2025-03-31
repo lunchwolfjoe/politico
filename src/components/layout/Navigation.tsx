@@ -12,6 +12,7 @@ const navigation = [
   { name: 'Get Involved', href: '/volunteer' },
   { name: 'News', href: '/news' },
   { name: 'Contact', href: '/contact' },
+  { name: 'Dashboard', href: '/dashboard' },
 ];
 
 export default function Navigation() {
