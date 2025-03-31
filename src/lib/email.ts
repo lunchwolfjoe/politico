@@ -1,10 +1,15 @@
 import sgMail from '@sendgrid/mail';
 
+// Check if SendGrid API key is set
 if (!process.env.SENDGRID_API_KEY) {
-  throw new Error('SENDGRID_API_KEY is not set in environment variables');
+  console.error('SENDGRID_API_KEY is not set in environment variables');
+  // Don't throw here to prevent app from crashing, just log the error
+} else {
+  console.log('Setting SendGrid API key');
+  // Set SendGrid API key
+  sgMail.setApiKey(process.env.SENDGRID_API_KEY);
+  console.log('SendGrid API key set successfully');
 }
-
-sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 
 export async function sendVolunteerNotification(volunteerData: {
   name: string;
@@ -14,11 +19,33 @@ export async function sendVolunteerNotification(volunteerData: {
   availability: string;
   message?: string;
 }) {
+  // Check required environment variables
+  if (!process.env.SENDGRID_API_KEY) {
+    console.error('Cannot send email: SENDGRID_API_KEY is not set');
+    return false;
+  }
+
+  if (!process.env.ADMIN_EMAIL) {
+    console.error('Cannot send email: ADMIN_EMAIL is not set');
+    return false;
+  }
+
+  if (!process.env.EMAIL_FROM) {
+    console.error('Cannot send email: EMAIL_FROM is not set');
+    return false;
+  }
+  
   const { name, email, phone, interests, availability, message } = volunteerData;
 
+  // Get the admin email and from email from environment variables
+  const adminEmail = process.env.ADMIN_EMAIL || 'info@nleeplumb.com';
+  const fromEmail = process.env.EMAIL_FROM || 'info@nleeplumb.com';
+
+  console.log(`Sending volunteer notification to admin (${adminEmail}) from ${fromEmail}`);
+
   const msg = {
-    to: process.env.ADMIN_EMAIL || 'your-admin-email@example.com', // Replace with your admin email
-    from: process.env.EMAIL_FROM || 'noreply@example.com',
+    to: adminEmail,
+    from: fromEmail,
     subject: 'New Volunteer Application',
     text: `
 New volunteer application received:
@@ -42,10 +69,19 @@ Message: ${message || 'No message provided'}
   };
 
   try {
-    await sgMail.send(msg);
+    console.log('Sending email via SendGrid...');
+    const response = await sgMail.send(msg);
+    console.log('Email sent successfully, status code:', response[0]?.statusCode);
     return true;
   } catch (error) {
     console.error('Error sending email:', error);
+    if (error.response) {
+      console.error('SendGrid response error:', {
+        statusCode: error.response.statusCode,
+        body: error.response.body,
+        headers: error.response.headers
+      });
+    }
     return false;
   }
 }
@@ -54,11 +90,27 @@ export async function sendVolunteerConfirmation(volunteerData: {
   name: string;
   email: string;
 }) {
+  // Check required environment variables
+  if (!process.env.SENDGRID_API_KEY) {
+    console.error('Cannot send confirmation email: SENDGRID_API_KEY is not set');
+    return false;
+  }
+
+  if (!process.env.EMAIL_FROM) {
+    console.error('Cannot send confirmation email: EMAIL_FROM is not set');
+    return false;
+  }
+  
   const { name, email } = volunteerData;
+
+  // Get the from email from environment variables
+  const fromEmail = process.env.EMAIL_FROM || 'info@nleeplumb.com';
+  
+  console.log(`Sending volunteer confirmation to ${email} from ${fromEmail}`);
 
   const msg = {
     to: email,
-    from: process.env.EMAIL_FROM || 'noreply@example.com',
+    from: fromEmail,
     subject: 'Thank You for Volunteering!',
     text: `
 Dear ${name},
@@ -80,10 +132,19 @@ The Campaign Team
   };
 
   try {
-    await sgMail.send(msg);
+    console.log('Sending confirmation email via SendGrid...');
+    const response = await sgMail.send(msg);
+    console.log('Confirmation email sent successfully, status code:', response[0]?.statusCode);
     return true;
   } catch (error) {
     console.error('Error sending confirmation email:', error);
+    if (error.response) {
+      console.error('SendGrid response error:', {
+        statusCode: error.response.statusCode,
+        body: error.response.body,
+        headers: error.response.headers
+      });
+    }
     return false;
   }
 }
@@ -95,12 +156,29 @@ export async function sendContactFormNotification(contactData: {
   phoneNumber?: string;
   message: string;
 }) {
+  // Check required environment variables
+  if (!process.env.SENDGRID_API_KEY) {
+    console.error('Cannot send contact notification: SENDGRID_API_KEY is not set');
+    return false;
+  }
+
+  if (!process.env.EMAIL_FROM) {
+    console.error('Cannot send contact notification: EMAIL_FROM is not set');
+    return false;
+  }
+  
   const { firstName, lastName, email, phoneNumber, message } = contactData;
   const fullName = `${firstName} ${lastName}`;
 
+  // Get the from email from environment variables
+  const fromEmail = process.env.EMAIL_FROM || 'info@nleeplumb.com';
+  const toEmail = process.env.ADMIN_EMAIL || 'info@nleeplumb.com';
+  
+  console.log(`Sending contact form notification to ${toEmail} from ${fromEmail}`);
+
   const msg = {
-    to: 'info@nleeplumb.com', // Campaign contact email
-    from: 'info@nleeplumb.com', // Verified sender
+    to: toEmail,
+    from: fromEmail,
     replyTo: email,
     subject: `New Contact Form Message from ${fullName}`,
     text: `
@@ -123,10 +201,19 @@ ${message}
   };
 
   try {
-    await sgMail.send(msg);
+    console.log('Sending contact notification email via SendGrid...');
+    const response = await sgMail.send(msg);
+    console.log('Contact notification email sent successfully, status code:', response[0]?.statusCode);
     return true;
   } catch (error) {
     console.error('Error sending contact notification email:', error);
+    if (error.response) {
+      console.error('SendGrid response error:', {
+        statusCode: error.response.statusCode,
+        body: error.response.body,
+        headers: error.response.headers
+      });
+    }
     return false;
   }
 } 
