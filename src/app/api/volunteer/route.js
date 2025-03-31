@@ -12,8 +12,26 @@ const volunteerSchema = z.object({
   message: z.string().optional(),
 });
 
+// Middleware to handle CORS
+function corsMiddleware() {
+  return new NextResponse(null, {
+    status: 204,
+    headers: {
+      'Access-Control-Allow-Origin': '*',
+      'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
+      'Access-Control-Allow-Headers': 'Content-Type, Authorization',
+      'Access-Control-Max-Age': '86400',
+    },
+  });
+}
+
 // Create a simple test route that only tests database connectivity
-export async function GET() {
+export async function GET(request) {
+  // Handle CORS preflight
+  if (request.method === 'OPTIONS') {
+    return corsMiddleware();
+  }
+
   try {
     console.log('======== TESTING DATABASE CONNECTION ========');
     console.log('Environment check:');
@@ -54,7 +72,8 @@ export async function GET() {
             'Content-Type': 'application/json',
             'Access-Control-Allow-Origin': '*',
             'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
-            'Access-Control-Allow-Headers': 'Content-Type',
+            'Access-Control-Allow-Headers': 'Content-Type, Authorization',
+            'Access-Control-Max-Age': '86400',
           },
         }
       );
@@ -79,7 +98,8 @@ export async function GET() {
             'Content-Type': 'application/json',
             'Access-Control-Allow-Origin': '*',
             'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
-            'Access-Control-Allow-Headers': 'Content-Type',
+            'Access-Control-Allow-Headers': 'Content-Type, Authorization',
+            'Access-Control-Max-Age': '86400',
           },
         }
       );
@@ -98,7 +118,8 @@ export async function GET() {
           'Content-Type': 'application/json',
           'Access-Control-Allow-Origin': '*',
           'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
-          'Access-Control-Allow-Headers': 'Content-Type',
+          'Access-Control-Allow-Headers': 'Content-Type, Authorization',
+          'Access-Control-Max-Age': '86400',
         },
       }
     );
@@ -107,17 +128,15 @@ export async function GET() {
 
 // Handle OPTIONS request for CORS
 export async function OPTIONS() {
-  return new NextResponse(null, {
-    status: 204,
-    headers: {
-      'Access-Control-Allow-Origin': '*',
-      'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
-      'Access-Control-Allow-Headers': 'Content-Type',
-    },
-  });
+  return corsMiddleware();
 }
 
 export async function POST(request) {
+  // Handle CORS preflight
+  if (request.method === 'OPTIONS') {
+    return corsMiddleware();
+  }
+
   console.log('======== VOLUNTEER FORM SUBMISSION - START ========');
   console.log('Environment check:');
   console.log('DATABASE_URL exists:', !!process.env.DATABASE_URL);
@@ -201,7 +220,8 @@ export async function POST(request) {
             'Content-Type': 'application/json',
             'Access-Control-Allow-Origin': '*',
             'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
-            'Access-Control-Allow-Headers': 'Content-Type',
+            'Access-Control-Allow-Headers': 'Content-Type, Authorization',
+            'Access-Control-Max-Age': '86400',
           },
         }
       );
@@ -232,7 +252,8 @@ export async function POST(request) {
             'Content-Type': 'application/json',
             'Access-Control-Allow-Origin': '*',
             'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
-            'Access-Control-Allow-Headers': 'Content-Type',
+            'Access-Control-Allow-Headers': 'Content-Type, Authorization',
+            'Access-Control-Max-Age': '86400',
           },
         }
       );
@@ -250,7 +271,8 @@ export async function POST(request) {
           'Content-Type': 'application/json',
           'Access-Control-Allow-Origin': '*',
           'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
-          'Access-Control-Allow-Headers': 'Content-Type',
+          'Access-Control-Allow-Headers': 'Content-Type, Authorization',
+          'Access-Control-Max-Age': '86400',
         },
       }
     );
