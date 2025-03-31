@@ -12,6 +12,11 @@ if (!process.env.SENDGRID_API_KEY) {
 // Use a verified sender email from SendGrid
 const VERIFIED_SENDER = 'info@nleeplumb.com';
 
+// Configure SendGrid to use the default sender
+sgMail.setDefaultRequest('headers', {
+  'X-SendGrid-From': VERIFIED_SENDER
+});
+
 export async function sendVolunteerNotification(volunteerData: {
   name: string;
   email: string;
@@ -34,7 +39,7 @@ export async function sendVolunteerNotification(volunteerData: {
 
   const msg = {
     to: adminEmail,
-    from: VERIFIED_SENDER, // Use verified sender
+    from: VERIFIED_SENDER,
     subject: 'New Volunteer Application',
     text: `
 New volunteer application received:
