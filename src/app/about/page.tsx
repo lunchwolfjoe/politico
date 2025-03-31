@@ -197,6 +197,20 @@ export default function AboutPage() {
                   </dt>
                   <dd className="mt-4 flex flex-auto flex-col text-base leading-7 text-gray-600">
                     <p className="flex-auto">{experience.description}</p>
+                    {experience.id === 'military' && (
+                      <div className="mt-6 mb-6">
+                        <Image
+                          src="/images/gtmokhadr.jpg"
+                          alt="Courtroom sketch of N. Lee Plumb while serving at Guantanamo Bay"
+                          className="w-full rounded-lg shadow-md"
+                          width={600}
+                          height={400}
+                        />
+                        <p className="mt-2 text-sm text-gray-500 italic">
+                          Courtroom sketch of N. Lee Plumb during his service at Guantanamo Bay detention facility.
+                        </p>
+                      </div>
+                    )}
                     <ul className="mt-8 space-y-3">
                       {experience.details.map((detail, index) => (
                         <li key={index} className="flex gap-x-3">
