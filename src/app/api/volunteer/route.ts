@@ -13,9 +13,13 @@ const volunteerSchema = z.object({
 });
 
 // Create a simple test route that only tests database connectivity
-export async function GET(request: Request) {
+export async function GET() {
   console.log('======== TESTING DATABASE CONNECTION ========');
+  console.log('Environment check:');
   console.log('DATABASE_URL exists:', !!process.env.DATABASE_URL);
+  console.log('SENDGRID_API_KEY exists:', !!process.env.SENDGRID_API_KEY);
+  console.log('ADMIN_EMAIL exists:', !!process.env.ADMIN_EMAIL);
+  console.log('EMAIL_FROM exists:', !!process.env.EMAIL_FROM);
   
   const prisma = new PrismaClient();
   
@@ -35,7 +39,12 @@ export async function GET(request: Request) {
       success: true, 
       message: 'Database connection successful',
       count: count,
-      databaseUrl: process.env.DATABASE_URL ? 'Set (hidden for security)' : 'Not set'
+      environmentCheck: {
+        databaseUrl: process.env.DATABASE_URL ? 'Set (hidden for security)' : 'Not set',
+        sendgridApiKey: process.env.SENDGRID_API_KEY ? 'Set' : 'Not set',
+        adminEmail: process.env.ADMIN_EMAIL ? 'Set' : 'Not set',
+        emailFrom: process.env.EMAIL_FROM ? 'Set' : 'Not set'
+      }
     });
   } catch (error) {
     console.error('Database connection error:', error);
@@ -44,7 +53,12 @@ export async function GET(request: Request) {
       success: false, 
       message: 'Database connection failed',
       error: error.message,
-      databaseUrl: process.env.DATABASE_URL ? 'Set (hidden for security)' : 'Not set'
+      environmentCheck: {
+        databaseUrl: process.env.DATABASE_URL ? 'Set (hidden for security)' : 'Not set',
+        sendgridApiKey: process.env.SENDGRID_API_KEY ? 'Set' : 'Not set',
+        adminEmail: process.env.ADMIN_EMAIL ? 'Set' : 'Not set',
+        emailFrom: process.env.EMAIL_FROM ? 'Set' : 'Not set'
+      }
     }, { status: 500 });
   }
 }
@@ -64,8 +78,10 @@ export async function POST(request: Request) {
     const body = await request.json();
     console.log('Request body:', JSON.stringify(body, null, 2));
     
-    // Skip validation temporarily to test database connection
-    const formData = body;
+    // Validate the data
+    console.log('Validating data...');
+    const validatedData = volunteerSchema.parse(body);
+    console.log('Data validated successfully');
     
     console.log('Connecting to database...');
     try {
@@ -77,25 +93,53 @@ export async function POST(request: Request) {
     }
     
     console.log('Creating volunteer record...');
-    // Try a simplified record creation
     try {
       const volunteer = await prisma.volunteer.create({
         data: {
-          name: formData.name || 'Test Name',
-          email: formData.email || 'test@example.com',
-          phone: formData.phone || '1234567890',
-          interests: Array.isArray(formData.interests) ? formData.interests.join(', ') : 'Test Interest',
-          availability: formData.availability || 'Weekdays',
-          message: formData.message || '',
+          name: validatedData.name,
+          email: validatedData.email,
+          phone: validatedData.phone,
+          interests: Array.isArray(validatedData.interests) ? validatedData.interests.join(', ') : validatedData.interests,
+          availability: validatedData.availability,
+          message: validatedData.message || '',
         },
       });
       console.log('Volunteer record created successfully:', volunteer.id);
       
+      // Send email notifications
+      if (process.env.SENDGRID_API_KEY) {
+        console.log('Sending email notifications...');
+        try {
+          const notificationResult = await sendVolunteerNotification({
+            name: validatedData.name,
+            email: validatedData.email,
+            phone: validatedData.phone,
+            interests: Array.isArray(validatedData.interests) ? validatedData.interests.join(', ') : validatedData.interests,
+            availability: validatedData.availability,
+            message: validatedData.message || '',
+          });
+          
+          console.log('Admin notification email result:', notificationResult);
+          
+          const confirmationResult = await sendVolunteerConfirmation({
+            name: validatedData.name,
+            email: validatedData.email,
+          });
+          
+          console.log('Confirmation email result:', confirmationResult);
+        } catch (emailError) {
+          console.error('Error sending emails:', emailError);
+          // Don't throw here - we still want to return success since the DB record was created
+        }
+      } else {
+        console.log('Skipping email notifications - SENDGRID_API_KEY not set');
+      }
+      
       return NextResponse.json(
         { 
-          message: 'Volunteer record created successfully', 
-          volunteer: volunteer,
-          step: 'Database only - no email sent'
+          success: true,
+          message: 'Volunteer application submitted successfully',
+          volunteer: volunteer
         },
         { status: 201 }
       );
@@ -112,8 +156,21 @@ export async function POST(request: Request) {
       stack: error.stack,
     });
     
+    if (error instanceof z.ZodError) {
+      return NextResponse.json(
+        { 
+          success: false,
+          message: 'Invalid form data',
+          error: 'Validation failed',
+          details: error.errors
+        },
+        { status: 400 }
+      );
+    }
+    
     return NextResponse.json(
       { 
+        success: false,
         message: 'Internal server error',
         error: error.message,
       },
