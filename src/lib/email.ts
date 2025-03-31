@@ -12,12 +12,6 @@ if (!process.env.SENDGRID_API_KEY) {
 // Use a verified sender email from SendGrid
 const VERIFIED_SENDER = 'info@nleeplumb.com';
 
-// Configure SendGrid to use IP-based sending
-sgMail.setDefaultRequest('headers', {
-  'X-SendGrid-From': VERIFIED_SENDER,
-  'X-SendGrid-Subject': 'Campaign Website Notification'
-});
-
 export async function sendVolunteerNotification(volunteerData: {
   name: string;
   email: string;
