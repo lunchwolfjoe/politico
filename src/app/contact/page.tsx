@@ -1,12 +1,15 @@
+'use client';
+
+import { useState } from 'react';
 import Image from 'next/image';
 import { EnvelopeIcon, PhoneIcon, MapPinIcon } from '@heroicons/react/24/outline';
 
 const contactInfo = [
   {
     name: 'Email',
-    description: 'info@campaign.com',
+    description: 'info@nleeplumb.com',
     icon: EnvelopeIcon,
-    href: 'mailto:info@campaign.com',
+    href: 'mailto:info@nleeplumb.com',
   },
   {
     name: 'Phone',
@@ -23,6 +26,69 @@ const contactInfo = [
 ];
 
 export default function ContactPage() {
+  const [formData, setFormData] = useState({
+    firstName: '',
+    lastName: '',
+    email: '',
+    phoneNumber: '',
+    message: ''
+  });
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [formStatus, setFormStatus] = useState<{
+    success?: boolean;
+    message?: string;
+  }>({});
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({ ...prev, [name]: value }));
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+    setFormStatus({});
+
+    try {
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(formData)
+      });
+
+      const data = await response.json();
+      
+      if (response.ok) {
+        setFormStatus({
+          success: true,
+          message: data.message || 'Your message has been sent!'
+        });
+        setFormData({
+          firstName: '',
+          lastName: '',
+          email: '',
+          phoneNumber: '',
+          message: ''
+        });
+      } else {
+        setFormStatus({
+          success: false,
+          message: data.message || 'Failed to send message. Please try again.'
+        });
+      }
+    } catch (error) {
+      console.error('Form submission error:', error);
+      setFormStatus({
+        success: false,
+        message: 'An unexpected error occurred. Please try again later.'
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
   return (
     <div className="bg-white">
       {/* Hero Section */}
@@ -84,32 +150,44 @@ export default function ContactPage() {
             Fill out the form below and we'll get back to you as soon as possible. Your voice matters to us.
           </p>
         </div>
-        <form className="mx-auto mt-16 max-w-2xl bg-white rounded-2xl shadow-sm ring-1 ring-gray-200 p-8">
+        <form onSubmit={handleSubmit} className="mx-auto mt-16 max-w-2xl bg-white rounded-2xl shadow-sm ring-1 ring-gray-200 p-8">
+          {formStatus.message && (
+            <div className={`mb-6 p-4 rounded-md ${formStatus.success ? 'bg-green-50 text-green-700' : 'bg-red-50 text-red-700'}`}>
+              {formStatus.message}
+            </div>
+          )}
+          
           <div className="grid grid-cols-1 gap-x-8 gap-y-6 sm:grid-cols-2">
             <div>
-              <label htmlFor="first-name" className="block text-sm font-semibold leading-6 text-gray-900">
+              <label htmlFor="firstName" className="block text-sm font-semibold leading-6 text-gray-900">
                 First name
               </label>
               <div className="mt-2.5">
                 <input
                   type="text"
-                  name="first-name"
-                  id="first-name"
+                  name="firstName"
+                  id="firstName"
+                  value={formData.firstName}
+                  onChange={handleChange}
                   autoComplete="given-name"
+                  required
                   className="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-red-700 sm:text-sm sm:leading-6"
                 />
               </div>
             </div>
             <div>
-              <label htmlFor="last-name" className="block text-sm font-semibold leading-6 text-gray-900">
+              <label htmlFor="lastName" className="block text-sm font-semibold leading-6 text-gray-900">
                 Last name
               </label>
               <div className="mt-2.5">
                 <input
                   type="text"
-                  name="last-name"
-                  id="last-name"
+                  name="lastName"
+                  id="lastName"
+                  value={formData.lastName}
+                  onChange={handleChange}
                   autoComplete="family-name"
+                  required
                   className="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-red-700 sm:text-sm sm:leading-6"
                 />
               </div>
@@ -123,20 +201,25 @@ export default function ContactPage() {
                   type="email"
                   name="email"
                   id="email"
+                  value={formData.email}
+                  onChange={handleChange}
                   autoComplete="email"
+                  required
                   className="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-red-700 sm:text-sm sm:leading-6"
                 />
               </div>
             </div>
             <div className="sm:col-span-2">
-              <label htmlFor="phone-number" className="block text-sm font-semibold leading-6 text-gray-900">
+              <label htmlFor="phoneNumber" className="block text-sm font-semibold leading-6 text-gray-900">
                 Phone number
               </label>
               <div className="mt-2.5">
                 <input
                   type="tel"
-                  name="phone-number"
-                  id="phone-number"
+                  name="phoneNumber"
+                  id="phoneNumber"
+                  value={formData.phoneNumber}
+                  onChange={handleChange}
                   autoComplete="tel"
                   className="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-red-700 sm:text-sm sm:leading-6"
                 />
@@ -151,6 +234,9 @@ export default function ContactPage() {
                   name="message"
                   id="message"
                   rows={4}
+                  value={formData.message}
+                  onChange={handleChange}
+                  required
                   className="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-red-700 sm:text-sm sm:leading-6"
                 />
               </div>
@@ -158,9 +244,10 @@ export default function ContactPage() {
             <div className="sm:col-span-2">
               <button
                 type="submit"
-                className="block w-full rounded-md bg-red-700 px-3.5 py-2.5 text-center text-sm font-semibold text-white shadow-sm hover:bg-red-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-700"
+                disabled={isSubmitting}
+                className="block w-full rounded-md bg-red-700 px-3.5 py-2.5 text-center text-sm font-semibold text-white shadow-sm hover:bg-red-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-700 disabled:opacity-75"
               >
-                Send message
+                {isSubmitting ? 'Sending...' : 'Send message'}
               </button>
             </div>
           </div>
