@@ -3,13 +3,14 @@ import sgMail from '@sendgrid/mail';
 // Check if SendGrid API key is set
 if (!process.env.SENDGRID_API_KEY) {
   console.error('SENDGRID_API_KEY is not set in environment variables');
-  // Don't throw here to prevent app from crashing, just log the error
 } else {
   console.log('Setting SendGrid API key');
-  // Set SendGrid API key
   sgMail.setApiKey(process.env.SENDGRID_API_KEY);
   console.log('SendGrid API key set successfully');
 }
+
+// Use a verified sender email from SendGrid
+const VERIFIED_SENDER = 'info@nleeplumb.com';
 
 export async function sendVolunteerNotification(volunteerData: {
   name: string;
@@ -19,33 +20,21 @@ export async function sendVolunteerNotification(volunteerData: {
   availability: string;
   message?: string;
 }) {
-  // Check required environment variables
   if (!process.env.SENDGRID_API_KEY) {
     console.error('Cannot send email: SENDGRID_API_KEY is not set');
     return false;
   }
 
-  if (!process.env.ADMIN_EMAIL) {
-    console.error('Cannot send email: ADMIN_EMAIL is not set');
-    return false;
-  }
-
-  if (!process.env.EMAIL_FROM) {
-    console.error('Cannot send email: EMAIL_FROM is not set');
-    return false;
-  }
-  
   const { name, email, phone, interests, availability, message } = volunteerData;
 
-  // Get the admin email and from email from environment variables
-  const adminEmail = process.env.ADMIN_EMAIL || 'info@nleeplumb.com';
-  const fromEmail = process.env.EMAIL_FROM || 'info@nleeplumb.com';
+  // Get the admin email from environment variables or use default
+  const adminEmail = process.env.ADMIN_EMAIL || VERIFIED_SENDER;
 
-  console.log(`Sending volunteer notification to admin (${adminEmail}) from ${fromEmail}`);
+  console.log(`Sending volunteer notification to admin (${adminEmail}) from ${VERIFIED_SENDER}`);
 
   const msg = {
     to: adminEmail,
-    from: fromEmail,
+    from: VERIFIED_SENDER, // Use verified sender
     subject: 'New Volunteer Application',
     text: `
 New volunteer application received:
@@ -90,27 +79,18 @@ export async function sendVolunteerConfirmation(volunteerData: {
   name: string;
   email: string;
 }) {
-  // Check required environment variables
   if (!process.env.SENDGRID_API_KEY) {
     console.error('Cannot send confirmation email: SENDGRID_API_KEY is not set');
     return false;
   }
-
-  if (!process.env.EMAIL_FROM) {
-    console.error('Cannot send confirmation email: EMAIL_FROM is not set');
-    return false;
-  }
   
   const { name, email } = volunteerData;
-
-  // Get the from email from environment variables
-  const fromEmail = process.env.EMAIL_FROM || 'info@nleeplumb.com';
   
-  console.log(`Sending volunteer confirmation to ${email} from ${fromEmail}`);
+  console.log(`Sending volunteer confirmation to ${email} from ${VERIFIED_SENDER}`);
 
   const msg = {
     to: email,
-    from: fromEmail,
+    from: VERIFIED_SENDER, // Use verified sender
     subject: 'Thank You for Volunteering!',
     text: `
 Dear ${name},
@@ -156,29 +136,22 @@ export async function sendContactFormNotification(contactData: {
   phoneNumber?: string;
   message: string;
 }) {
-  // Check required environment variables
   if (!process.env.SENDGRID_API_KEY) {
     console.error('Cannot send contact notification: SENDGRID_API_KEY is not set');
-    return false;
-  }
-
-  if (!process.env.EMAIL_FROM) {
-    console.error('Cannot send contact notification: EMAIL_FROM is not set');
     return false;
   }
   
   const { firstName, lastName, email, phoneNumber, message } = contactData;
   const fullName = `${firstName} ${lastName}`;
 
-  // Get the from email from environment variables
-  const fromEmail = process.env.EMAIL_FROM || 'info@nleeplumb.com';
-  const toEmail = process.env.ADMIN_EMAIL || 'info@nleeplumb.com';
+  // Get the admin email from environment variables or use default
+  const adminEmail = process.env.ADMIN_EMAIL || VERIFIED_SENDER;
   
-  console.log(`Sending contact form notification to ${toEmail} from ${fromEmail}`);
+  console.log(`Sending contact form notification to ${adminEmail} from ${VERIFIED_SENDER}`);
 
   const msg = {
-    to: toEmail,
-    from: fromEmail,
+    to: adminEmail,
+    from: VERIFIED_SENDER, // Use verified sender
     replyTo: email,
     subject: `New Contact Form Message from ${fullName}`,
     text: `
