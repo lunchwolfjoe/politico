@@ -35,6 +35,8 @@ const availabilityOptions = [
 export default function VolunteerForm() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle');
+  const [errorMessage, setErrorMessage] = useState<string>('');
+  const [responseData, setResponseData] = useState<any>(null);
 
   const {
     register,
@@ -48,6 +50,10 @@ export default function VolunteerForm() {
   const onSubmit = async (data: VolunteerFormData) => {
     setIsSubmitting(true);
     setSubmitStatus('idle');
+    setErrorMessage('');
+    setResponseData(null);
+    
+    console.log('Form data to submit:', data);
 
     try {
       const response = await fetch('/api/volunteer', {
@@ -58,14 +64,30 @@ export default function VolunteerForm() {
         body: JSON.stringify(data),
       });
 
+      const responseJson = await response.json().catch(e => {
+        console.error('Failed to parse response JSON:', e);
+        return { message: 'Failed to parse response' };
+      });
+      
+      console.log('Response status:', response.status);
+      console.log('Response data:', responseJson);
+      
+      setResponseData(responseJson);
+
       if (!response.ok) {
-        throw new Error('Failed to submit form');
+        const errorMsg = responseJson.error || responseJson.message || 'Failed to submit form';
+        setErrorMessage(errorMsg);
+        throw new Error(errorMsg);
       }
 
       setSubmitStatus('success');
       reset();
     } catch (error) {
+      console.error('Form submission error:', error);
       setSubmitStatus('error');
+      if (!errorMessage) {
+        setErrorMessage(error.message || 'An unexpected error occurred');
+      }
     } finally {
       setIsSubmitting(false);
     }
@@ -197,14 +219,29 @@ export default function VolunteerForm() {
 
       {/* Status Messages */}
       {submitStatus === 'success' && (
-        <p className="text-sm text-green-600">
-          Thank you for your interest! We'll be in touch soon.
-        </p>
+        <div className="mt-4 p-3 bg-green-50 border border-green-200 rounded">
+          <p className="text-sm text-green-600 font-medium">
+            Thank you for your interest! We'll be in touch soon.
+          </p>
+        </div>
       )}
+      
       {submitStatus === 'error' && (
-        <p className="text-sm text-red-600">
-          There was an error submitting your application. Please try again.
-        </p>
+        <div className="mt-4 p-3 bg-red-50 border border-red-200 rounded">
+          <p className="text-sm text-red-600 font-medium">
+            There was an error submitting your application:
+          </p>
+          <p className="text-sm text-red-600">{errorMessage || 'Please try again'}</p>
+          
+          {responseData && (
+            <details className="mt-2">
+              <summary className="text-sm text-red-600 cursor-pointer">View technical details</summary>
+              <pre className="mt-2 p-2 bg-gray-100 rounded text-xs overflow-auto max-h-40">
+                {JSON.stringify(responseData, null, 2)}
+              </pre>
+            </details>
+          )}
+        </div>
       )}
     </form>
   );

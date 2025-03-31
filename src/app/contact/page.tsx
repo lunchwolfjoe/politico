@@ -37,6 +37,8 @@ export default function ContactPage() {
   const [formStatus, setFormStatus] = useState<{
     success?: boolean;
     message?: string;
+    error?: string;
+    details?: any;
   }>({});
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -48,6 +50,8 @@ export default function ContactPage() {
     e.preventDefault();
     setIsSubmitting(true);
     setFormStatus({});
+    
+    console.log('Submitting contact form with data:', formData);
 
     try {
       const response = await fetch('/api/contact', {
@@ -58,12 +62,19 @@ export default function ContactPage() {
         body: JSON.stringify(formData)
       });
 
-      const data = await response.json();
+      let responseData;
+      try {
+        responseData = await response.json();
+        console.log('Response data:', responseData);
+      } catch (parseError) {
+        console.error('Failed to parse response:', parseError);
+        responseData = { message: 'Failed to parse server response' };
+      }
       
       if (response.ok) {
         setFormStatus({
           success: true,
-          message: data.message || 'Your message has been sent!'
+          message: responseData.message || 'Your message has been sent!'
         });
         setFormData({
           firstName: '',
@@ -75,14 +86,18 @@ export default function ContactPage() {
       } else {
         setFormStatus({
           success: false,
-          message: data.message || 'Failed to send message. Please try again.'
+          message: responseData.message || 'Failed to send message. Please try again.',
+          error: responseData.error || 'Server error',
+          details: responseData
         });
       }
     } catch (error) {
       console.error('Form submission error:', error);
       setFormStatus({
         success: false,
-        message: 'An unexpected error occurred. Please try again later.'
+        message: 'An unexpected error occurred. Please try again later.',
+        error: error.message,
+        details: { message: error.message, stack: error.stack }
       });
     } finally {
       setIsSubmitting(false);
@@ -153,7 +168,20 @@ export default function ContactPage() {
         <form onSubmit={handleSubmit} className="mx-auto mt-16 max-w-2xl bg-white rounded-2xl shadow-sm ring-1 ring-gray-200 p-8">
           {formStatus.message && (
             <div className={`mb-6 p-4 rounded-md ${formStatus.success ? 'bg-green-50 text-green-700' : 'bg-red-50 text-red-700'}`}>
-              {formStatus.message}
+              <p className="font-medium">{formStatus.message}</p>
+              
+              {formStatus.error && (
+                <p className="mt-1 text-sm">{formStatus.error}</p>
+              )}
+              
+              {!formStatus.success && formStatus.details && (
+                <details className="mt-2">
+                  <summary className="text-sm cursor-pointer">View technical details</summary>
+                  <pre className="mt-2 p-2 bg-gray-100 rounded text-xs overflow-auto max-h-40">
+                    {JSON.stringify(formStatus.details, null, 2)}
+                  </pre>
+                </details>
+              )}
             </div>
           )}
           
