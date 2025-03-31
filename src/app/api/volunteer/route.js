@@ -36,40 +36,85 @@ export async function GET() {
       await prisma.$disconnect();
       console.log('Database disconnected');
       
-      return NextResponse.json({ 
-        success: true, 
-        message: 'Database connection successful',
-        count: count,
-        environmentCheck: {
-          databaseUrl: process.env.DATABASE_URL ? 'Set (hidden for security)' : 'Not set',
-          sendgridApiKey: process.env.SENDGRID_API_KEY ? 'Set' : 'Not set',
-          adminEmail: process.env.ADMIN_EMAIL ? 'Set' : 'Not set',
-          emailFrom: process.env.EMAIL_FROM ? 'Set' : 'Not set'
+      return new NextResponse(
+        JSON.stringify({ 
+          success: true, 
+          message: 'Database connection successful',
+          count: count,
+          environmentCheck: {
+            databaseUrl: process.env.DATABASE_URL ? 'Set (hidden for security)' : 'Not set',
+            sendgridApiKey: process.env.SENDGRID_API_KEY ? 'Set' : 'Not set',
+            adminEmail: process.env.ADMIN_EMAIL ? 'Set' : 'Not set',
+            emailFrom: process.env.EMAIL_FROM ? 'Set' : 'Not set'
+          }
+        }),
+        {
+          status: 200,
+          headers: {
+            'Content-Type': 'application/json',
+            'Access-Control-Allow-Origin': '*',
+            'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
+            'Access-Control-Allow-Headers': 'Content-Type',
+          },
         }
-      });
+      );
     } catch (error) {
       console.error('Database connection error:', error);
       
-      return NextResponse.json({ 
-        success: false, 
-        message: 'Database connection failed',
-        error: error.message,
-        environmentCheck: {
-          databaseUrl: process.env.DATABASE_URL ? 'Set (hidden for security)' : 'Not set',
-          sendgridApiKey: process.env.SENDGRID_API_KEY ? 'Set' : 'Not set',
-          adminEmail: process.env.ADMIN_EMAIL ? 'Set' : 'Not set',
-          emailFrom: process.env.EMAIL_FROM ? 'Set' : 'Not set'
+      return new NextResponse(
+        JSON.stringify({ 
+          success: false, 
+          message: 'Database connection failed',
+          error: error.message,
+          environmentCheck: {
+            databaseUrl: process.env.DATABASE_URL ? 'Set (hidden for security)' : 'Not set',
+            sendgridApiKey: process.env.SENDGRID_API_KEY ? 'Set' : 'Not set',
+            adminEmail: process.env.ADMIN_EMAIL ? 'Set' : 'Not set',
+            emailFrom: process.env.EMAIL_FROM ? 'Set' : 'Not set'
+          }
+        }),
+        {
+          status: 500,
+          headers: {
+            'Content-Type': 'application/json',
+            'Access-Control-Allow-Origin': '*',
+            'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
+            'Access-Control-Allow-Headers': 'Content-Type',
+          },
         }
-      }, { status: 500 });
+      );
     }
   } catch (error) {
     console.error('Unexpected error in GET handler:', error);
-    return NextResponse.json({ 
-      success: false, 
-      message: 'Internal server error',
-      error: error.message 
-    }, { status: 500 });
+    return new NextResponse(
+      JSON.stringify({ 
+        success: false, 
+        message: 'Internal server error',
+        error: error.message 
+      }),
+      {
+        status: 500,
+        headers: {
+          'Content-Type': 'application/json',
+          'Access-Control-Allow-Origin': '*',
+          'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
+          'Access-Control-Allow-Headers': 'Content-Type',
+        },
+      }
+    );
   }
+}
+
+// Handle OPTIONS request for CORS
+export async function OPTIONS() {
+  return new NextResponse(null, {
+    status: 204,
+    headers: {
+      'Access-Control-Allow-Origin': '*',
+      'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
+      'Access-Control-Allow-Headers': 'Content-Type',
+    },
+  });
 }
 
 export async function POST(request) {
