@@ -27,6 +27,20 @@ const issues = [
     image: '/images/fiscal.jpg',
   },
   {
+    id: 'infrastructure',
+    title: 'Infrastructure & Development',
+    description: "Modern infrastructure is the backbone of American prosperity. I'll work to ensure our roads, bridges, and digital networks are world-class while maintaining fiscal responsibility.",
+    points: [
+      'Modernizing transportation infrastructure with smart technology',
+      'Expanding broadband access to rural communities',
+      'Strengthening energy infrastructure for reliability',
+      'Supporting public-private partnerships for efficiency',
+      'Prioritizing critical infrastructure security'
+    ],
+    icon: BuildingOfficeIcon,
+    image: '/images/infrastructure.jpg',
+  },
+  {
     title: 'Economic Growth',
     description: "Texas's future lies in embracing both our traditional strengths and new opportunities. I'll work to create an environment where businesses can thrive and create good-paying jobs for Texas families.",
     points: [
