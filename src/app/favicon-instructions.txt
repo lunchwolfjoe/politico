@@ -1,0 +1,22 @@
+Favicon Creation Instructions
+==========================
+
+To complete the branding with our new shield logo, create a favicon using these steps:
+
+1. Export the shield portion of our CampaignLogo component as a square SVG
+2. Use a favicon generator tool (like https://realfavicongenerator.net/) to create:
+   - favicon.ico (32x32 pixels) for traditional browsers
+   - apple-touch-icon.png (180x180 pixels) for iOS devices
+   - android-chrome-192x192.png for Android devices
+   - site.webmanifest for PWA functionality
+
+3. Use these colors:
+   - Shield outer border: #B91C1C (Red-700)
+   - Inner shield: #FFFFFF (White)
+   - Star and circuit lines: #1E3A8A (Blue-900)
+
+4. Place the generated files in the src/app directory
+
+5. Update the head section in layout.tsx to include all favicon-related links
+
+The favicon should maintain the key elements of our shield design while being recognizable even at small sizes. 

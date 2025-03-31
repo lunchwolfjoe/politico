@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Shield Outline -->
+  <path 
+    d="M8 0.5C5 1.5 2.5 2 0.5 2V8.5C0.5 12.5 4 15.5 8 18C12 15.5 15.5 12.5 15.5 8.5V2C13.5 2 11 1.5 8 0.5Z" 
+    fill="#B91C1C"
+  />
+  
+  <!-- Inner Shield -->
+  <path 
+    d="M8 2C5.5 2.5 3.5 3 2 3V8.5C2 12 4.5 14 8 16C11.5 14 14 12 14 8.5V3C12.5 3 10.5 2.5 8 2Z" 
+    fill="#FFFFFF"
+  />
+  
+  <!-- Star (Military Service) -->
+  <path 
+    d="M8 4L9 7H11.5L9.5 8.5L10 11L8 9.5L6 11L6.5 8.5L4.5 7H7L8 4Z" 
+    fill="#1E3A8A"
+  />
+
+  <!-- Circuit Lines (Tech Innovation) -->
+  <path 
+    d="M4.5 12H11.5M4.5 13.5H11.5M6.5 12V15M9.5 12V15M4.5 15H11.5" 
+    stroke="#1E3A8A" 
+    stroke-width="0.75"
+    stroke-linecap="round" 
+  />
+</svg> 
