@@ -5,7 +5,6 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
 import Button from '@/components/ui/Button';
-import { supabase, submitVolunteer } from '@/lib/supabase';
 
 const volunteerSchema = z.object({
   name: z.string().min(2, 'Name must be at least 2 characters'),
@@ -57,51 +56,37 @@ export default function VolunteerForm() {
     console.log('Form data to submit:', data);
 
     try {
-      // Test connection first
-      let connected = false;
-      let connectionError = null;
+      // Create formData object
+      const formData = new FormData();
+      formData.append('name', data.name);
+      formData.append('email', data.email);
+      formData.append('phone', data.phone);
+      formData.append('interests', data.interests.join(', '));
+      formData.append('availability', data.availability);
+      formData.append('message', data.message || '');
+      formData.append('_subject', 'New Volunteer Application');
+      // This prevents formsubmit.co from showing their thank you page
+      formData.append('_captcha', 'false');
+      // Redirect back to the current page
+      formData.append('_next', window.location.href);
       
-      try {
-        const result = await supabase.from('volunteers').select('count', { count: 'exact', head: true });
-        connected = !result.error;
-        connectionError = result.error;
-      } catch (error) {
-        connected = false;
-        connectionError = error;
-      }
+      // Submit to formsubmit.co service
+      const response = await fetch('https://formsubmit.co/info@nleeplumb.com', {
+        method: 'POST',
+        body: formData,
+        headers: {
+          'Accept': 'application/json'
+        }
+      });
       
-      if (!connected) {
-        setResponseData({ error: connectionError });
-        setErrorMessage(connectionError?.message || 'Could not connect to the database. Please try again later.');
+      const responseJson = await response.json().catch(() => null);
+      console.log('Form submission response:', response.status, responseJson);
+      
+      if (!response.ok) {
+        setResponseData(responseJson || { status: response.status });
+        setErrorMessage('Failed to submit form. Please try again later.');
         setSubmitStatus('error');
-        setIsSubmitting(false);
         return;
-      }
-      
-      // Use the helper function to submit the form
-      const { data: responseData, error } = await submitVolunteer(data);
-      
-      if (error) {
-        console.error('Error submitting volunteer data:', error);
-        setResponseData({ error });
-        setErrorMessage(error.message || 'Failed to submit form');
-        setSubmitStatus('error');
-        setIsSubmitting(false);
-        return;
-      }
-
-      // Send notification email (optional fallback)
-      try {
-        await fetch('/api/email', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            subject: 'New Volunteer Application',
-            text: `New volunteer: ${data.name} (${data.email})\nPhone: ${data.phone}\nInterests: ${data.interests.join(', ')}\nAvailability: ${data.availability}\nMessage: ${data.message || 'None'}`,
-          }),
-        });
-      } catch (emailError) {
-        console.warn('Email notification failed, but data was saved:', emailError);
       }
 
       setSubmitStatus('success');
@@ -110,6 +95,7 @@ export default function VolunteerForm() {
       console.error('Form submission error:', error);
       setSubmitStatus('error');
       setErrorMessage(error.message || 'An unexpected error occurred');
+      setResponseData(error);
     } finally {
       setIsSubmitting(false);
     }

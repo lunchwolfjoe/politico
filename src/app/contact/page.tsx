@@ -3,7 +3,6 @@
 import { useState } from 'react';
 import Image from 'next/image';
 import { EnvelopeIcon, PhoneIcon, MapPinIcon } from '@heroicons/react/24/outline';
-import { supabase, submitContactForm } from '@/lib/supabase';
 
 const contactInfo = [
   {
@@ -55,57 +54,41 @@ export default function ContactPage() {
     console.log('Submitting contact form with data:', formData);
 
     try {
-      // Test connection first
-      let connected = false;
-      let connectionError = null;
+      // Create formData object
+      const submitData = new FormData();
+      submitData.append('firstName', formData.firstName);
+      submitData.append('lastName', formData.lastName);
+      submitData.append('name', `${formData.firstName} ${formData.lastName}`);
+      submitData.append('email', formData.email);
+      submitData.append('phone', formData.phoneNumber || 'Not provided');
+      submitData.append('message', formData.message);
+      submitData.append('_subject', 'New Campaign Contact Form Message');
+      // This prevents formsubmit.co from showing their thank you page
+      submitData.append('_captcha', 'false');
+      // Redirect back to the current page
+      submitData.append('_next', window.location.href);
       
-      try {
-        const result = await supabase.from('contact_messages').select('count', { count: 'exact', head: true });
-        connected = !result.error;
-        connectionError = result.error;
-      } catch (error) {
-        connected = false;
-        connectionError = error;
-      }
+      // Submit to formsubmit.co service
+      const response = await fetch('https://formsubmit.co/info@nleeplumb.com', {
+        method: 'POST',
+        body: submitData,
+        headers: {
+          'Accept': 'application/json'
+        }
+      });
       
-      if (!connected) {
+      const responseJson = await response.json().catch(() => null);
+      console.log('Form submission response:', response.status, responseJson);
+      
+      if (!response.ok) {
         setFormStatus({
           success: false,
-          message: 'Could not connect to the database. Please try again later.',
-          error: connectionError?.message || 'Connection failed',
-          details: connectionError
+          message: 'Failed to send message. Please try again later.',
+          error: response.statusText,
+          details: responseJson || { status: response.status }
         });
         setIsSubmitting(false);
         return;
-      }
-      
-      // Use the helper function to submit the form
-      const { data, error } = await submitContactForm(formData);
-      
-      if (error) {
-        console.error('Error submitting contact form:', error);
-        setFormStatus({
-          success: false,
-          message: 'Failed to send message. Please try again.',
-          error: error.message || 'Form submission failed',
-          details: error
-        });
-        setIsSubmitting(false);
-        return;
-      }
-
-      // Send email notification (optional fallback)
-      try {
-        await fetch('/api/email', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            subject: 'New Contact Form Submission',
-            text: `New message from: ${formData.firstName} ${formData.lastName} (${formData.email})\nPhone: ${formData.phoneNumber || 'Not provided'}\nMessage: ${formData.message}`,
-          }),
-        });
-      } catch (emailError) {
-        console.warn('Email notification failed, but data was saved:', emailError);
       }
 
       // Reset form and show success message
