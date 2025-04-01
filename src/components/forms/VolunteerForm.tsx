@@ -5,6 +5,7 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
 import Button from '@/components/ui/Button';
+import { submitVolunteer } from '@/lib/supabase';
 
 const volunteerSchema = z.object({
   name: z.string().min(2, 'Name must be at least 2 characters'),
@@ -56,35 +57,21 @@ export default function VolunteerForm() {
     console.log('Form data to submit:', data);
 
     try {
-      // Create formData object
-      const formData = new FormData();
-      formData.append('name', data.name);
-      formData.append('email', data.email);
-      formData.append('phone', data.phone);
-      formData.append('interests', data.interests.join(', '));
-      formData.append('availability', data.availability);
-      formData.append('message', data.message || '');
-      formData.append('_subject', 'New Volunteer Application');
-      // This prevents formsubmit.co from showing their thank you page
-      formData.append('_captcha', 'false');
-      // Redirect back to the current page
-      formData.append('_next', window.location.href);
-      
-      // Submit to formsubmit.co service
-      const response = await fetch('https://formsubmit.co/info@nleeplumb.com', {
-        method: 'POST',
-        body: formData,
-        headers: {
-          'Accept': 'application/json'
-        }
+      // Submit to Supabase
+      const { data: responseData, error } = await submitVolunteer({
+        name: data.name,
+        email: data.email,
+        phone: data.phone,
+        interests: data.interests.join(', '),
+        availability: data.availability,
+        message: data.message || '',
       });
+
+      console.log('Supabase submission response:', responseData, error);
       
-      const responseJson = await response.json().catch(() => null);
-      console.log('Form submission response:', response.status, responseJson);
-      
-      if (!response.ok) {
-        setResponseData(responseJson || { status: response.status });
-        setErrorMessage('Failed to submit form. Please try again later.');
+      if (error) {
+        setResponseData(error);
+        setErrorMessage(error.message || 'Failed to submit form. Please try again later.');
         setSubmitStatus('error');
         return;
       }
