@@ -45,6 +45,19 @@ export default function ContactPage() {
 
     try {
       console.log('Form data to submit:', formData);
+      console.log('Supabase URL:', process.env.NEXT_PUBLIC_SUPABASE_URL);
+      
+      // Test Supabase connection
+      const { data: testData, error: testError } = await supabase
+        .from('contact_messages')
+        .select('count', { count: 'exact', head: true });
+      
+      if (testError) {
+        console.error('Supabase connection test failed:', testError);
+        throw new Error(`Database connection failed: ${testError.message}`);
+      }
+      
+      console.log('Supabase connection test successful');
       
       // Submit to Supabase using helper function
       const { data, error } = await submitContactForm(formData);

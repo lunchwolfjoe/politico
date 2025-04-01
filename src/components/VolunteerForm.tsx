@@ -1,15 +1,14 @@
 import { useState } from 'react';
-import { supabase } from '@/lib/supabase';
+import { submitVolunteer } from '@/lib/supabase';
 
 export default function VolunteerForm() {
   const [formData, setFormData] = useState({
     name: '',
     email: '',
     phone: '',
-    address: '',
-    city: '',
-    state: '',
-    zip: ''
+    interests: [],
+    availability: '',
+    message: ''
   });
   const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
   const [errorMessage, setErrorMessage] = useState('');
@@ -20,21 +19,22 @@ export default function VolunteerForm() {
     setErrorMessage('');
 
     try {
-      const { error } = await supabase
-        .from('volunteer_submissions')
-        .insert([formData]);
+      console.log('Form data to submit:', formData);
+      const { data, error } = await submitVolunteer(formData);
+      console.log('Form submission response:', error, data);
 
-      if (error) throw error;
+      if (error) {
+        throw error;
+      }
 
       setStatus('success');
       setFormData({
         name: '',
         email: '',
         phone: '',
-        address: '',
-        city: '',
-        state: '',
-        zip: ''
+        interests: [],
+        availability: '',
+        message: ''
       });
     } catch (error) {
       console.error('Error submitting form:', error);
@@ -43,9 +43,18 @@ export default function VolunteerForm() {
     }
   };
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
     setFormData(prev => ({ ...prev, [name]: value }));
+  };
+
+  const handleInterestChange = (interest: string) => {
+    setFormData(prev => ({
+      ...prev,
+      interests: prev.interests.includes(interest)
+        ? prev.interests.filter(i => i !== interest)
+        : [...prev.interests, interest]
+    }));
   };
 
   return (
@@ -112,68 +121,57 @@ export default function VolunteerForm() {
             </div>
           </div>
           <div className="sm:col-span-2">
-            <label htmlFor="address" className="block text-sm font-semibold leading-6 text-gray-900">
-              Street address
+            <label className="block text-sm font-semibold leading-6 text-gray-900">
+              Areas of Interest
             </label>
-            <div className="mt-2.5">
-              <input
-                type="text"
-                name="address"
-                id="address"
-                autoComplete="street-address"
-                required
-                value={formData.address}
-                onChange={handleChange}
-                className="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-primary-600 sm:text-sm sm:leading-6"
-              />
+            <div className="mt-2.5 space-y-2">
+              {['Canvassing', 'Phone Banking', 'Event Planning', 'Social Media'].map((interest) => (
+                <div key={interest} className="flex items-center">
+                  <input
+                    type="checkbox"
+                    id={interest}
+                    checked={formData.interests.includes(interest)}
+                    onChange={() => handleInterestChange(interest)}
+                    className="h-4 w-4 rounded border-gray-300 text-primary-600 focus:ring-primary-600"
+                  />
+                  <label htmlFor={interest} className="ml-2 text-sm text-gray-900">
+                    {interest}
+                  </label>
+                </div>
+              ))}
             </div>
           </div>
-          <div>
-            <label htmlFor="city" className="block text-sm font-semibold leading-6 text-gray-900">
-              City
+          <div className="sm:col-span-2">
+            <label htmlFor="availability" className="block text-sm font-semibold leading-6 text-gray-900">
+              Availability
             </label>
             <div className="mt-2.5">
-              <input
-                type="text"
-                name="city"
-                id="city"
-                autoComplete="address-level2"
+              <select
+                name="availability"
+                id="availability"
                 required
-                value={formData.city}
+                value={formData.availability}
                 onChange={handleChange}
-                className="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-primary-600 sm:text-sm sm:leading-6"
-              />
+                className="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-primary-600 sm:text-sm sm:leading-6"
+              >
+                <option value="">Select availability</option>
+                <option value="Weekdays">Weekdays</option>
+                <option value="Weekends">Weekends</option>
+                <option value="Both">Both Weekdays and Weekends</option>
+                <option value="Flexible">Flexible</option>
+              </select>
             </div>
           </div>
-          <div>
-            <label htmlFor="state" className="block text-sm font-semibold leading-6 text-gray-900">
-              State
+          <div className="sm:col-span-2">
+            <label htmlFor="message" className="block text-sm font-semibold leading-6 text-gray-900">
+              Additional Comments
             </label>
             <div className="mt-2.5">
-              <input
-                type="text"
-                name="state"
-                id="state"
-                autoComplete="address-level1"
-                required
-                value={formData.state}
-                onChange={handleChange}
-                className="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-primary-600 sm:text-sm sm:leading-6"
-              />
-            </div>
-          </div>
-          <div>
-            <label htmlFor="zip" className="block text-sm font-semibold leading-6 text-gray-900">
-              ZIP code
-            </label>
-            <div className="mt-2.5">
-              <input
-                type="text"
-                name="zip"
-                id="zip"
-                autoComplete="postal-code"
-                required
-                value={formData.zip}
+              <textarea
+                name="message"
+                id="message"
+                rows={4}
+                value={formData.message}
                 onChange={handleChange}
                 className="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-primary-600 sm:text-sm sm:leading-6"
               />
