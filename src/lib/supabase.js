@@ -103,8 +103,8 @@ export async function submitContactForm(formData) {
       error: {
         message: error.message || 'Failed to submit contact form',
         details: error
-    console.error('Error in submitContactForm:', error);
-    return { data: null, error };
+      }
+    };
   }
 }
 
