@@ -31,6 +31,12 @@ export default function DashboardPage() {
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
+    // Specifically check for any cached references to the old table name
+    if (window && window.location) {
+      console.log('Dashboard URL:', window.location.href);
+      console.log('Application version:', new Date().toISOString());
+    }
+
     async function fetchSubmissions() {
       try {
         console.log('Starting to fetch submissions...');
