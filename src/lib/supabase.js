@@ -1,19 +1,11 @@
 import { createClient } from '@supabase/supabase-js';
 
-if (!process.env.NEXT_PUBLIC_SUPABASE_URL) {
-  throw new Error('Missing environment variable: NEXT_PUBLIC_SUPABASE_URL');
-}
-
-if (!process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY) {
-  throw new Error('Missing environment variable: NEXT_PUBLIC_SUPABASE_ANON_KEY');
-}
-
 // Create a single supabase client for interacting with your database
-const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
-const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+const supabaseUrl = 'https://lskhrdxqtpswyhkisael.supabase.co';
+const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imxza2hyZHhxdHBzd3loeGthZWwiLCJyb2xlIjoiYW5vbiIsImlhdCI6MTcxNzAwOTM4NCwiZXhwIjoyMDMyNTg1Mzg0fQ.d9vT1HXbxUlG6QA0BbsY1yjyoTeXkbmSnqr1YBNDA5k';
 
-// Initialize the Supabase client with only the URL and anon key
-export const supabase = createClient(supabaseUrl, supabaseAnonKey);
+// Initialize the Supabase client with the URL and anon key
+export const supabase = createClient(supabaseUrl, supabaseKey);
 
 // Helper function to submit volunteer data using REST API
 export async function submitVolunteer(formData) {
@@ -59,7 +51,6 @@ export async function submitContactForm(formData) {
   try {
     console.log('Starting contact form submission...');
     console.log('Supabase URL:', supabaseUrl);
-    console.log('Supabase Key:', supabaseAnonKey ? 'Present' : 'Missing');
     console.log('Form data to submit:', formData);
     
     // First test the connection
