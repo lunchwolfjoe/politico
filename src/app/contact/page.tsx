@@ -51,10 +51,10 @@ export default function ContactPage() {
       
       if (error) {
         console.error('Error submitting form:', error);
-        throw error;
+        throw new Error(error.message || 'Failed to submit form to database');
       }
 
-      console.log('Form submission response:', data);
+      console.log('Form submission successful:', data);
       
       // Send email notification
       const response = await fetch('/api/contact', {
@@ -66,7 +66,8 @@ export default function ContactPage() {
       });
 
       if (!response.ok) {
-        throw new Error('Failed to send email notification');
+        const errorData = await response.json().catch(() => ({}));
+        throw new Error(errorData.message || 'Failed to send email notification');
       }
 
       setStatus('success');
@@ -78,7 +79,7 @@ export default function ContactPage() {
         message: '',
       });
     } catch (err) {
-      console.error('Error submitting form:', err);
+      console.error('Error in handleSubmit:', err);
       setStatus('error');
       setErrorMessage(err instanceof Error ? err.message : 'Failed to submit form');
     }

@@ -41,6 +41,8 @@ export async function submitVolunteer(formData) {
 // Helper function to submit contact form data using REST API
 export async function submitContactForm(formData) {
   try {
+    console.log('Submitting contact form data:', formData);
+    
     const { data, error } = await supabase
       .from('contact_messages')
       .insert([
@@ -55,9 +57,15 @@ export async function submitContactForm(formData) {
       ])
       .select();
 
-    return { data, error };
+    if (error) {
+      console.error('Supabase error:', error);
+      throw error;
+    }
+
+    console.log('Contact form submission successful:', data);
+    return { data, error: null };
   } catch (error) {
-    console.error('Error submitting contact form:', error);
+    console.error('Error in submitContactForm:', error);
     return { 
       data: null, 
       error: {
