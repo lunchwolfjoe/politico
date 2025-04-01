@@ -18,7 +18,7 @@ type VolunteerSubmission = {
   name: string;
   email: string;
   phone: string;
-  interests: string[];
+  interests: string;
   availability: string;
   message: string;
   created_at: string;
@@ -219,7 +219,7 @@ export default function DashboardPage() {
                     <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{submission.email}</td>
                     <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{submission.phone}</td>
                     <td className="px-6 py-4 text-sm text-gray-500">
-                      <div>Interests: {Array.isArray(submission.interests) ? submission.interests.join(', ') : submission.interests}</div>
+                      <div>Interests: {submission.interests}</div>
                       <div>Availability: {submission.availability}</div>
                       {submission.message && <div>Message: {submission.message}</div>}
                     </td>
