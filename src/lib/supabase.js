@@ -51,6 +51,7 @@ export async function submitContactForm(formData) {
   try {
     console.log('Starting contact form submission...');
     console.log('Supabase URL:', supabaseUrl);
+    console.log('Supabase Key:', supabaseAnonKey ? 'Present' : 'Missing');
     console.log('Form data to submit:', formData);
     
     // First test the connection
@@ -81,11 +82,13 @@ export async function submitContactForm(formData) {
       .select();
 
     if (error) {
-      console.error('Supabase insert error details:', {
+      console.error('Supabase insert error:', {
         code: error.code,
         message: error.message,
         details: error.details,
-        hint: error.hint
+        hint: error.hint,
+        status: error.status,
+        name: error.name
       });
       return { data: null, error };
     }
@@ -96,7 +99,9 @@ export async function submitContactForm(formData) {
     console.error('Error in submitContactForm:', {
       name: error.name,
       message: error.message,
-      stack: error.stack
+      stack: error.stack,
+      status: error.status,
+      code: error.code
     });
     return { 
       data: null, 
