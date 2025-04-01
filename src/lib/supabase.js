@@ -1,8 +1,8 @@
 import { createClient } from '@supabase/supabase-js';
 
 // Create a single supabase client for interacting with your database
-const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || 'https://lskhrdxqtpswyhkisael.supabase.co';
-const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imxza2hyZHhxdHBzd3loa2lzYWVsIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MTcwMDkzODQsImV4cCI6MjAzMjU4NTM4NH0.d9vT1HXbxUlG6QA0BbsY1yjyoTeXkbmSnqr1YBNDA5k';
+const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || 'https://ysljpqtpbpugekhrdocq.supabase.co';
+const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InlzbGpwcXRwYnB1Z2VraHJkb2NxIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MTcwMDkzODQsImV4cCI6MjAzMjU4NTM4NH0.d9vT1HXbxUlG6QA0BbsY1yjyoTeXkbmSnqr1YBNDA5k';
 
 // Initialize the Supabase client with only the URL and anon key
 export const supabase = createClient(supabaseUrl, supabaseAnonKey);
