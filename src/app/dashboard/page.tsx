@@ -15,7 +15,7 @@ type ContactSubmission = {
 
 type VolunteerSubmission = {
   id: number;
-  full_name: string;
+  name: string;
   email: string;
   phone: string;
   interests: string[];
@@ -215,7 +215,7 @@ export default function DashboardPage() {
               <tbody className="bg-white divide-y divide-gray-200">
                 {volunteerSubmissions.map((submission) => (
                   <tr key={submission.id}>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">{submission.full_name}</td>
+                    <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">{submission.name}</td>
                     <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{submission.email}</td>
                     <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{submission.phone}</td>
                     <td className="px-6 py-4 text-sm text-gray-500">

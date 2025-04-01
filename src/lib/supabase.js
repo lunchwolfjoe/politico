@@ -10,11 +10,13 @@ export const supabase = createClient(supabaseUrl, supabaseAnonKey);
 // Helper function to submit volunteer data using REST API
 export async function submitVolunteer(formData) {
   try {
+    console.log('Submitting volunteer data:', formData);
+    
     const { data, error } = await supabase
       .from('volunteers')
       .insert([
         { 
-          full_name: formData.name,
+          name: formData.name,
           email: formData.email,
           phone: formData.phone,
           interests: formData.interests,
@@ -25,7 +27,13 @@ export async function submitVolunteer(formData) {
       ])
       .select();
 
-    return { data, error };
+    if (error) {
+      console.error('Supabase error in submitVolunteer:', error);
+      throw error;
+    }
+
+    console.log('Volunteer data submitted successfully:', data);
+    return { data, error: null };
   } catch (error) {
     console.error('Error submitting volunteer data:', error);
     return { 
