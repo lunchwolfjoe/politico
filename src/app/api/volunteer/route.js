@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
-import { PrismaClient } from '@prisma/client';
 import { z } from 'zod';
+import { supabase, submitVolunteer } from '@/lib/supabase';
 import { sendVolunteerNotification, sendVolunteerConfirmation } from '@/lib/email';
 
 const volunteerSchema = z.object({
@@ -11,8 +11,6 @@ const volunteerSchema = z.object({
   availability: z.string().min(1),
   message: z.string().optional(),
 });
-
-const prisma = new PrismaClient();
 
 // Enhanced CORS headers
 const corsHeaders = {
@@ -35,7 +33,13 @@ export async function OPTIONS() {
 // GET method - public access
 export async function GET() {
   try {
-    // Basic test - no DB connection required
+    // Test Supabase connection
+    const { data, error } = await supabase
+      .from('volunteers')
+      .select('count', { count: 'exact', head: true });
+
+    if (error) throw error;
+
     return new NextResponse(
       JSON.stringify({
         status: 'success',
@@ -79,17 +83,10 @@ export async function POST(request) {
     try {
       const validatedData = volunteerSchema.parse(body);
       
-      // Create volunteer record
-      const volunteer = await prisma.volunteer.create({
-        data: {
-          name: validatedData.name,
-          email: validatedData.email,
-          phone: validatedData.phone,
-          interests: validatedData.interests,
-          availability: validatedData.availability,
-          message: validatedData.message || '',
-        },
-      });
+      // Create volunteer record using helper function
+      const { data: volunteer, error } = await submitVolunteer(validatedData);
+
+      if (error) throw error;
 
       return new NextResponse(
         JSON.stringify({
