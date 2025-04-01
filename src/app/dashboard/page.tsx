@@ -5,22 +5,22 @@ import { supabase } from '@/lib/supabase';
 
 type ContactSubmission = {
   id: number;
-  name: string;
+  first_name: string;
+  last_name: string;
   email: string;
-  phone: string;
+  phone: string | null;
   message: string;
   created_at: string;
 };
 
 type VolunteerSubmission = {
   id: number;
-  name: string;
+  full_name: string;
   email: string;
   phone: string;
-  address: string;
-  city: string;
-  state: string;
-  zip: string;
+  interests: string[];
+  availability: string;
+  message: string;
   created_at: string;
 };
 
@@ -33,27 +33,55 @@ export default function DashboardPage() {
   useEffect(() => {
     async function fetchSubmissions() {
       try {
+        console.log('Starting to fetch submissions...');
+        console.log('Supabase URL:', process.env.NEXT_PUBLIC_SUPABASE_URL || 'Using default URL');
+        
+        // Test Supabase connection first
+        console.log('Testing Supabase connection...');
+        const { data: testData, error: testError } = await supabase
+          .from('contact_messages')
+          .select('count', { count: 'exact', head: true });
+        
+        if (testError) {
+          console.error('Supabase connection test failed:', testError);
+          throw new Error(`Database connection failed: ${testError.message}`);
+        }
+        
+        console.log('Supabase connection successful');
+
         // Fetch contact submissions
+        console.log('Fetching contact submissions from contact_messages table...');
         const { data: contactData, error: contactError } = await supabase
-          .from('contact_submissions')
+          .from('contact_messages')
           .select('*')
           .order('created_at', { ascending: false });
 
-        if (contactError) throw contactError;
+        if (contactError) {
+          console.error('Error fetching contact submissions:', contactError);
+          throw new Error(`Failed to fetch contact submissions: ${contactError.message}`);
+        }
+        
+        console.log('Contact submissions fetched:', contactData);
 
         // Fetch volunteer submissions
+        console.log('Fetching volunteer submissions from volunteers table...');
         const { data: volunteerData, error: volunteerError } = await supabase
-          .from('volunteer_submissions')
+          .from('volunteers')
           .select('*')
           .order('created_at', { ascending: false });
 
-        if (volunteerError) throw volunteerError;
+        if (volunteerError) {
+          console.error('Error fetching volunteer submissions:', volunteerError);
+          throw new Error(`Failed to fetch volunteer submissions: ${volunteerError.message}`);
+        }
+        
+        console.log('Volunteer submissions fetched:', volunteerData);
 
         setContactSubmissions(contactData || []);
         setVolunteerSubmissions(volunteerData || []);
       } catch (err) {
-        console.error('Error fetching submissions:', err);
-        setError('Failed to load submissions');
+        console.error('Error in fetchSubmissions:', err);
+        setError(err instanceof Error ? err.message : 'Failed to load submissions');
       } finally {
         setLoading(false);
       }
@@ -70,6 +98,7 @@ export default function DashboardPage() {
             <h2 className="text-3xl font-extrabold text-gray-900 sm:text-4xl">
               Loading submissions...
             </h2>
+            <p className="mt-4 text-gray-500">Please check the browser console for detailed logs.</p>
           </div>
         </div>
       </div>
@@ -82,8 +111,10 @@ export default function DashboardPage() {
         <div className="max-w-7xl mx-auto">
           <div className="text-center">
             <h2 className="text-3xl font-extrabold text-red-600 sm:text-4xl">
-              {error}
+              Error Loading Submissions
             </h2>
+            <p className="mt-4 text-gray-500">{error}</p>
+            <p className="mt-2 text-sm text-gray-400">Please check the browser console for more details.</p>
           </div>
         </div>
       </div>
@@ -97,6 +128,9 @@ export default function DashboardPage() {
           <h2 className="text-3xl font-extrabold text-gray-900 sm:text-4xl">
             Form Submissions Dashboard
           </h2>
+          <p className="mt-2 text-sm text-gray-500">
+            Showing {contactSubmissions.length} contact submissions and {volunteerSubmissions.length} volunteer submissions
+          </p>
         </div>
 
         {/* Contact Form Submissions */}
@@ -116,9 +150,11 @@ export default function DashboardPage() {
               <tbody className="bg-white divide-y divide-gray-200">
                 {contactSubmissions.map((submission) => (
                   <tr key={submission.id}>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">{submission.name}</td>
+                    <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                      {submission.first_name} {submission.last_name}
+                    </td>
                     <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{submission.email}</td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{submission.phone}</td>
+                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{submission.phone || 'Not provided'}</td>
                     <td className="px-6 py-4 text-sm text-gray-500">{submission.message}</td>
                     <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                       {new Date(submission.created_at).toLocaleDateString()}
@@ -140,18 +176,20 @@ export default function DashboardPage() {
                   <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Name</th>
                   <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Email</th>
                   <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Phone</th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Address</th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Interests and Availability</th>
                   <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Date</th>
                 </tr>
               </thead>
               <tbody className="bg-white divide-y divide-gray-200">
                 {volunteerSubmissions.map((submission) => (
                   <tr key={submission.id}>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">{submission.name}</td>
+                    <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">{submission.full_name}</td>
                     <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{submission.email}</td>
                     <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{submission.phone}</td>
                     <td className="px-6 py-4 text-sm text-gray-500">
-                      {submission.address}, {submission.city}, {submission.state} {submission.zip}
+                      <div>Interests: {Array.isArray(submission.interests) ? submission.interests.join(', ') : submission.interests}</div>
+                      <div>Availability: {submission.availability}</div>
+                      {submission.message && <div>Message: {submission.message}</div>}
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                       {new Date(submission.created_at).toLocaleDateString()}
