@@ -12,6 +12,11 @@ export async function submitVolunteer(formData) {
   try {
     console.log('Submitting volunteer data:', formData);
     
+    // Convert interests array to string if it's an array
+    const interests = Array.isArray(formData.interests) 
+      ? formData.interests.join(', ') 
+      : formData.interests;
+    
     const { data, error } = await supabase
       .from('volunteers')
       .insert([
@@ -19,7 +24,7 @@ export async function submitVolunteer(formData) {
           name: formData.name,
           email: formData.email,
           phone: formData.phone,
-          interests: formData.interests,
+          interests: interests,
           availability: formData.availability,
           message: formData.message || '',
           created_at: new Date().toISOString(),
