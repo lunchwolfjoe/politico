@@ -49,8 +49,23 @@ export async function submitVolunteer(formData) {
 // Helper function to submit contact form data using REST API
 export async function submitContactForm(formData) {
   try {
-    console.log('Submitting contact form to Supabase:', formData);
+    console.log('Starting contact form submission...');
+    console.log('Supabase URL:', supabaseUrl);
+    console.log('Form data to submit:', formData);
     
+    // First test the connection
+    const { data: testData, error: testError } = await supabase
+      .from('contact_messages')
+      .select('count', { count: 'exact', head: true });
+    
+    if (testError) {
+      console.error('Connection test failed:', testError);
+      throw new Error(`Database connection failed: ${testError.message}`);
+    }
+    
+    console.log('Connection test successful');
+    
+    // Now try to insert the data
     const { data, error } = await supabase
       .from('contact_messages')
       .insert([
@@ -60,18 +75,34 @@ export async function submitContactForm(formData) {
           email: formData.email,
           phone: formData.phone,
           message: formData.message,
+          created_at: new Date().toISOString(),
         },
       ])
       .select();
 
     if (error) {
-      console.error('Supabase insert error:', error);
+      console.error('Supabase insert error details:', {
+        code: error.code,
+        message: error.message,
+        details: error.details,
+        hint: error.hint
+      });
       return { data: null, error };
     }
 
     console.log('Contact form submitted successfully:', data);
     return { data, error: null };
   } catch (error) {
+    console.error('Error in submitContactForm:', {
+      name: error.name,
+      message: error.message,
+      stack: error.stack
+    });
+    return { 
+      data: null, 
+      error: {
+        message: error.message || 'Failed to submit contact form',
+        details: error
     console.error('Error in submitContactForm:', error);
     return { data: null, error };
   }
