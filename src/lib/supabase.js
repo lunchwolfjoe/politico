@@ -49,38 +49,31 @@ export async function submitVolunteer(formData) {
 // Helper function to submit contact form data using REST API
 export async function submitContactForm(formData) {
   try {
-    console.log('Submitting contact form data:', formData);
+    console.log('Submitting contact form to Supabase:', formData);
     
     const { data, error } = await supabase
       .from('contact_messages')
       .insert([
-        { 
+        {
           first_name: formData.firstName,
           last_name: formData.lastName,
           email: formData.email,
-          phone: formData.phone || null,
+          phone: formData.phone,
           message: formData.message,
-          created_at: new Date().toISOString(),
-        }
+        },
       ])
       .select();
 
     if (error) {
-      console.error('Supabase error:', error);
-      throw error;
+      console.error('Supabase insert error:', error);
+      return { data: null, error };
     }
 
-    console.log('Contact form submission successful:', data);
+    console.log('Contact form submitted successfully:', data);
     return { data, error: null };
   } catch (error) {
     console.error('Error in submitContactForm:', error);
-    return { 
-      data: null, 
-      error: {
-        message: error.message || 'Failed to submit contact form',
-        details: error
-      }
-    };
+    return { data: null, error };
   }
 }
 
