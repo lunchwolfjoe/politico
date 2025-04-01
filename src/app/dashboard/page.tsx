@@ -55,7 +55,7 @@ export default function DashboardPage() {
         
         console.log('Supabase connection successful');
 
-        // Fetch contact submissions
+        // Fetch contact submissions from contact_messages table
         console.log('Fetching contact submissions from contact_messages table...');
         const { data: contactData, error: contactError } = await supabase
           .from('contact_messages')
@@ -63,12 +63,39 @@ export default function DashboardPage() {
           .order('created_at', { ascending: false });
 
         if (contactError) {
-          console.error('Error fetching contact submissions:', contactError);
-          throw new Error(`Failed to fetch contact submissions: ${contactError.message}`);
+          console.error('Error fetching contact submissions from contact_messages:', contactError);
         }
         
-        console.log('Contact submissions fetched:', contactData);
-
+        // Also try to fetch from the old table name (contact_submissions)
+        console.log('Attempting to fetch from old contact_submissions table...');
+        let oldContactData = [];
+        try {
+          const { data: oldData, error: oldError } = await supabase
+            .from('contact_submissions')
+            .select('*')
+            .order('created_at', { ascending: false });
+          
+          if (!oldError && oldData) {
+            console.log('Found data in old contact_submissions table:', oldData.length);
+            // Map the old data to match the new format if needed
+            oldContactData = oldData.map(item => ({
+              id: item.id,
+              first_name: item.first_name || item.name?.split(' ')[0] || '',
+              last_name: item.last_name || (item.name?.split(' ').slice(1).join(' ') || ''),
+              email: item.email,
+              phone: item.phone,
+              message: item.message,
+              created_at: item.created_at
+            }));
+          }
+        } catch (oldTableError) {
+          console.error('Error fetching from old table:', oldTableError);
+        }
+        
+        // Combine data from both tables
+        const allContactData = [...(contactData || []), ...oldContactData];
+        console.log('Total contact submissions found:', allContactData.length);
+        
         // Fetch volunteer submissions
         console.log('Fetching volunteer submissions from volunteers table...');
         const { data: volunteerData, error: volunteerError } = await supabase
@@ -78,17 +105,16 @@ export default function DashboardPage() {
 
         if (volunteerError) {
           console.error('Error fetching volunteer submissions:', volunteerError);
-          throw new Error(`Failed to fetch volunteer submissions: ${volunteerError.message}`);
         }
         
-        console.log('Volunteer submissions fetched:', volunteerData);
+        console.log('Volunteer submissions fetched:', volunteerData?.length || 0);
 
-        setContactSubmissions(contactData || []);
+        setContactSubmissions(allContactData || []);
         setVolunteerSubmissions(volunteerData || []);
+        setLoading(false);
       } catch (err) {
         console.error('Error in fetchSubmissions:', err);
         setError(err instanceof Error ? err.message : 'Failed to load submissions');
-      } finally {
         setLoading(false);
       }
     }
