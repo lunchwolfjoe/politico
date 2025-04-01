@@ -14,7 +14,7 @@ export async function submitVolunteer(formData) {
       .from('volunteers')
       .insert([
         { 
-          name: formData.name,
+          full_name: formData.name,
           email: formData.email,
           phone: formData.phone,
           interests: formData.interests,
@@ -48,7 +48,7 @@ export async function submitContactForm(formData) {
           first_name: formData.firstName,
           last_name: formData.lastName,
           email: formData.email,
-          phone: formData.phoneNumber || null,
+          phone: formData.phone || null,
           message: formData.message,
           created_at: new Date().toISOString(),
         }
