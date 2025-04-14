@@ -41,14 +41,16 @@ const issues = [
     image: '/images/infrastructure.jpg',
   },
   {
-    title: 'Economic Growth',
-    description: "Texas's future lies in embracing both our traditional strengths and new opportunities. I'll work to create an environment where businesses can thrive and create good-paying jobs for Texas families.",
+    id: 'economic-growth',
+    title: 'American Jobs & Economic Growth',
+    description: "The foundation of American prosperity is the ability for citizens to provide for themselves through good-paying jobs. My top priority is ensuring our government fosters an environment where American jobs flourish, which requires comprehensive reform across labor, education, and immigration sectors to stop outsourcing and prioritize our workforce.",
     points: [
-      'Attracting high-tech industries to Texas through innovation incentives',
-      'Supporting small business growth with reduced regulations',
-      'Modernizing infrastructure for the digital age',
-      'Developing workforce programs that address skills gaps',
-      'Championing energy independence through all domestic sources'
+      'Implementing policies to stop outsourcing and bring jobs back to America',
+      'Reforming labor regulations to support American workers and businesses',
+      'Aligning education and vocational training with in-demand job skills (See Education)',
+      'Reforming immigration policies to prioritize the American workforce',
+      'Reducing regulatory burdens that stifle small business growth and job creation',
+      'Championing energy independence to lower costs and create domestic jobs'
     ],
     icon: ChartBarIcon,
     image: '/images/economy.jpg',
