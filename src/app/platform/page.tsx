@@ -1,7 +1,5 @@
 import Image from 'next/image';
 import Link from 'next/link';
-// MAJOR CHANGE - PLEASE DO NOT REMOVE OR OVERRIDE THIS COMMENT
-// Force complete rebuild - updated on May 10, 2024 - TEST TEST TEST
 import { 
   CurrencyDollarIcon, 
   ShieldCheckIcon, 
@@ -13,8 +11,8 @@ import {
   ScaleIcon
 } from '@heroicons/react/24/outline';
 
-// Console log to ensure the build picks up changes
-console.log('MAJOR UPDATE - Platform page loaded - rebuilt on May 10, 2024');
+// Freshly created platform page on May 10, 2024
+console.log('Fresh Platform page loaded - rebuilt from scratch on May 10, 2024');
 
 const issues = [
   {
