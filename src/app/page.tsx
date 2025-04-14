@@ -106,7 +106,7 @@ export default function HomePage() {
               The Experience We Need. The Leadership We Deserve.
             </p>
             <p className="mt-6 text-lg leading-8 text-gray-600">
-              In this election, the choice isn't just between names on a ballot; it's between different kinds of leadership. Our district faces complex challenges – from a changing economy and global threats to ensuring our government actually works for *us*. Tackling these requires more than political talking points; it demands **proven, diverse, real-world experience.**
+              In this election, the choice isn't just between names on a ballot; it's between different kinds of leadership. Our district faces complex challenges – from a changing economy and global threats to ensuring our government actually works for <em>us</em>. Tackling these requires more than political talking points; it demands <strong>proven, diverse, real-world experience.</strong>
             </p>
           </div>
           <div className="mx-auto mt-16 max-w-2xl sm:mt-20 lg:mt-24 lg:max-w-none">
@@ -120,7 +120,7 @@ export default function HomePage() {
                   On the Front Lines
                 </dt>
                 <dd className="mt-1 text-base leading-7 text-gray-600">
-                  Serving in *both* Army & Navy JAG Corps, deploying to Iraq, handling high-stakes legal matters at GTMO.
+                  Serving in <em>both</em> Army & Navy JAG Corps, deploying to Iraq, handling high-stakes legal matters at GTMO.
                 </dd>
               </div>
               <div className="flex flex-col items-center text-center p-6 border border-gray-200 rounded-lg shadow-sm bg-white">
@@ -148,7 +148,7 @@ export default function HomePage() {
             </dl>
           </div>
            <div className="mt-16 text-center text-lg leading-8 text-gray-700">
-             <p>This isn't just a resume; it's **unmatched preparation**. It's the strategic thinking of a military officer, the operational know-how of a corporate executive, and the innovative mindset of a tech leader – all grounded in conservative principles.</p>
+             <p>This isn't just a resume; it's <strong>unmatched preparation</strong>. It's the strategic thinking of a military officer, the operational know-how of a corporate executive, and the innovative mindset of a tech leader – all grounded in conservative principles.</p>
              <p className="mt-4 font-semibold text-gray-900">The clear choice is for leadership that understands the mission, knows how to execute, and is ready to deliver results from Day One.</p>
           </div>
         </div>
