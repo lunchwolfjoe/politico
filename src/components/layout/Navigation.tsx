@@ -8,6 +8,7 @@ import CampaignLogo from '@/components/ui/CampaignLogo';
 const navigation = [
   { name: 'Home', href: '/' },
   { name: 'About', href: '/about' },
+  { name: 'Why I\'m Running', href: '/why-im-running' },
   { name: 'Platform', href: '/platform' },
   { name: 'Get Involved', href: '/volunteer' },
   { name: 'News', href: '/news' },
