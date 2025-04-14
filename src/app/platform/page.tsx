@@ -1,5 +1,6 @@
 import Image from 'next/image';
 import Link from 'next/link';
+// Trivial change to trigger rebuild
 import { 
   CurrencyDollarIcon, 
   ShieldCheckIcon, 
