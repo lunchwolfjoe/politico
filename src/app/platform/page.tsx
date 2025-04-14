@@ -1,6 +1,6 @@
 import Image from 'next/image';
 import Link from 'next/link';
-// Trivial change to trigger rebuild
+// Force complete rebuild - updated on May 10, 2024
 import { 
   CurrencyDollarIcon, 
   ShieldCheckIcon, 
@@ -11,6 +11,9 @@ import {
   RocketLaunchIcon,
   ScaleIcon
 } from '@heroicons/react/24/outline';
+
+// Console log to ensure the build picks up changes
+console.log('Platform page loaded - rebuilt on May 10, 2024');
 
 const issues = [
   {
