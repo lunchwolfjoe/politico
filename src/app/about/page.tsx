@@ -144,7 +144,6 @@ export default function AboutPage() {
           </div>
           <div className="lg:col-span-7">
             <div className="text-base leading-7 text-gray-700 space-y-6">
-              <p className="font-bold text-red-600">!!!--- THIS IS A DEPLOYMENT TEST ---!!!</p>
               <p>
                 My life started out rocky. Due to choices made by my young mother, I was adopted by the age of four. My late adoptive parents, born in 1930 and 1933, raised me with a strong foundation: belief in God, the importance of family, and the profound value of hard work. They instilled in me the understanding that opportunity often comes disguised as effort.
               </p>
