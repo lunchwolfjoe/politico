@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import { supabase } from '@/lib/supabase';
+import { useRouter } from 'next/navigation';
 
 type ContactSubmission = {
   id: number;
@@ -29,6 +30,28 @@ export default function DashboardPage() {
   const [volunteerSubmissions, setVolunteerSubmissions] = useState<VolunteerSubmission[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [authChecking, setAuthChecking] = useState(true);
+  const router = useRouter();
+
+  useEffect(() => {
+    // Check authentication status
+    const checkAuth = async () => {
+      try {
+        const { data: { session }, error: authError } = await supabase.auth.getSession();
+        if (authError) throw authError;
+        if (!session) {
+          router.push('/login');
+          return;
+        }
+        setAuthChecking(false);
+      } catch (err) {
+        console.error('Auth check failed:', err);
+        router.push('/login');
+      }
+    };
+
+    checkAuth();
+  }, [router]);
 
   useEffect(() => {
     // Specifically check for any cached references to the old table name
@@ -122,6 +145,31 @@ export default function DashboardPage() {
     fetchSubmissions();
   }, []);
 
+  const handleSignOut = async () => {
+    try {
+      const { error } = await supabase.auth.signOut();
+      if (error) throw error;
+      router.push('/login');
+    } catch (err) {
+      console.error('Error signing out:', err);
+      setError('Failed to sign out');
+    }
+  };
+
+  if (authChecking) {
+    return (
+      <div className="min-h-screen bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
+        <div className="max-w-7xl mx-auto">
+          <div className="text-center">
+            <h2 className="text-3xl font-extrabold text-gray-900 sm:text-4xl">
+              Checking authentication...
+            </h2>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
   if (loading) {
     return (
       <div className="min-h-screen bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
@@ -156,13 +204,21 @@ export default function DashboardPage() {
   return (
     <div className="min-h-screen bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
       <div className="max-w-7xl mx-auto">
-        <div className="text-center mb-12">
-          <h2 className="text-3xl font-extrabold text-gray-900 sm:text-4xl">
-            Form Submissions Dashboard
-          </h2>
-          <p className="mt-2 text-sm text-gray-500">
-            Showing {contactSubmissions.length} contact submissions and {volunteerSubmissions.length} volunteer submissions
-          </p>
+        <div className="flex justify-between items-center mb-12">
+          <div className="text-center flex-grow">
+            <h2 className="text-3xl font-extrabold text-gray-900 sm:text-4xl">
+              Form Submissions Dashboard
+            </h2>
+            <p className="mt-2 text-sm text-gray-500">
+              Showing {contactSubmissions.length} contact submissions and {volunteerSubmissions.length} volunteer submissions
+            </p>
+          </div>
+          <button
+            onClick={handleSignOut}
+            className="px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500"
+          >
+            Sign Out
+          </button>
         </div>
 
         {/* Contact Form Submissions */}
