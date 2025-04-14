@@ -97,6 +97,63 @@ export default function HomePage() {
         </div>
       </div>
 
+      {/* Clear Choice Section */}
+      <div className="bg-gradient-to-b from-white to-gray-50 py-24 sm:py-32">
+        <div className="mx-auto max-w-7xl px-6 lg:px-8">
+          <div className="mx-auto max-w-2xl lg:text-center">
+            <h2 className="text-base font-semibold leading-7 text-blue-900">The Clear Choice</h2>
+            <p className="mt-2 text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
+              The Experience We Need. The Leadership We Deserve.
+            </p>
+            <p className="mt-6 text-lg leading-8 text-gray-600">
+              In this election, the choice isn't just between names on a ballot; it's between different kinds of leadership. Our district faces complex challenges – from a changing economy and global threats to ensuring our government actually works for *us*. Tackling these requires more than political talking points; it demands **proven, diverse, real-world experience.**
+            </p>
+          </div>
+          <div className="mx-auto mt-16 max-w-2xl sm:mt-20 lg:mt-24 lg:max-w-none">
+            <dl className="grid max-w-xl grid-cols-1 gap-x-8 gap-y-10 lg:max-w-none lg:grid-cols-3">
+              {/* Experience Pillars */}
+              <div className="flex flex-col items-center text-center p-6 border border-gray-200 rounded-lg shadow-sm bg-white">
+                <dt className="text-base font-semibold leading-7 text-gray-900">
+                  <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-lg bg-red-700 mx-auto">
+                    <ShieldCheckIcon className="h-7 w-7 text-white" aria-hidden="true" />
+                  </div>
+                  On the Front Lines
+                </dt>
+                <dd className="mt-1 text-base leading-7 text-gray-600">
+                  Serving in *both* Army & Navy JAG Corps, deploying to Iraq, handling high-stakes legal matters at GTMO.
+                </dd>
+              </div>
+              <div className="flex flex-col items-center text-center p-6 border border-gray-200 rounded-lg shadow-sm bg-white">
+                <dt className="text-base font-semibold leading-7 text-gray-900">
+                  <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-lg bg-red-700 mx-auto">
+                    <BuildingOffice2Icon className="h-7 w-7 text-white" aria-hidden="true" />
+                  </div>
+                  In the Heart of Business
+                </dt>
+                <dd className="mt-1 text-base leading-7 text-gray-600">
+                   Rising through ranks at Walmart, leading launches & AI initiatives at Amazon.
+                </dd>
+              </div>
+              <div className="flex flex-col items-center text-center p-6 border border-gray-200 rounded-lg shadow-sm bg-white">
+                <dt className="text-base font-semibold leading-7 text-gray-900">
+                  <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-lg bg-red-700 mx-auto">
+                    <UserGroupIcon className="h-7 w-7 text-white" aria-hidden="true" />
+                  </div>
+                  From the Ground Up
+                </dt>
+                <dd className="mt-1 text-base leading-7 text-gray-600">
+                  Building a career through merit and hard work, understanding the pressures faced by families and businesses.
+                </dd>
+              </div>
+            </dl>
+          </div>
+           <div className="mt-16 text-center text-lg leading-8 text-gray-700">
+             <p>This isn't just a resume; it's **unmatched preparation**. It's the strategic thinking of a military officer, the operational know-how of a corporate executive, and the innovative mindset of a tech leader – all grounded in conservative principles.</p>
+             <p className="mt-4 font-semibold text-gray-900">The clear choice is for leadership that understands the mission, knows how to execute, and is ready to deliver results from Day One.</p>
+          </div>
+        </div>
+      </div>
+
       {/* Feature section */}
       <div className="mx-auto mt-8 max-w-7xl px-6 lg:px-8">
         <div className="mx-auto max-w-2xl text-center">
