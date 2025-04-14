@@ -150,6 +150,18 @@ export default function AboutPage() {
               <p>
                 The day I turned 18, my path became clear. My father presented four options: Army, Navy, Air Force, or the Marine Corps. I chose the Army and left for service shortly after high school graduation. My commitment to our nation didn't end there; after my Army service, I dedicated six more years to the Navy JAG Corps. These years in uniform, including deployments to Iraq and service at Guantanamo Bay, taught me discipline, resilience, and the true meaning of defending our Constitution.
               </p>
+              <div className="mt-6 mb-6">
+                <Image
+                  src="/images/personal/iraq1.jpg"
+                  alt="N. Lee Plumb during deployment to Iraq"
+                  className="w-full rounded-lg shadow-md"
+                  width={800}
+                  height={500}
+                />
+                <p className="mt-2 text-sm text-gray-500 italic">
+                  During my deployment to Iraq as part of my military service.
+                </p>
+              </div>
               <p>
                 Returning from service, I sought to continue contributing. I joined the Texas Department of Licensing and Regulation, working within the General Counsel's office. However, the pace felt slow compared to the demands of the military. Yearning for a new challenge, I took a chance on myself and joined Walmart. My goal was straightforward: get my foot in the door and out-compete everyone through sheer determination and performance. It paid off. By my third anniversary, I was managing the third highest-volume and most profitable store in the entire chain.
               </p>
@@ -160,7 +172,7 @@ export default function AboutPage() {
                 I believe my journey exemplifies the American spirit. I didn't have a safety net, no family wealth to fall back on. Instead, I seized opportunities, worked relentlessly, and built a career through merit and perseverance. I haven't just lived through the global doldrums; I've lived the American Dream. Now, I'm running for Congress to ensure that pathway—the one built on hard work, service, and innovation—remains open and accessible for my children, and for generations to come. I'm not an ideologue, nor am I idealess; I am a pragmatic problem-solver ready to fight for American jobs and American greatness.
               </p>
             </div>
-            <div className="mt-10 flex">
+            <div className="mt-10 flex flex-col space-y-4">
               <Image
                 src="/images/family.jpg"
                 alt="Candidate with family"
@@ -168,6 +180,26 @@ export default function AboutPage() {
                 width={1200}
                 height={800}
               />
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div>
+                  <Image
+                    src="/images/personal/nick and ashley.jpg"
+                    alt="N. Lee Plumb with Ashley"
+                    className="aspect-[4/3] w-full rounded-2xl object-cover"
+                    width={600}
+                    height={450}
+                  />
+                </div>
+                <div>
+                  <Image
+                    src="/images/personal/world series.jpg"
+                    alt="N. Lee Plumb at World Series"
+                    className="aspect-[4/3] w-full rounded-2xl object-cover"
+                    width={600}
+                    height={450}
+                  />
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -198,17 +230,31 @@ export default function AboutPage() {
                   <dd className="mt-4 flex flex-auto flex-col text-base leading-7 text-gray-600">
                     <p className="flex-auto">{experience.description}</p>
                     {experience.id === 'military' && (
-                      <div className="mt-6 mb-6">
-                        <Image
-                          src="/images/gtmokhadr.jpg"
-                          alt="Courtroom sketch of N. Lee Plumb while serving at Guantanamo Bay"
-                          className="w-full rounded-lg shadow-md"
-                          width={600}
-                          height={400}
-                        />
-                        <p className="mt-2 text-sm text-gray-500 italic">
-                          Courtroom sketch of N. Lee Plumb during his service at Guantanamo Bay detention facility.
-                        </p>
+                      <div className="mt-6 mb-6 grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div>
+                          <Image
+                            src="/images/gtmokhadr.jpg"
+                            alt="Courtroom sketch of N. Lee Plumb while serving at Guantanamo Bay"
+                            className="w-full rounded-lg shadow-md"
+                            width={600}
+                            height={400}
+                          />
+                          <p className="mt-2 text-sm text-gray-500 italic">
+                            Courtroom sketch during service at Guantanamo Bay detention facility.
+                          </p>
+                        </div>
+                        <div>
+                          <Image
+                            src="/images/personal/navy.jpg"
+                            alt="N. Lee Plumb in Naval uniform"
+                            className="w-full rounded-lg shadow-md"
+                            width={600}
+                            height={400}
+                          />
+                          <p className="mt-2 text-sm text-gray-500 italic">
+                            During my service in the Navy JAG Corps.
+                          </p>
+                        </div>
                       </div>
                     )}
                     <ul className="mt-8 space-y-3">

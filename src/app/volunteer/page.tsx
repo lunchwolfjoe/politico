@@ -141,7 +141,7 @@ const volunteerOpportunities = [
       'Knowledge of local community',
       'Organizational ability',
     ],
-    image: '/images/volunteer-impact.jpg',
+    image: '/images/personal/volunteering.jpg',
     responsibilities: [
       'Organize neighborhood meetings and house parties',
       'Recruit additional volunteers from your community',

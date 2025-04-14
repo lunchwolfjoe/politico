@@ -56,7 +56,7 @@ const issues = [
       'Championing energy independence to lower costs and create domestic jobs'
     ],
     icon: ChartBarIcon,
-    image: '/images/economy.jpg',
+    image: '/images/professional/walmart2.jpg',
   },
   {
     title: 'Public Safety',
@@ -121,8 +121,8 @@ export default function PlatformPage() {
       <div className="relative isolate overflow-hidden">
         <div className="absolute inset-0">
           <Image
-            src="/images/platform-hero.jpg"
-            alt="American flag"
+            src="/images/personal/merica.jpg"
+            alt="American flag and patriotic imagery"
             className="h-full w-full object-cover"
             width={1920}
             height={1080}
