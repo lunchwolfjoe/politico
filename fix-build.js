@@ -2,6 +2,11 @@ const fs = require('fs');
 const path = require('path');
 const { execSync } = require('child_process');
 
+console.log('⚠️ fix-build.js has been disabled to prevent overwrites of platform/page.tsx');
+console.log('⚠️ The content in platform/page.tsx should now be preserved between deployments');
+
+// The script below is now disabled
+/*
 // Search for platform page
 function findFile(dir, filename) {
   console.log(`Searching for ${filename} in ${dir}`);
@@ -82,4 +87,5 @@ try {
 } catch (error) {
   console.error('Error in build fix script:', error);
   process.exit(1);
-} 
+}
+*/ 
