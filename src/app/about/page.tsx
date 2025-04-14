@@ -102,10 +102,10 @@ export default function AboutPage() {
               N. Lee Plumb
             </h1>
             <p className="mt-2 text-2xl font-semibold text-white sm:text-3xl">
-              Service. Leadership. Innovation.
+              Leadership forged in service, innovation built on experience.
             </p>
             <p className="mt-6 text-xl leading-8 text-gray-100">
-              A battle-tested leader with experience in the military, government, and America's most innovative companies.
+              A pragmatic, results-oriented leader ready to bring real-world experience to Congress and fight for American jobs.
             </p>
           </div>
         </div>
@@ -116,7 +116,7 @@ export default function AboutPage() {
         <div className="mx-auto max-w-2xl lg:mx-0">
           <h2 className="text-base font-semibold leading-7 text-red-700">My Story</h2>
           <p className="mt-2 text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
-            From Military Service to Tech Leadership
+            Forged Through Challenge, Driven by Service
           </p>
         </div>
         <div className="mx-auto mt-10 grid max-w-2xl grid-cols-1 gap-x-8 gap-y-16 lg:mx-0 lg:mt-10 lg:max-w-none lg:grid-cols-12">
@@ -143,21 +143,21 @@ export default function AboutPage() {
             </figure>
           </div>
           <div className="lg:col-span-7">
-            <div className="text-base leading-7 text-gray-700">
-              <p className="mb-6">
-                My journey began in service to our nation in uniform. As a member of both the Army and Navy JAG Corps, I deployed to Iraq during combat operations and served at Guantanamo Bay, where I learned firsthand the importance of defending our Constitution and the rule of law. During my military service, I was honored to receive multiple campaign medals and individual awards recognizing my commitment to excellence and duty.
-              </p>
-              <p className="mb-6">
-                After my military service, I brought my legal expertise to the Texas Department of Licensing and Regulation, working in the General Counsel's office to protect Texas consumers and businesses. This experience deepened my understanding of how government can both help and hinder the success of our communities.
-              </p>
-              <p className="mb-6">
-                Seeking to broaden my leadership experience, I joined Walmart as a manager trainee. Through hard work and dedication to results, I rapidly advanced to store manager and was ultimately selected for the prestigious Global Leadership Academy, an honor reserved for the company's top-performing executives.
-              </p>
-              <p className="mb-6">
-                After eight successful years at Walmart, I was recruited to Amazon, where I led multiple fulfillment center launches before being selected as a founding member of Amazon's groundbreaking IDEA team. Today, as Senior Product Manager for Global Compensation Analytics, I lead teams that transform complex data into strategic business advantages.
+            <div className="text-base leading-7 text-gray-700 space-y-6">
+              <p>
+                My life started out rocky. Due to choices made by my young mother, I was adopted by the age of four. My late adoptive parents, born in 1930 and 1933, raised me with a strong foundation: belief in God, the importance of family, and the profound value of hard work. They instilled in me the understanding that opportunity often comes disguised as effort.
               </p>
               <p>
-                Now, I'm ready to bring my unique combination of military discipline, legal expertise, and corporate leadership to Congress. I believe America deserves leaders who understand both the challenges of the battlefield and the innovations of the boardroom—leaders who can bridge tradition and technology to create a stronger future for all Americans.
+                The day I turned 18, my path became clear. My father presented four options: Army, Navy, Air Force, or the Marine Corps. I chose the Army and left for service shortly after high school graduation. My commitment to our nation didn't end there; after my Army service, I dedicated six more years to the Navy JAG Corps. These years in uniform, including deployments to Iraq and service at Guantanamo Bay, taught me discipline, resilience, and the true meaning of defending our Constitution.
+              </p>
+              <p>
+                Returning from service, I sought to continue contributing. I joined the Texas Department of Licensing and Regulation, working within the General Counsel's office. However, the pace felt slow compared to the demands of the military. Yearning for a new challenge, I took a chance on myself and joined Walmart. My goal was straightforward: get my foot in the door and out-compete everyone through sheer determination and performance. It paid off. By my third anniversary, I was managing the third highest-volume and most profitable store in the entire chain.
+              </p>
+              <p>
+                After seven successful years demonstrating leadership and achieving results at Walmart, Amazon recruited me to launch new fulfillment centers. This led to three record-breaking launches and a whirlwind journey of learning and innovation. Today, I lead AI Enablement for Amazon's Global Compensation team, transforming complex data into strategic advantages.
+              </p>
+              <p>
+                I believe my journey exemplifies the American spirit. I didn't have a safety net, no family wealth to fall back on. Instead, I seized opportunities, worked relentlessly, and built a career through merit and perseverance. I haven't just lived through the global doldrums; I've lived the American Dream. Now, I'm running for Congress to ensure that pathway—the one built on hard work, service, and innovation—remains open and accessible for my children, and for generations to come. I'm not an ideologue, nor am I idealess; I am a pragmatic problem-solver ready to fight for American jobs and American greatness.
               </p>
             </div>
             <div className="mt-10 flex">
@@ -263,7 +263,7 @@ export default function AboutPage() {
               N. Lee Plumb: Ready to Lead on Day One
             </h2>
             <p className="mx-auto mt-6 max-w-xl text-lg leading-8 text-gray-300">
-              With a unique background spanning military, legal, government, and corporate leadership, I'm prepared to meet the complex challenges facing America today.
+              With leadership forged in service and innovation built on experience, I'm prepared to tackle the complex challenges facing America and fight for our future.
             </p>
             <div className="mt-10 flex items-center justify-center gap-x-6">
               <a
