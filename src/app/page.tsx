@@ -24,35 +24,35 @@ const features = [
     description: 'Advanced from Walmart trainee to executive at Amazon, leading global teams and driving innovation in America\'s largest corporations.',
     icon: BuildingOffice2Icon,
     link: '/about#corporate',
-    image: imagePaths.professional.techEndorsement
+    image: imagePaths.professional.publicSpeakingWalmart
   },
   {
     name: 'Tech Innovator',
     description: 'Founding member of Amazon\'s IDEA team and current Sr. Product Manager for Global Compensation Analytics, bringing cutting-edge expertise to government.',
     icon: LightBulbIcon,
     link: '/platform#innovation',
-    image: imagePaths.general.digitalPlatform
+    image: imagePaths.professional.warehouseLeadership
   },
   {
     name: 'Constitutional Conservative',
     description: 'Committed to protecting our fundamental rights and liberties with the same oath I took to defend the Constitution in uniform.',
     icon: ScaleIcon,
     link: '/platform#values',
-    image: imagePaths.professional.aboutProfile
+    image: imagePaths.personal.merica
   },
   {
     name: 'Economic Strategist',
     description: 'Experience managing multimillion-dollar budgets and global analytics teams, ready to bring fiscal discipline to Washington.',
     icon: ChartBarIcon,
     link: '/platform#economy',
-    image: imagePaths.platform.economy
+    image: imagePaths.professional.storeManager
   },
   {
     name: 'Texas Values',
     description: 'Deep roots in Texas, from serving in the state\'s government to raising a family with the values that make Texas exceptional.',
     icon: UserGroupIcon,
     link: '/about#community',
-    image: imagePaths.personal.merica
+    image: imagePaths.personal.cowboyHat
   }
 ];
 
@@ -119,38 +119,79 @@ export default function HomePage() {
           <div className="mx-auto mt-16 max-w-2xl sm:mt-20 lg:mt-24 lg:max-w-none">
             <dl className="grid max-w-xl grid-cols-1 gap-x-8 gap-y-10 lg:max-w-none lg:grid-cols-3">
               {/* Experience Pillars */}
-              <div className="flex flex-col items-center text-center p-6 border border-gray-200 rounded-lg shadow-sm bg-white">
-                <dt className="text-base font-semibold leading-7 text-gray-900">
-                  <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-lg bg-red-700 mx-auto">
-                    <ShieldCheckIcon className="h-7 w-7 text-white" aria-hidden="true" />
+              <div className="flex flex-col rounded-lg shadow-md overflow-hidden">
+                <div className="relative h-48 w-full">
+                  <Image 
+                    src={imagePaths.personal.iraq} 
+                    alt="Military Service"
+                    className="h-full w-full object-cover"
+                    fill 
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-gray-900/80 to-transparent"></div>
+                  <div className="absolute bottom-0 p-4 w-full">
+                    <div className="flex items-center mb-2">
+                      <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-red-700 mr-2">
+                        <ShieldCheckIcon className="h-6 w-6 text-white" aria-hidden="true" />
+                      </div>
+                      <h3 className="text-lg font-bold text-white">On the Front Lines</h3>
+                    </div>
                   </div>
-                  On the Front Lines
-                </dt>
-                <dd className="mt-1 text-base leading-7 text-gray-600">
-                  Serving in <em>both</em> Army & Navy JAG Corps, deploying to Iraq, handling high-stakes legal matters at GTMO.
-                </dd>
+                </div>
+                <div className="bg-white p-5">
+                  <p className="text-base leading-7 text-gray-600">
+                    Serving in <em>both</em> Army & Navy JAG Corps, deploying to Iraq, handling high-stakes legal matters at GTMO.
+                  </p>
+                </div>
               </div>
-              <div className="flex flex-col items-center text-center p-6 border border-gray-200 rounded-lg shadow-sm bg-white">
-                <dt className="text-base font-semibold leading-7 text-gray-900">
-                  <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-lg bg-red-700 mx-auto">
-                    <BuildingOffice2Icon className="h-7 w-7 text-white" aria-hidden="true" />
+              
+              <div className="flex flex-col rounded-lg shadow-md overflow-hidden">
+                <div className="relative h-48 w-full">
+                  <Image 
+                    src={imagePaths.professional.walmartPic} 
+                    alt="Business Experience"
+                    className="h-full w-full object-cover"
+                    fill 
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-gray-900/80 to-transparent"></div>
+                  <div className="absolute bottom-0 p-4 w-full">
+                    <div className="flex items-center mb-2">
+                      <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-red-700 mr-2">
+                        <BuildingOffice2Icon className="h-6 w-6 text-white" aria-hidden="true" />
+                      </div>
+                      <h3 className="text-lg font-bold text-white">In the Heart of Business</h3>
+                    </div>
                   </div>
-                  In the Heart of Business
-                </dt>
-                <dd className="mt-1 text-base leading-7 text-gray-600">
-                   Rising through ranks at Walmart, leading launches & AI initiatives at Amazon.
-                </dd>
+                </div>
+                <div className="bg-white p-5">
+                  <p className="text-base leading-7 text-gray-600">
+                    Rising through ranks at Walmart, leading launches & AI initiatives at Amazon.
+                  </p>
+                </div>
               </div>
-              <div className="flex flex-col items-center text-center p-6 border border-gray-200 rounded-lg shadow-sm bg-white">
-                <dt className="text-base font-semibold leading-7 text-gray-900">
-                  <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-lg bg-red-700 mx-auto">
-                    <UserGroupIcon className="h-7 w-7 text-white" aria-hidden="true" />
+              
+              <div className="flex flex-col rounded-lg shadow-md overflow-hidden">
+                <div className="relative h-48 w-full">
+                  <Image 
+                    src={imagePaths.personal.youngFamily} 
+                    alt="American Values"
+                    className="h-full w-full object-cover"
+                    fill 
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-gray-900/80 to-transparent"></div>
+                  <div className="absolute bottom-0 p-4 w-full">
+                    <div className="flex items-center mb-2">
+                      <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-red-700 mr-2">
+                        <UserGroupIcon className="h-6 w-6 text-white" aria-hidden="true" />
+                      </div>
+                      <h3 className="text-lg font-bold text-white">From the Ground Up</h3>
+                    </div>
                   </div>
-                  From the Ground Up
-                </dt>
-                <dd className="mt-1 text-base leading-7 text-gray-600">
-                  Building a career through merit and hard work, understanding the pressures faced by families and businesses.
-                </dd>
+                </div>
+                <div className="bg-white p-5">
+                  <p className="text-base leading-7 text-gray-600">
+                    Building a career through merit and hard work, understanding the pressures faced by families and businesses.
+                  </p>
+                </div>
               </div>
             </dl>
           </div>
@@ -171,6 +212,12 @@ export default function HomePage() {
           <p className="mt-6 text-lg leading-8 text-gray-600">
             After serving our nation in uniform, in government, and leading teams at America\'s most innovative companies, 
             I\'m ready to bring battle-tested leadership to Congress.
+          </p>
+          <p className="mt-4 text-lg leading-8 text-gray-600">
+            My career at Amazon and Walmart honed my leadership skills and taught me to thrive in fast-paced, 
+            results-driven environments. My experience isn't just about past success; it's about understanding the logistics, 
+            technology, and economic realities that shape the job market <span className="font-bold">now</span> and 
+            how we can create <span className="font-bold">future</span> opportunities right here.
           </p>
         </div>
         <div className="mx-auto mt-16 max-w-2xl sm:mt-20 lg:mt-24 lg:max-w-none">

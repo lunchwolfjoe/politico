@@ -6,6 +6,11 @@ export const imagePaths = {
     techEndorsement: '/images/professional/tech-endorsement.jpg',
     techAdvisory: '/images/professional/tech-advisory.jpg',
     veteranLeadership: '/images/professional/veteran-leadership.jpg',
+    publicSpeakingWalmart: '/images/professional/publicspeakingwalmart.jpg',
+    storeManager: '/images/professional/store manager.jpg',
+    warehouseHourlyStaff: '/images/professional/warehousehourlystaff.jpg',
+    warehouseLeadership: '/images/professional/warehouse leadershippic.jpg',
+    walmartPic: '/images/professional/walmartpic.jpg',
   },
   personal: {
     family: '/images/personal/family.jpg',
