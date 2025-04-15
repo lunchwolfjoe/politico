@@ -1,5 +1,6 @@
 import Image from 'next/image';
 import Link from 'next/link';
+import { imagePaths } from '@/lib/image-paths';
 import { 
   MegaphoneIcon, 
   PhoneIcon, 
@@ -22,7 +23,7 @@ const volunteerOpportunities = [
       'Strong communication skills',
       'Creative content creation',
     ],
-    image: '/images/digital-volunteer.jpg',
+    image: imagePaths.volunteer.digital,
     responsibilities: [
       'Create and share campaign content on social platforms',
       'Monitor engagement and respond to inquiries',
@@ -39,7 +40,7 @@ const volunteerOpportunities = [
       'Comfort with phone conversations',
       'Ability to follow scripts and record data',
     ],
-    image: '/images/phone-banking.jpg',
+    image: imagePaths.volunteer.phoneBanking,
     responsibilities: [
       'Call potential voters to discuss campaign priorities',
       'Record voter feedback and preferences',
@@ -56,7 +57,7 @@ const volunteerOpportunities = [
       'Strong organizational skills',
       'Team leadership ability',
     ],
-    image: '/images/event-planning.jpg',
+    image: imagePaths.volunteer.eventPlanning,
     responsibilities: [
       'Assist with venue selection and logistics',
       'Coordinate with vendors and campaign staff',
@@ -73,7 +74,7 @@ const volunteerOpportunities = [
       'Understanding of veteran issues',
       'Strong networking skills',
     ],
-    image: '/images/veteran-outreach.jpg',
+    image: imagePaths.volunteer.veteranOutreach,
     responsibilities: [
       'Represent the campaign at veteran-focused events',
       'Build relationships with veteran service organizations',
@@ -90,7 +91,7 @@ const volunteerOpportunities = [
       'Understanding of digital campaign tools',
       'Strategic thinking',
     ],
-    image: '/images/tech-advisory.jpg',
+    image: imagePaths.professional.techAdvisory,
     responsibilities: [
       'Advise on technology platforms and digital strategy',
       'Assist with data analysis and voter targeting',
@@ -107,7 +108,7 @@ const volunteerOpportunities = [
       'Understanding of election law',
       'Attention to detail',
     ],
-    image: '/images/digital-volunteer.jpg',
+    image: imagePaths.professional.veteranLeadership,
     responsibilities: [
       'Monitor polling station compliance on election day',
       'Assist with campaign finance compliance',
@@ -124,7 +125,7 @@ const volunteerOpportunities = [
       'Strong writing skills',
       'Subject matter expertise in key areas',
     ],
-    image: '/images/tech-advisory.jpg',
+    image: imagePaths.general.communityTech,
     responsibilities: [
       'Conduct research on policy issues and legislation',
       'Draft position papers and talking points',
@@ -141,7 +142,7 @@ const volunteerOpportunities = [
       'Knowledge of local community',
       'Organizational ability',
     ],
-    image: '/images/personal/volunteering.jpg',
+    image: imagePaths.volunteer.townHall,
     responsibilities: [
       'Organize neighborhood meetings and house parties',
       'Recruit additional volunteers from your community',
@@ -157,7 +158,7 @@ const testimonials = [
     author: {
       name: "James R.",
       role: "Veteran Outreach Volunteer",
-      imageUrl: "/images/volunteer-impact.jpg"
+      imageUrl: imagePaths.volunteer.impact
     }
   },
   {
@@ -165,7 +166,7 @@ const testimonials = [
     author: {
       name: "Sarah T.",
       role: "Tech Advisory Team Member",
-      imageUrl: "/images/tech-advisory.jpg"
+      imageUrl: imagePaths.professional.techAdvisory
     }
   },
   {
@@ -173,7 +174,7 @@ const testimonials = [
     author: {
       name: "Michael D.",
       role: "Community Organizing Volunteer",
-      imageUrl: "/images/volunteer-impact.jpg"
+      imageUrl: imagePaths.volunteer.impact
     }
   }
 ];
@@ -185,7 +186,7 @@ export default function VolunteerPage() {
       <div className="relative isolate overflow-hidden">
         <div className="absolute inset-0 -z-10">
           <Image
-            src="/images/volunteer-hero.jpg"
+            src={imagePaths.volunteer.hero}
             alt="Volunteers working together"
             className="h-full w-full object-cover brightness-50"
             width={1920}
@@ -402,7 +403,7 @@ export default function VolunteerPage() {
       <div className="relative">
         <div className="absolute inset-0">
           <Image
-            src="/images/volunteer-impact.jpg"
+            src={imagePaths.volunteer.impact}
             alt="Volunteers making a difference"
             className="h-full w-full object-cover brightness-50"
             width={1920}

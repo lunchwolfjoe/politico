@@ -1,5 +1,6 @@
 import Image from 'next/image';
 import Link from 'next/link';
+import { imagePaths } from '@/lib/image-paths';
 import { 
   CurrencyDollarIcon, 
   ShieldCheckIcon, 
@@ -11,8 +12,8 @@ import {
   ScaleIcon
 } from '@heroicons/react/24/outline';
 
-// Freshly created platform page on May 10, 2024
-console.log('Fresh Platform page loaded - rebuilt from scratch on May 10, 2024');
+// Force complete rebuild - updated on May 10, 2024
+console.log('Platform page loaded - rebuilt on May 10, 2024');
 
 const issues = [
   {
@@ -27,7 +28,7 @@ const issues = [
       'Supporting a balanced budget amendment'
     ],
     icon: CurrencyDollarIcon,
-    image: '/images/fiscal.jpg',
+    image: imagePaths.platform.fiscal,
   },
   {
     id: 'infrastructure',
@@ -41,7 +42,7 @@ const issues = [
       'Prioritizing critical infrastructure security'
     ],
     icon: BuildingOfficeIcon,
-    image: '/images/infrastructure.jpg',
+    image: imagePaths.platform.infrastructure,
   },
   {
     id: 'economic-growth',
@@ -56,7 +57,7 @@ const issues = [
       'Championing energy independence to lower costs and create domestic jobs'
     ],
     icon: ChartBarIcon,
-    image: '/images/professional/walmart2.jpg',
+    image: imagePaths.platform.economy,
   },
   {
     title: 'Public Safety',
@@ -69,7 +70,7 @@ const issues = [
       'Protecting communities from transnational criminal organizations'
     ],
     icon: ShieldCheckIcon,
-    image: '/images/safety.jpg',
+    image: imagePaths.platform.safety,
   },
   {
     id: 'innovation',
@@ -83,7 +84,7 @@ const issues = [
       'Reducing red tape for technology startups and entrepreneurs'
     ],
     icon: RocketLaunchIcon,
-    image: '/images/infrastructure.jpg',
+    image: imagePaths.platform.cybersecurity,
   },
   {
     title: 'Education',
@@ -96,7 +97,7 @@ const issues = [
       'Expanding access to STEM and computer science education'
     ],
     icon: AcademicCapIcon,
-    image: '/images/education.jpg',
+    image: imagePaths.platform.education,
   },
   {
     id: 'values',
@@ -110,7 +111,7 @@ const issues = [
       'Strengthening property rights against government takings'
     ],
     icon: ScaleIcon,
-    image: '/images/healthcare.jpg',
+    image: imagePaths.professional.veteranLeadership,
   },
 ];
 
@@ -121,8 +122,8 @@ export default function PlatformPage() {
       <div className="relative isolate overflow-hidden">
         <div className="absolute inset-0">
           <Image
-            src="/images/personal/merica.jpg"
-            alt="American flag and patriotic imagery"
+            src={imagePaths.platform.hero}
+            alt="Platform vision and American values"
             className="h-full w-full object-cover"
             width={1920}
             height={1080}

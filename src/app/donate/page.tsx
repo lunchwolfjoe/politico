@@ -1,5 +1,6 @@
 import Image from 'next/image';
 import Link from 'next/link';
+import { imagePaths } from '@/lib/image-paths';
 import { CheckCircleIcon, ShieldCheckIcon, BuildingOffice2Icon, RocketLaunchIcon } from '@heroicons/react/24/solid';
 
 const contributionLevels = [
@@ -75,17 +76,17 @@ const impactStatements = [
   {
     title: 'Veteran-Led Campaign',
     description: 'As a JAG Corps veteran with deployments to Iraq and GTMO, I understand what it means to serve our country with honor and integrity. Your donation supports a campaign led by someone who has put on the uniform to defend America.',
-    image: '/images/veteran-leadership.jpg',
+    image: imagePaths.professional.veteranLeadership,
   },
   {
     title: 'Tech Innovation in Politics',
     description: 'My experience at Amazon and as a global tech leader will bring Silicon Valley efficiency to Washington. Your contribution helps us leverage cutting-edge technology to run a modern, effective campaign.',
-    image: '/images/digital-platform.jpg',
+    image: imagePaths.general.digitalPlatform,
   },
   {
     title: 'America First Vision',
     description: 'Every donation, large or small, fuels our mission to restore American greatness through conservative leadership, fiscal responsibility, and constitutional fidelity. Join our movement today.',
-    image: '/images/platform-cta.jpg',
+    image: imagePaths.general.platformCta,
   },
 ];
 
@@ -96,7 +97,7 @@ export default function DonatePage() {
       <div className="relative isolate overflow-hidden">
         <div className="absolute inset-0">
           <Image
-            src="/images/platform-cta.jpg"
+            src={imagePaths.general.platformCta}
             alt="American flag"
             className="h-full w-full object-cover brightness-75"
             width={1920}

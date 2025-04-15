@@ -1,4 +1,5 @@
 import Image from 'next/image';
+import { imagePaths } from '@/lib/image-paths';
 import { 
   ShieldCheckIcon, 
   BuildingOffice2Icon, 
@@ -87,7 +88,7 @@ export default function AboutPage() {
       <div className="relative isolate overflow-hidden">
         <div className="absolute inset-0">
           <Image
-            src="/images/about-profile.jpg"
+            src={imagePaths.professional.aboutProfile}
             alt="Candidate profile"
             className="h-full w-full object-cover"
             width={1920}
@@ -129,7 +130,7 @@ export default function AboutPage() {
               </blockquote>
               <figcaption className="mt-8 flex gap-x-4">
                 <Image
-                  src="/images/about-profile.jpg"
+                  src={imagePaths.professional.aboutProfile}
                   alt="N. Lee Plumb headshot"
                   className="mt-1 h-12 w-12 flex-none rounded-full bg-gray-50"
                   width={48}
@@ -152,7 +153,7 @@ export default function AboutPage() {
               </p>
               <div className="mt-6 mb-6">
                 <Image
-                  src="/images/personal/iraq1.jpg"
+                  src={imagePaths.personal.family}
                   alt="N. Lee Plumb during deployment to Iraq"
                   className="w-full rounded-lg shadow-md"
                   width={800}
@@ -174,7 +175,7 @@ export default function AboutPage() {
             </div>
             <div className="mt-10 flex flex-col space-y-4">
               <Image
-                src="/images/family.jpg"
+                src={imagePaths.personal.family}
                 alt="Candidate with family"
                 className="aspect-[16/9] w-full rounded-2xl object-cover sm:aspect-[3/2]"
                 width={1200}
@@ -183,7 +184,7 @@ export default function AboutPage() {
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
                   <Image
-                    src="/images/personal/nick and ashley.jpg"
+                    src={imagePaths.personal.family}
                     alt="N. Lee Plumb with Ashley"
                     className="aspect-[4/3] w-full rounded-2xl object-cover"
                     width={600}
@@ -192,7 +193,7 @@ export default function AboutPage() {
                 </div>
                 <div>
                   <Image
-                    src="/images/personal/world series.jpg"
+                    src={imagePaths.personal.family}
                     alt="N. Lee Plumb at World Series"
                     className="aspect-[4/3] w-full rounded-2xl object-cover"
                     width={600}
@@ -233,7 +234,7 @@ export default function AboutPage() {
                       <div className="mt-6 mb-6 grid grid-cols-1 sm:grid-cols-2 gap-4">
                         <div>
                           <Image
-                            src="/images/gtmokhadr.jpg"
+                            src={imagePaths.professional.gtmokhadr}
                             alt="Courtroom sketch of N. Lee Plumb while serving at Guantanamo Bay"
                             className="w-full rounded-lg shadow-md"
                             width={600}
@@ -245,14 +246,14 @@ export default function AboutPage() {
                         </div>
                         <div>
                           <Image
-                            src="/images/personal/navy.jpg"
+                            src={imagePaths.personal.family}
                             alt="N. Lee Plumb in Naval uniform"
                             className="w-full rounded-lg shadow-md"
                             width={600}
                             height={400}
                           />
                           <p className="mt-2 text-sm text-gray-500 italic">
-                            During my service in the Navy JAG Corps.
+                            Serving in the Navy JAG Corps.
                           </p>
                         </div>
                       </div>

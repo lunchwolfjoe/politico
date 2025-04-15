@@ -1,5 +1,6 @@
 import Image from 'next/image';
 import Link from 'next/link';
+import { imagePaths } from '@/lib/image-paths';
 import { 
   ShieldCheckIcon, 
   LightBulbIcon, 
@@ -57,7 +58,7 @@ export default function HomePage() {
         {/* Background image with overlay */}
         <div className="absolute inset-0">
           <Image
-            src="/images/candidate.jpg"
+            src={imagePaths.professional.candidate}
             alt="Candidate speaking at podium"
             className="h-full w-full object-cover"
             width={1920}
@@ -217,7 +218,7 @@ export default function HomePage() {
         <div className="absolute inset-0 -z-10 overflow-hidden">
           <div className="absolute inset-0 bg-gradient-to-br from-blue-900 to-red-700 opacity-20" />
           <Image
-            src="/images/platform-cta.jpg"
+            src={imagePaths.general.platformCta}
             alt="Campaign rally"
             className="h-full w-full object-cover opacity-25"
             width={1920}

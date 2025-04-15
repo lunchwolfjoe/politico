@@ -1,5 +1,6 @@
 import Image from 'next/image';
 import Link from 'next/link';
+import { imagePaths } from '@/lib/image-paths';
 import { 
   NewspaperIcon, 
   MegaphoneIcon, 
@@ -19,7 +20,7 @@ const newsItems = [
     description: "Former Army and Navy JAG Corps veteran and Amazon tech executive launches congressional campaign focused on bringing military discipline and Silicon Valley innovation to Washington.",
     icon: MegaphoneIcon,
     link: "/news/campaign-launch",
-    image: "/images/digital-platform.jpg"
+    image: imagePaths.general.digitalPlatform
   },
   {
     title: "From Battlefield to Boardroom: A Conversation with Our Candidate",
@@ -28,7 +29,7 @@ const newsItems = [
     description: "National media spotlight on our candidate's journey from Iraq and Guantanamo Bay deployments to leadership roles at Walmart and Amazon, showcasing his unique qualifications for Congress.",
     icon: NewspaperIcon,
     link: "/news/battlefield-to-boardroom",
-    image: "/images/veteran-leadership.jpg"
+    image: imagePaths.professional.veteranLeadership
   },
   {
     title: "Upcoming Town Hall: Tech Solutions for Government Efficiency",
@@ -37,7 +38,7 @@ const newsItems = [
     description: "Join us for a special town hall where our candidate will discuss how his experience at Amazon's IDEA team can help bring private sector efficiency to government operations.",
     icon: CalendarIcon,
     link: "/news/tech-solutions-town-hall",
-    image: "/images/town-hall.jpg"
+    image: imagePaths.volunteer.townHall
   },
   {
     title: "Veterans Coalition Endorses Candidate's America First Agenda",
@@ -46,7 +47,7 @@ const newsItems = [
     description: "Major veterans organization announces support, citing the candidate's distinguished military service in both Army and Navy JAG Corps and his continued advocacy for veteran affairs.",
     icon: ShieldCheckIcon,
     link: "/news/veterans-coalition-endorsement",
-    image: "/images/veteran-leadership.jpg"
+    image: imagePaths.professional.veteranLeadership
   },
   {
     title: "Business Leaders Rally Behind Campaign's Economic Vision",
@@ -55,7 +56,7 @@ const newsItems = [
     description: "Prominent business leaders praise the candidate's corporate experience at Walmart and Amazon, endorsing his plan to bring fiscal discipline and innovation to government.",
     icon: BuildingOffice2Icon,
     link: "/news/business-leaders-endorsement",
-    image: "/images/tech-endorsement.jpg"
+    image: imagePaths.professional.techEndorsement
   },
   {
     title: "Digital Defense: New Policy Paper on Cybersecurity Strategy",
@@ -64,7 +65,7 @@ const newsItems = [
     description: "Campaign releases comprehensive policy paper on national cybersecurity, drawing on candidate's unique background in both military security operations and tech leadership.",
     icon: DocumentTextIcon,
     link: "/news/cybersecurity-policy",
-    image: "/images/cybersecurity.jpg"
+    image: imagePaths.platform.cybersecurity
   },
   {
     title: "Watch: Fox News Interview on Military Leadership in Politics",
@@ -73,7 +74,7 @@ const newsItems = [
     description: "Candidate discusses how military service provides crucial leadership training for public office, highlighting experiences from Iraq deployment and JAG Corps service.",
     icon: VideoCameraIcon,
     link: "/news/fox-interview",
-    image: "/images/veteran-leadership.jpg"
+    image: imagePaths.professional.veteranLeadership
   },
   {
     title: "Tech Innovation Summit: Building a Stronger America",
@@ -82,7 +83,7 @@ const newsItems = [
     description: "Join industry leaders and our candidate to discuss how technological innovation can help solve America's most pressing challenges while creating new opportunities.",
     icon: CalendarIcon,
     link: "/news/tech-innovation-summit",
-    image: "/images/community-tech.jpg"
+    image: imagePaths.general.communityTech
   },
 ];
 
@@ -97,7 +98,7 @@ export default function NewsPage() {
       <div className="relative isolate overflow-hidden">
         <div className="absolute inset-0">
           <Image
-            src="/images/news-hero.jpg"
+            src={imagePaths.news.hero}
             alt="Campaign press conference"
             className="h-full w-full object-cover brightness-75"
             width={1920}
