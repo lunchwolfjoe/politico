@@ -86,8 +86,8 @@ export default function HomePage() {
               <span className="block text-2xl mt-2 sm:text-3xl text-red-300">Innovation Built on Experience</span>
             </h1>
             <p className="mt-6 text-xl leading-8 text-gray-100">
-              From the battlefields of Iraq to the boardrooms of America\'s largest companies, 
-              I\'ve led with integrity, innovation, and a commitment to excellence.
+              From the battlefields of Iraq to the boardrooms of America's largest companies, 
+              I've led with integrity, innovation, and a commitment to excellence.
             </p>
             <div className="mt-10 flex items-center justify-center gap-x-6">
               <Link
@@ -219,8 +219,8 @@ export default function HomePage() {
             Experience That Matters
           </p>
           <p className="mt-6 text-lg leading-8 text-gray-600">
-            After serving our nation in uniform, in government, and leading teams at America\'s most innovative companies, 
-            I\'m ready to bring battle-tested leadership to Congress.
+            After serving our nation in uniform, in government, and leading teams at America's most innovative companies, 
+            I'm ready to bring battle-tested leadership to Congress.
           </p>
           <p className="mt-4 text-lg leading-8 text-gray-600">
             My career at Amazon and Walmart honed my leadership skills and taught me to thrive in fast-paced, 
