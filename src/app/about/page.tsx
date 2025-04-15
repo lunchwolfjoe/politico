@@ -98,7 +98,7 @@ export default function AboutPage() {
       <div className="relative isolate overflow-hidden">
         <div className="absolute inset-0">
           <img
-            src="/images/professional/about-profile.jpg"
+            src="/images/personal/thinkerheadshot.jpg"
             alt="Candidate profile"
             className="h-full w-full object-cover"
           />
@@ -138,7 +138,7 @@ export default function AboutPage() {
               <figcaption className="mt-8 flex gap-x-4">
                 <div className="mt-1 h-12 w-12 flex-none rounded-full bg-gray-50 overflow-hidden">
                   <img
-                    src="/images/professional/about-profile.jpg"
+                    src="/images/personal/thinkerheadshot.jpg"
                     alt="N. Lee Plumb headshot"
                     className="h-full w-full object-cover"
                   />
