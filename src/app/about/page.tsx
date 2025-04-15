@@ -15,6 +15,7 @@ const experiences = [
     title: 'Military Service',
     description: 'Dual-branch JAG Corps veteran with deployments to Iraq and Guantanamo Bay',
     icon: ShieldCheckIcon,
+    image: imagePaths.professional.gtmokhadr,
     details: [
       'Served in both Army and Navy JAG Corps with distinction',
       'Deployed to Iraq during combat operations',
@@ -29,6 +30,7 @@ const experiences = [
     title: 'Corporate Leadership',
     description: 'Rapid advancement from Walmart trainee to Amazon executive with proven results',
     icon: BuildingOffice2Icon,
+    image: imagePaths.professional.publicSpeakingWalmart,
     details: [
       'Advanced from Walmart manager trainee to store manager in record time',
       'Selected for prestigious Walmart Global Leadership Academy',
@@ -43,6 +45,7 @@ const experiences = [
     title: 'Public Service',
     description: 'Commitment to Texas through government service and community leadership',
     icon: UserGroupIcon,
+    image: imagePaths.personal.volunteering,
     details: [
       'Served in Texas Department of Licensing and Regulation General Counsel\'s Office',
       'Applied legal expertise to protect Texas consumers and businesses',
@@ -244,80 +247,44 @@ export default function AboutPage() {
           <div className="mx-auto mt-16 max-w-2xl sm:mt-20 lg:mt-24 lg:max-w-none">
             <dl className="grid max-w-xl grid-cols-1 gap-x-8 gap-y-16 lg:max-w-none lg:grid-cols-3">
               {experiences.map((experience) => (
-                <div key={experience.id} id={experience.id} className="flex flex-col">
-                  <dt className="flex items-center gap-x-3 text-lg font-semibold leading-7 text-gray-900">
-                    <div className="h-10 w-10 flex-none rounded-lg bg-red-700 flex items-center justify-center">
-                      <experience.icon className="h-6 w-6 text-white" aria-hidden="true" />
+                <div key={experience.id} id={experience.id} className="flex flex-col bg-white rounded-lg shadow-sm overflow-hidden">
+                  <div className="relative h-48 w-full">
+                    <Image
+                      src={experience.image}
+                      alt={experience.title}
+                      className="h-full w-full object-cover"
+                      fill
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-gray-900/80 to-transparent"></div>
+                    <div className="absolute bottom-0 p-4 w-full">
+                      <div className="flex items-center mb-2">
+                        <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-red-700 mr-2">
+                          <experience.icon className="h-6 w-6 text-white" aria-hidden="true" />
+                        </div>
+                        <h3 className="text-lg font-bold text-white">{experience.title}</h3>
+                      </div>
                     </div>
-                    {experience.title}
-                  </dt>
-                  <dd className="mt-4 flex flex-auto flex-col text-base leading-7 text-gray-600">
-                    <p className="flex-auto">{experience.description}</p>
-                    {experience.id === 'military' && (
-                      <div className="mt-6 mb-6 grid grid-cols-1 sm:grid-cols-2 gap-4">
-                        <div>
-                          <Image
-                            src={imagePaths.professional.gtmokhadr}
-                            alt="Courtroom sketch of N. Lee Plumb while serving at Guantanamo Bay"
-                            className="w-full rounded-lg shadow-md"
-                            width={600}
-                            height={400}
-                          />
-                          <p className="mt-2 text-sm text-gray-500 italic">
-                            Courtroom sketch during service at Guantanamo Bay detention facility.
-                          </p>
-                        </div>
-                        <div>
-                          <Image
-                            src={imagePaths.personal.navy}
-                            alt="N. Lee Plumb in Naval uniform"
-                            className="w-full rounded-lg shadow-md"
-                            width={600}
-                            height={400}
-                          />
-                          <p className="mt-2 text-sm text-gray-500 italic">
-                            Serving in the Navy JAG Corps.
-                          </p>
-                        </div>
-                      </div>
-                    )}
-                    {experience.id === 'corporate' && (
-                      <div className="mt-6 mb-6">
-                        <Image
-                          src={imagePaths.professional.techEndorsement}
-                          alt="N. Lee Plumb in corporate leadership role"
-                          className="w-full rounded-lg shadow-md"
-                          width={800}
-                          height={400}
-                        />
-                        <p className="mt-2 text-sm text-gray-500 italic">
-                          Leading strategic initiatives at a major corporation.
-                        </p>
-                      </div>
-                    )}
-                    {experience.id === 'community' && (
-                      <div className="mt-6 mb-6">
-                        <Image
-                          src={imagePaths.personal.volunteering}
-                          alt="N. Lee Plumb serving the community"
-                          className="w-full rounded-lg shadow-md"
-                          width={800}
-                          height={400}
-                        />
-                        <p className="mt-2 text-sm text-gray-500 italic">
-                          Active engagement in community service and outreach programs.
-                        </p>
-                      </div>
-                    )}
-                    <ul className="mt-8 space-y-3">
-                      {experience.details.map((detail, index) => (
+                  </div>
+                  
+                  <div className="p-6 flex-1">
+                    <p className="text-gray-600 mb-4">{experience.description}</p>
+                    <ul className="mt-4 space-y-2">
+                      {experience.details.slice(0, 3).map((detail, index) => (
                         <li key={index} className="flex gap-x-3">
-                          <TrophyIcon className="h-6 w-5 flex-none text-red-700" aria-hidden="true" />
-                          <span>{detail}</span>
+                          <TrophyIcon className="h-5 w-5 flex-none text-red-700" aria-hidden="true" />
+                          <span className="text-sm text-gray-600">{detail}</span>
                         </li>
                       ))}
                     </ul>
-                  </dd>
+                    
+                    <div className="mt-4 pt-4 border-t border-gray-100">
+                      <button
+                        className="text-sm font-semibold leading-6 text-red-700"
+                      >
+                        View all achievements <span aria-hidden="true">→</span>
+                      </button>
+                    </div>
+                  </div>
                 </div>
               ))}
             </dl>
