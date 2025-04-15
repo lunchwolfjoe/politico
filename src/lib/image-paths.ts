@@ -9,7 +9,16 @@ export const imagePaths = {
   },
   personal: {
     family: '/images/personal/family.jpg',
-    // Add other personal images here
+    withDaughters: '/images/personal/withdaughters.jpg',
+    worldSeries: '/images/personal/world-series.jpg',
+    iraq: '/images/personal/iraq.jpg',
+    navy: '/images/personal/navy.jpg',
+    youngFamily: '/images/personal/youngerfamilyphoto.jpg',
+    houstanZoo: '/images/personal/houstonzoo.jpg',
+    cowboyHat: '/images/personal/cowboyhatwithashley.jpg',
+    parade: '/images/personal/parade.jpg',
+    merica: '/images/personal/merica.jpg',
+    volunteering: '/images/personal/volunteering.jpg',
   },
   platform: {
     hero: '/images/platform-hero.jpg',
