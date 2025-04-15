@@ -63,12 +63,17 @@ export default function HomePage() {
       <div className="relative">
         {/* Background image with overlay */}
         <div className="absolute inset-0">
-          <img
-            src="/images/personal/merica.jpg"
-            alt="Candidate portrait"
-            className="h-full w-full object-cover object-center"
-            style={{ maxHeight: "100%" }}
-          />
+          <div className="h-full w-full overflow-hidden">
+            <img
+              src="/images/personal/merica.jpg"
+              alt="Candidate portrait"
+              className="h-full w-full object-cover"
+              style={{ 
+                maxHeight: "100%", 
+                objectPosition: "center top" 
+              }}
+            />
+          </div>
           <div className="absolute inset-0 bg-gradient-to-r from-blue-950/90 to-blue-800/70 mix-blend-multiply" />
         </div>
 
