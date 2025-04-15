@@ -228,44 +228,71 @@ export default function PlatformPage() {
         </div>
         <div className="mx-auto mt-16 max-w-2xl sm:mt-20 lg:mt-24 lg:max-w-none">
           <dl className="grid max-w-xl grid-cols-1 gap-x-8 gap-y-16 lg:max-w-none lg:grid-cols-3">
-            <div className="flex flex-col">
-              <dt className="text-base font-semibold leading-7 text-gray-900">
-                <div className="mb-6 flex h-10 w-10 items-center justify-center rounded-lg bg-red-700">
-                  <ScaleIcon className="h-6 w-6 text-white" aria-hidden="true" />
+            <div className="flex flex-col overflow-hidden rounded-lg shadow-sm">
+              <div className="relative h-48 w-full">
+                <Image
+                  src={imagePaths.personal.merica}
+                  alt="Constitutional Fidelity"
+                  className="h-full w-full object-cover"
+                  fill
+                />
+                <div className="absolute inset-0 bg-gradient-to-b from-transparent to-red-900/70"></div>
+                <div className="absolute bottom-0 left-0 p-4 flex items-center">
+                  <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-red-700">
+                    <ScaleIcon className="h-6 w-6 text-white" aria-hidden="true" />
+                  </div>
+                  <span className="ml-3 text-lg font-semibold text-white">Constitutional Fidelity</span>
                 </div>
-                Constitutional Fidelity
-              </dt>
-              <dd className="mt-1 flex flex-auto flex-col text-base leading-7 text-gray-600">
-                <p className="flex-auto">
+              </div>
+              <div className="flex-1 p-6 bg-white">
+                <p className="text-base leading-7 text-gray-600">
                   I believe our Constitution is not a living document but an enduring covenant that must be protected and preserved in its original meaning and intent.
                 </p>
-              </dd>
+              </div>
             </div>
-            <div className="flex flex-col">
-              <dt className="text-base font-semibold leading-7 text-gray-900">
-                <div className="mb-6 flex h-10 w-10 items-center justify-center rounded-lg bg-red-700">
-                  <CurrencyDollarIcon className="h-6 w-6 text-white" aria-hidden="true" />
+            <div className="flex flex-col overflow-hidden rounded-lg shadow-sm">
+              <div className="relative h-48 w-full">
+                <Image
+                  src={imagePaths.platform.fiscal}
+                  alt="Limited Government"
+                  className="h-full w-full object-cover"
+                  fill
+                />
+                <div className="absolute inset-0 bg-gradient-to-b from-transparent to-red-900/70"></div>
+                <div className="absolute bottom-0 left-0 p-4 flex items-center">
+                  <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-red-700">
+                    <CurrencyDollarIcon className="h-6 w-6 text-white" aria-hidden="true" />
+                  </div>
+                  <span className="ml-3 text-lg font-semibold text-white">Limited Government</span>
                 </div>
-                Limited Government
-              </dt>
-              <dd className="mt-1 flex flex-auto flex-col text-base leading-7 text-gray-600">
-                <p className="flex-auto">
+              </div>
+              <div className="flex-1 p-6 bg-white">
+                <p className="text-base leading-7 text-gray-600">
                   The best government is that which governs least. I believe in reducing the size, scope, and reach of the federal government in our daily lives.
                 </p>
-              </dd>
+              </div>
             </div>
-            <div className="flex flex-col">
-              <dt className="text-base font-semibold leading-7 text-gray-900">
-                <div className="mb-6 flex h-10 w-10 items-center justify-center rounded-lg bg-red-700">
-                  <ShieldCheckIcon className="h-6 w-6 text-white" aria-hidden="true" />
+            <div className="flex flex-col overflow-hidden rounded-lg shadow-sm">
+              <div className="relative h-48 w-full">
+                <Image
+                  src={imagePaths.professional.veteranLeadership}
+                  alt="Strong National Defense"
+                  className="h-full w-full object-cover"
+                  fill
+                />
+                <div className="absolute inset-0 bg-gradient-to-b from-transparent to-red-900/70"></div>
+                <div className="absolute bottom-0 left-0 p-4 flex items-center">
+                  <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-red-700">
+                    <ShieldCheckIcon className="h-6 w-6 text-white" aria-hidden="true" />
+                  </div>
+                  <span className="ml-3 text-lg font-semibold text-white">Strong National Defense</span>
                 </div>
-                Strong National Defense
-              </dt>
-              <dd className="mt-1 flex flex-auto flex-col text-base leading-7 text-gray-600">
-                <p className="flex-auto">
+              </div>
+              <div className="flex-1 p-6 bg-white">
+                <p className="text-base leading-7 text-gray-600">
                   As a veteran, I believe America must maintain the strongest, most lethal fighting force in the world to protect our interests and deter our adversaries.
                 </p>
-              </dd>
+              </div>
             </div>
           </dl>
         </div>
@@ -275,7 +302,7 @@ export default function PlatformPage() {
       <div className="relative">
         <div className="absolute inset-0">
           <Image
-            src="/images/platform-cta.jpg"
+            src={imagePaths.general.platformCta}
             alt="American flag"
             className="h-full w-full object-cover"
             width={1920}
