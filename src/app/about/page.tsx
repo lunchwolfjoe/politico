@@ -58,26 +58,32 @@ const values = [
   {
     name: 'Integrity',
     description: 'The same unwavering commitment to truth and honor that guided my military service will define my approach to public office.',
+    image: imagePaths.professional.veteranLeadership,
   },
   {
     name: 'Service',
     description: 'I believe public office is about service, not power. My entire career has been dedicated to serving others, whether in uniform, in business, or in the community.',
+    image: imagePaths.personal.volunteering,
   },
   {
     name: 'Innovation',
     description: 'My experience at Amazon taught me how to challenge conventional thinking and find innovative solutions to complex problems.',
+    image: imagePaths.general.digitalPlatform,
   },
   {
     name: 'Fiscal Responsibility',
     description: 'Leading large teams with multi-million dollar budgets has taught me the importance of financial discipline and accountability.',
+    image: imagePaths.platform.fiscal,
   },
   {
     name: 'Constitutional Fidelity',
     description: 'I\'ve sworn an oath to defend the Constitution multiple times throughout my military career, and I\'ll continue to uphold those same principles in Congress.',
+    image: imagePaths.personal.merica,
   },
   {
     name: 'American Exceptionalism',
     description: 'I believe in American greatness and our unique role as a force for freedom and prosperity in the world.',
+    image: imagePaths.general.platformCta,
   },
 ];
 
@@ -153,7 +159,7 @@ export default function AboutPage() {
               </p>
               <div className="mt-6 mb-6">
                 <Image
-                  src={imagePaths.personal.family}
+                  src={imagePaths.personal.iraq}
                   alt="N. Lee Plumb during deployment to Iraq"
                   className="w-full rounded-lg shadow-md"
                   width={800}
@@ -175,7 +181,7 @@ export default function AboutPage() {
             </div>
             <div className="mt-10 flex flex-col space-y-4">
               <Image
-                src={imagePaths.personal.family}
+                src={imagePaths.personal.withDaughters}
                 alt="Candidate with family"
                 className="aspect-[16/9] w-full rounded-2xl object-cover sm:aspect-[3/2]"
                 width={1200}
@@ -184,7 +190,7 @@ export default function AboutPage() {
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
                   <Image
-                    src={imagePaths.personal.family}
+                    src={imagePaths.personal.cowboyHat}
                     alt="N. Lee Plumb with Ashley"
                     className="aspect-[4/3] w-full rounded-2xl object-cover"
                     width={600}
@@ -193,7 +199,7 @@ export default function AboutPage() {
                 </div>
                 <div>
                   <Image
-                    src={imagePaths.personal.family}
+                    src={imagePaths.personal.worldSeries}
                     alt="N. Lee Plumb at World Series"
                     className="aspect-[4/3] w-full rounded-2xl object-cover"
                     width={600}
@@ -246,7 +252,7 @@ export default function AboutPage() {
                         </div>
                         <div>
                           <Image
-                            src={imagePaths.personal.family}
+                            src={imagePaths.personal.navy}
                             alt="N. Lee Plumb in Naval uniform"
                             className="w-full rounded-lg shadow-md"
                             width={600}
@@ -256,6 +262,34 @@ export default function AboutPage() {
                             Serving in the Navy JAG Corps.
                           </p>
                         </div>
+                      </div>
+                    )}
+                    {experience.id === 'corporate' && (
+                      <div className="mt-6 mb-6">
+                        <Image
+                          src={imagePaths.professional.techEndorsement}
+                          alt="N. Lee Plumb in corporate leadership role"
+                          className="w-full rounded-lg shadow-md"
+                          width={800}
+                          height={400}
+                        />
+                        <p className="mt-2 text-sm text-gray-500 italic">
+                          Leading strategic initiatives at a major corporation.
+                        </p>
+                      </div>
+                    )}
+                    {experience.id === 'community' && (
+                      <div className="mt-6 mb-6">
+                        <Image
+                          src={imagePaths.personal.volunteering}
+                          alt="N. Lee Plumb serving the community"
+                          className="w-full rounded-lg shadow-md"
+                          width={800}
+                          height={400}
+                        />
+                        <p className="mt-2 text-sm text-gray-500 italic">
+                          Active engagement in community service and outreach programs.
+                        </p>
                       </div>
                     )}
                     <ul className="mt-8 space-y-3">
@@ -285,20 +319,28 @@ export default function AboutPage() {
             These foundational values have guided me throughout my military service, business leadership, and will define my approach to public service.
           </p>
         </div>
-        <div className="mx-auto mt-16 max-w-2xl sm:mt-20 lg:mt-24 lg:max-w-5xl">
-          <dl className="grid grid-cols-1 gap-x-8 gap-y-10 lg:grid-cols-2 lg:gap-y-16">
+        <div className="mx-auto mt-16 max-w-2xl sm:mt-20 lg:mt-24 lg:max-w-7xl">
+          <div className="grid grid-cols-1 gap-x-8 gap-y-10 lg:grid-cols-3">
             {values.map((value) => (
-              <div key={value.name} className="relative pl-16">
-                <dt className="text-base font-semibold leading-7 text-gray-900">
-                  <div className="absolute left-0 top-0 flex h-10 w-10 items-center justify-center rounded-lg bg-red-700">
-                    <AcademicCapIcon className="h-6 w-6 text-white" aria-hidden="true" />
+              <div key={value.name} className="bg-white overflow-hidden rounded-lg shadow-md">
+                <div className="h-48 w-full relative">
+                  <Image
+                    src={value.image}
+                    alt={value.name}
+                    className="h-full w-full object-cover"
+                    fill
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-gray-900/90 to-gray-900/10" />
+                  <div className="absolute bottom-0 left-0 p-4">
+                    <h3 className="text-xl font-bold text-white">{value.name}</h3>
                   </div>
-                  {value.name}
-                </dt>
-                <dd className="mt-2 text-base leading-7 text-gray-600">{value.description}</dd>
+                </div>
+                <div className="p-6">
+                  <p className="text-gray-600">{value.description}</p>
+                </div>
               </div>
             ))}
-          </dl>
+          </div>
         </div>
       </div>
 
