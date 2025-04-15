@@ -101,7 +101,7 @@ export default function AboutPage() {
             src="/images/personal/thinkerheadshot.jpg"
             alt="Candidate profile"
             className="h-full w-full object-cover object-center"
-            style={{ objectPosition: "center 40%" }}
+            style={{ objectPosition: "center 50%" }}
           />
           <div className="absolute inset-0 bg-gradient-to-r from-blue-900/90 to-red-700/50 mix-blend-multiply" />
         </div>
@@ -200,6 +200,7 @@ export default function AboutPage() {
                   src="/images/personal/withdaughters.jpg"
                   alt="Candidate with family"
                   className="w-full h-full object-cover object-center"
+                  style={{ objectPosition: "center 30%" }}
                 />
               </div>
             </div>
@@ -229,6 +230,7 @@ export default function AboutPage() {
                       src="/images/professional/veteran-leadership.jpg"
                       alt="Military Service"
                       className="h-full w-full object-cover object-center"
+                      style={{ objectPosition: "center 20%" }}
                     />
                   </div>
                   <div className="absolute inset-0 bg-gradient-to-b from-transparent to-black/60"></div>
@@ -281,7 +283,7 @@ export default function AboutPage() {
                       src="/images/professional/walmartpic.jpg"
                       alt="Corporate Leadership"
                       className="h-full w-full object-cover object-center"
-                      style={{ objectPosition: "center 20%" }}
+                      style={{ objectPosition: "center 15%" }}
                     />
                   </div>
                   <div className="absolute inset-0 bg-gradient-to-b from-transparent to-black/60"></div>
@@ -334,7 +336,7 @@ export default function AboutPage() {
                       src="/images/personal/volunteering.jpg"
                       alt="Public Service"
                       className="h-full w-full object-cover object-center"
-                      style={{ objectPosition: "center 30%" }}
+                      style={{ objectPosition: "center 25%" }}
                     />
                   </div>
                   <div className="absolute inset-0 bg-gradient-to-b from-transparent to-black/60"></div>

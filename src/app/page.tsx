@@ -70,7 +70,7 @@ export default function HomePage() {
               className="h-full w-full object-cover"
               style={{ 
                 maxHeight: "100%", 
-                objectPosition: "center 20%"
+                objectPosition: "center 10%"
               }}
             />
           </div>
