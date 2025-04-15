@@ -100,7 +100,8 @@ export default function AboutPage() {
           <img
             src="/images/personal/thinkerheadshot.jpg"
             alt="Candidate profile"
-            className="h-full w-full object-cover"
+            className="h-full w-full object-cover object-center"
+            style={{ objectPosition: "center 25%" }}
           />
           <div className="absolute inset-0 bg-gradient-to-r from-blue-900/90 to-red-700/50 mix-blend-multiply" />
         </div>
@@ -423,9 +424,9 @@ export default function AboutPage() {
                   </p>
                   <div className="mt-6 aspect-[3/2] w-full rounded-lg overflow-hidden">
                     <img
-                      src="/images/personal/withdaughters.jpg"
+                      src="/images/personal/family.jpg"
                       alt="Integrity in family life"
-                      className="w-full h-full object-cover"
+                      className="w-full h-full object-cover object-center"
                     />
                   </div>
                 </dd>
@@ -443,9 +444,9 @@ export default function AboutPage() {
                   </p>
                   <div className="mt-6 aspect-[3/2] w-full rounded-lg overflow-hidden">
                     <img
-                      src="/images/personal/volunteering.jpg"
+                      src="/images/personal/parade.jpg"
                       alt="Community service"
-                      className="w-full h-full object-cover"
+                      className="w-full h-full object-cover object-center"
                     />
                   </div>
                 </dd>
@@ -465,7 +466,7 @@ export default function AboutPage() {
                     <img
                       src="/images/professional/tech-advisory.jpg"
                       alt="Innovation leadership"
-                      className="w-full h-full object-cover"
+                      className="w-full h-full object-cover object-center"
                     />
                   </div>
                 </dd>

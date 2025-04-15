@@ -29,6 +29,7 @@ export const imagePaths = {
     nickAndAshley: '/images/personal/nick and ashley.jpg',
     daughterChamps: '/images/personal/daughter state knowledge bowl champs.jpg',
     kidkff: '/images/personal/kidkff.jpg',
+    thinkerHeadshot: '/images/personal/thinkerheadshot.jpg',
   },
   platform: {
     hero: '/images/platform-hero.jpg',
