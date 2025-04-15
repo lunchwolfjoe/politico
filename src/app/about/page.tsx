@@ -246,47 +246,173 @@ export default function AboutPage() {
           </div>
           <div className="mx-auto mt-16 max-w-2xl sm:mt-20 lg:mt-24 lg:max-w-none">
             <dl className="grid max-w-xl grid-cols-1 gap-x-8 gap-y-16 lg:max-w-none lg:grid-cols-3">
-              {experiences.map((experience) => (
-                <div key={experience.id} id={experience.id} className="flex flex-col bg-white rounded-lg shadow-sm overflow-hidden">
-                  <div className="relative h-48 w-full">
-                    <Image
-                      src={experience.image}
-                      alt={experience.title}
-                      className="h-full w-full object-cover"
-                      fill
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-gray-900/80 to-transparent"></div>
-                    <div className="absolute bottom-0 p-4 w-full">
-                      <div className="flex items-center mb-2">
-                        <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-red-700 mr-2">
-                          <experience.icon className="h-6 w-6 text-white" aria-hidden="true" />
-                        </div>
-                        <h3 className="text-lg font-bold text-white">{experience.title}</h3>
+              {/* Military Service Card */}
+              <div className="flex flex-col bg-white rounded-lg shadow-sm overflow-hidden">
+                <div className="relative h-64 w-full">
+                  <Image
+                    src={imagePaths.professional.gtmokhadr}
+                    alt="Military Service"
+                    className="h-full w-full object-cover"
+                    sizes="100vw"
+                    style={{
+                      objectFit: 'cover',
+                      objectPosition: 'center'
+                    }}
+                    fill
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-b from-transparent to-black/60"></div>
+                  <div className="absolute bottom-0 left-0 p-4">
+                    <div className="flex items-center">
+                      <div className="flex h-10 w-10 items-center justify-center rounded-md bg-red-700">
+                        <ShieldCheckIcon className="h-6 w-6 text-white" aria-hidden="true" />
                       </div>
-                    </div>
-                  </div>
-                  
-                  <div className="p-6 flex-1">
-                    <p className="text-gray-600 mb-4">{experience.description}</p>
-                    <ul className="mt-4 space-y-2">
-                      {experience.details.slice(0, 3).map((detail, index) => (
-                        <li key={index} className="flex gap-x-3">
-                          <TrophyIcon className="h-5 w-5 flex-none text-red-700" aria-hidden="true" />
-                          <span className="text-sm text-gray-600">{detail}</span>
-                        </li>
-                      ))}
-                    </ul>
-                    
-                    <div className="mt-4 pt-4 border-t border-gray-100">
-                      <button
-                        className="text-sm font-semibold leading-6 text-red-700"
-                      >
-                        View all achievements <span aria-hidden="true">→</span>
-                      </button>
+                      <h3 className="ml-3 text-lg font-bold text-white">Military Service</h3>
                     </div>
                   </div>
                 </div>
-              ))}
+                
+                <div className="p-6">
+                  <p className="text-gray-600 mb-6">
+                    Dual-branch JAG Corps veteran with deployments to Iraq and Guantanamo Bay
+                  </p>
+                  
+                  <ul className="space-y-3">
+                    <li className="flex gap-x-3 items-start">
+                      <TrophyIcon className="h-5 w-5 flex-shrink-0 text-red-700 mt-0.5" aria-hidden="true" />
+                      <span className="text-sm text-gray-600">Served in both Army and Navy JAG Corps with distinction</span>
+                    </li>
+                    <li className="flex gap-x-3 items-start">
+                      <TrophyIcon className="h-5 w-5 flex-shrink-0 text-red-700 mt-0.5" aria-hidden="true" />
+                      <span className="text-sm text-gray-600">Deployed to Iraq during combat operations</span>
+                    </li>
+                    <li className="flex gap-x-3 items-start">
+                      <TrophyIcon className="h-5 w-5 flex-shrink-0 text-red-700 mt-0.5" aria-hidden="true" />
+                      <span className="text-sm text-gray-600">Served at Guantanamo Bay detention facility</span>
+                    </li>
+                  </ul>
+                  
+                  <div className="mt-6 pt-4 border-t border-gray-100">
+                    <a
+                      href="#military"
+                      className="text-sm font-semibold leading-6 text-red-700"
+                    >
+                      View all achievements →
+                    </a>
+                  </div>
+                </div>
+              </div>
+              
+              {/* Corporate Leadership Card */}
+              <div className="flex flex-col bg-white rounded-lg shadow-sm overflow-hidden">
+                <div className="relative h-64 w-full">
+                  <Image
+                    src={imagePaths.professional.publicSpeakingWalmart}
+                    alt="Corporate Leadership"
+                    className="h-full w-full object-cover"
+                    sizes="100vw"
+                    style={{
+                      objectFit: 'cover',
+                      objectPosition: 'center'
+                    }}
+                    fill
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-b from-transparent to-black/60"></div>
+                  <div className="absolute bottom-0 left-0 p-4">
+                    <div className="flex items-center">
+                      <div className="flex h-10 w-10 items-center justify-center rounded-md bg-red-700">
+                        <BuildingOffice2Icon className="h-6 w-6 text-white" aria-hidden="true" />
+                      </div>
+                      <h3 className="ml-3 text-lg font-bold text-white">Corporate Leadership</h3>
+                    </div>
+                  </div>
+                </div>
+                
+                <div className="p-6">
+                  <p className="text-gray-600 mb-6">
+                    Rapid advancement from Walmart trainee to Amazon executive with proven results
+                  </p>
+                  
+                  <ul className="space-y-3">
+                    <li className="flex gap-x-3 items-start">
+                      <TrophyIcon className="h-5 w-5 flex-shrink-0 text-red-700 mt-0.5" aria-hidden="true" />
+                      <span className="text-sm text-gray-600">Advanced from Walmart manager trainee to store manager in record time</span>
+                    </li>
+                    <li className="flex gap-x-3 items-start">
+                      <TrophyIcon className="h-5 w-5 flex-shrink-0 text-red-700 mt-0.5" aria-hidden="true" />
+                      <span className="text-sm text-gray-600">Selected for prestigious Walmart Global Leadership Academy</span>
+                    </li>
+                    <li className="flex gap-x-3 items-start">
+                      <TrophyIcon className="h-5 w-5 flex-shrink-0 text-red-700 mt-0.5" aria-hidden="true" />
+                      <span className="text-sm text-gray-600">Led multiple successful Amazon fulfillment center launches</span>
+                    </li>
+                  </ul>
+                  
+                  <div className="mt-6 pt-4 border-t border-gray-100">
+                    <a
+                      href="#corporate"
+                      className="text-sm font-semibold leading-6 text-red-700"
+                    >
+                      View all achievements →
+                    </a>
+                  </div>
+                </div>
+              </div>
+              
+              {/* Public Service Card */}
+              <div className="flex flex-col bg-white rounded-lg shadow-sm overflow-hidden">
+                <div className="relative h-64 w-full">
+                  <Image
+                    src={imagePaths.personal.volunteering}
+                    alt="Public Service"
+                    className="h-full w-full object-cover"
+                    sizes="100vw"
+                    style={{
+                      objectFit: 'cover',
+                      objectPosition: 'center'
+                    }}
+                    fill
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-b from-transparent to-black/60"></div>
+                  <div className="absolute bottom-0 left-0 p-4">
+                    <div className="flex items-center">
+                      <div className="flex h-10 w-10 items-center justify-center rounded-md bg-red-700">
+                        <UserGroupIcon className="h-6 w-6 text-white" aria-hidden="true" />
+                      </div>
+                      <h3 className="ml-3 text-lg font-bold text-white">Public Service</h3>
+                    </div>
+                  </div>
+                </div>
+                
+                <div className="p-6">
+                  <p className="text-gray-600 mb-6">
+                    Commitment to Texas through government service and community leadership
+                  </p>
+                  
+                  <ul className="space-y-3">
+                    <li className="flex gap-x-3 items-start">
+                      <TrophyIcon className="h-5 w-5 flex-shrink-0 text-red-700 mt-0.5" aria-hidden="true" />
+                      <span className="text-sm text-gray-600">Served in Texas Department of Licensing and Regulation General Counsel's Office</span>
+                    </li>
+                    <li className="flex gap-x-3 items-start">
+                      <TrophyIcon className="h-5 w-5 flex-shrink-0 text-red-700 mt-0.5" aria-hidden="true" />
+                      <span className="text-sm text-gray-600">Applied legal expertise to protect Texas consumers and businesses</span>
+                    </li>
+                    <li className="flex gap-x-3 items-start">
+                      <TrophyIcon className="h-5 w-5 flex-shrink-0 text-red-700 mt-0.5" aria-hidden="true" />
+                      <span className="text-sm text-gray-600">Volunteer leader with multiple veterans' service organizations</span>
+                    </li>
+                  </ul>
+                  
+                  <div className="mt-6 pt-4 border-t border-gray-100">
+                    <a
+                      href="#community"
+                      className="text-sm font-semibold leading-6 text-red-700"
+                    >
+                      View all achievements →
+                    </a>
+                  </div>
+                </div>
+              </div>
             </dl>
           </div>
         </div>
