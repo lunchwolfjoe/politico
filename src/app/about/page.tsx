@@ -248,9 +248,9 @@ export default function AboutPage() {
             <dl className="grid max-w-xl grid-cols-1 gap-x-8 gap-y-16 lg:max-w-none lg:grid-cols-3">
               {/* Military Service Card */}
               <div className="flex flex-col bg-white rounded-lg shadow-sm overflow-hidden">
-                <div className="relative h-64 w-full">
+                <div className="relative h-72 w-full">
                   <Image
-                    src={imagePaths.professional.gtmokhadr}
+                    src="/images/professional/veteran-leadership.jpg"
                     alt="Military Service"
                     className="h-full w-full object-cover"
                     sizes="100vw"
@@ -304,9 +304,9 @@ export default function AboutPage() {
               
               {/* Corporate Leadership Card */}
               <div className="flex flex-col bg-white rounded-lg shadow-sm overflow-hidden">
-                <div className="relative h-64 w-full">
+                <div className="relative h-72 w-full">
                   <Image
-                    src={imagePaths.professional.publicSpeakingWalmart}
+                    src="/images/professional/walmartpic.jpg"
                     alt="Corporate Leadership"
                     className="h-full w-full object-cover"
                     sizes="100vw"
@@ -360,7 +360,7 @@ export default function AboutPage() {
               
               {/* Public Service Card */}
               <div className="flex flex-col bg-white rounded-lg shadow-sm overflow-hidden">
-                <div className="relative h-64 w-full">
+                <div className="relative h-72 w-full">
                   <Image
                     src={imagePaths.personal.volunteering}
                     alt="Public Service"
