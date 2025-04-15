@@ -176,6 +176,23 @@ export default function AboutPage() {
                 After seven successful years demonstrating leadership and achieving results at Walmart, Amazon recruited me to launch new fulfillment centers. This led to three record-breaking launches and a whirlwind journey of learning and innovation. Today, I lead AI Enablement for Amazon's Global Compensation team, transforming complex data into strategic advantages.
               </p>
               <p>
+                My subsequent career at Amazon further honed my leadership skills. Launching new fulfillment centers demanded innovation, efficiency, and the ability to build and lead high-performing teams. Thriving in fast-paced, results-driven environments like Walmart and Amazon required constant adaptation and innovative problem-solving – precisely the skills needed to navigate today's complex economy and modernize government. My experience isn't just about past success; it's about understanding the logistics, technology, and economic realities that shape the job market <strong>now</strong> and how we can create <strong>future</strong> opportunities right here.
+              </p>
+              
+              <div className="mt-6 mb-6">
+                <Image
+                  src={imagePaths.professional.techEndorsement}
+                  alt="N. Lee Plumb during time at Walmart"
+                  className="w-full rounded-lg shadow-md"
+                  width={800}
+                  height={500}
+                />
+                <p className="mt-2 text-sm text-gray-500 italic">
+                  Leading high-volume retail operations taught me fiscal discipline and operational efficiency.
+                </p>
+              </div>
+              
+              <p>
                 I believe my journey exemplifies the American spirit. I didn't have a safety net, no family wealth to fall back on. Instead, I seized opportunities, worked relentlessly, and built a career through merit and perseverance. I haven't just lived through the global doldrums; I've lived the American Dream. Now, I'm running for Congress to ensure that pathway—the one built on hard work, service, and innovation—remains open and accessible for my children, and for generations to come. I'm not an ideologue, nor am I idealess; I am a pragmatic problem-solver ready to fight for American jobs and American greatness.
               </p>
             </div>
