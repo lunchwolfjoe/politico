@@ -17,36 +17,42 @@ const features = [
     description: 'JAG Corps veteran who served both Army and Navy with deployments to Iraq and GTMO, bringing battlefield-tested leadership to Congress.',
     icon: ShieldCheckIcon,
     link: '/about#military',
+    image: imagePaths.professional.veteranLeadership
   },
   {
     name: 'Corporate Leadership',
     description: 'Advanced from Walmart trainee to executive at Amazon, leading global teams and driving innovation in America\'s largest corporations.',
     icon: BuildingOffice2Icon,
     link: '/about#corporate',
+    image: imagePaths.professional.techEndorsement
   },
   {
     name: 'Tech Innovator',
     description: 'Founding member of Amazon\'s IDEA team and current Sr. Product Manager for Global Compensation Analytics, bringing cutting-edge expertise to government.',
     icon: LightBulbIcon,
     link: '/platform#innovation',
+    image: imagePaths.general.digitalPlatform
   },
   {
     name: 'Constitutional Conservative',
     description: 'Committed to protecting our fundamental rights and liberties with the same oath I took to defend the Constitution in uniform.',
     icon: ScaleIcon,
     link: '/platform#values',
+    image: imagePaths.professional.aboutProfile
   },
   {
     name: 'Economic Strategist',
     description: 'Experience managing multimillion-dollar budgets and global analytics teams, ready to bring fiscal discipline to Washington.',
     icon: ChartBarIcon,
     link: '/platform#economy',
+    image: imagePaths.platform.economy
   },
   {
     name: 'Texas Values',
     description: 'Deep roots in Texas, from serving in the state\'s government to raising a family with the values that make Texas exceptional.',
     icon: UserGroupIcon,
     link: '/about#community',
+    image: imagePaths.personal.merica
   }
 ];
 
@@ -172,8 +178,16 @@ export default function HomePage() {
             {features.slice(0, 3).map((feature) => (
               <div key={feature.name} className="flex flex-col">
                 <dt className="text-base font-semibold leading-7 text-gray-900">
-                  <div className="mb-6 flex h-10 w-10 items-center justify-center rounded-lg bg-red-700">
-                    <feature.icon className="h-6 w-6 text-white" aria-hidden="true" />
+                  <div className="relative w-full h-48 mb-6 rounded-lg overflow-hidden">
+                    <Image
+                      src={feature.image}
+                      alt={feature.name}
+                      className="object-cover"
+                      fill
+                    />
+                    <div className="absolute top-0 left-0 flex h-10 w-10 items-center justify-center rounded-br-lg bg-red-700">
+                      <feature.icon className="h-6 w-6 text-white" aria-hidden="true" />
+                    </div>
                   </div>
                   {feature.name}
                 </dt>
@@ -194,8 +208,16 @@ export default function HomePage() {
             {features.slice(3).map((feature) => (
               <div key={feature.name} className="flex flex-col">
                 <dt className="text-base font-semibold leading-7 text-gray-900">
-                  <div className="mb-6 flex h-10 w-10 items-center justify-center rounded-lg bg-red-700">
-                    <feature.icon className="h-6 w-6 text-white" aria-hidden="true" />
+                  <div className="relative w-full h-48 mb-6 rounded-lg overflow-hidden">
+                    <Image
+                      src={feature.image}
+                      alt={feature.name}
+                      className="object-cover"
+                      fill
+                    />
+                    <div className="absolute top-0 left-0 flex h-10 w-10 items-center justify-center rounded-br-lg bg-red-700">
+                      <feature.icon className="h-6 w-6 text-white" aria-hidden="true" />
+                    </div>
                   </div>
                   {feature.name}
                 </dt>
