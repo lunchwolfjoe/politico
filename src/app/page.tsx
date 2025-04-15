@@ -70,7 +70,7 @@ export default function HomePage() {
               className="h-full w-full object-cover"
               style={{ 
                 maxHeight: "100%", 
-                objectPosition: "center 25%" 
+                objectPosition: "center 20%"
               }}
             />
           </div>
@@ -123,7 +123,7 @@ export default function HomePage() {
             <dl className="grid max-w-xl grid-cols-1 gap-x-8 gap-y-10 lg:max-w-none lg:grid-cols-3">
               {/* Experience Pillars */}
               <div className="flex flex-col rounded-lg shadow-md overflow-hidden">
-                <div className="relative h-72 w-full">
+                <div className="relative h-80 w-full">
                   <div className="absolute inset-0">
                     <img
                       src="/images/personal/iraq.jpg"
@@ -150,7 +150,7 @@ export default function HomePage() {
               </div>
               
               <div className="flex flex-col rounded-lg shadow-md overflow-hidden">
-                <div className="relative h-72 w-full">
+                <div className="relative h-80 w-full">
                   <div className="absolute inset-0">
                     <img
                       src="/images/professional/walmartpic.jpg"
@@ -177,7 +177,7 @@ export default function HomePage() {
               </div>
               
               <div className="flex flex-col rounded-lg shadow-md overflow-hidden">
-                <div className="relative h-72 w-full">
+                <div className="relative h-80 w-full">
                   <div className="absolute inset-0">
                     <img
                       src="/images/personal/youngerfamilyphoto.jpg"
@@ -234,7 +234,7 @@ export default function HomePage() {
             {features.slice(0, 3).map((feature) => (
               <div key={feature.name} className="flex flex-col">
                 <dt className="text-base font-semibold leading-7 text-gray-900">
-                  <div className="relative w-full h-72 mb-6 rounded-lg overflow-hidden">
+                  <div className="relative w-full h-80 mb-6 rounded-lg overflow-hidden">
                     <div className="absolute inset-0">
                       <img
                         src={feature.image}
@@ -266,7 +266,7 @@ export default function HomePage() {
             {features.slice(3).map((feature) => (
               <div key={feature.name} className="flex flex-col">
                 <dt className="text-base font-semibold leading-7 text-gray-900">
-                  <div className="relative w-full h-72 mb-6 rounded-lg overflow-hidden">
+                  <div className="relative w-full h-80 mb-6 rounded-lg overflow-hidden">
                     <div className="absolute inset-0">
                       <img
                         src={feature.image}

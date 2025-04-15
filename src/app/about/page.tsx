@@ -101,7 +101,7 @@ export default function AboutPage() {
             src="/images/personal/thinkerheadshot.jpg"
             alt="Candidate profile"
             className="h-full w-full object-cover object-center"
-            style={{ objectPosition: "center 25%" }}
+            style={{ objectPosition: "center 40%" }}
           />
           <div className="absolute inset-0 bg-gradient-to-r from-blue-900/90 to-red-700/50 mix-blend-multiply" />
         </div>
@@ -161,7 +161,7 @@ export default function AboutPage() {
               </p>
               <div className="mt-6 mb-6">
                 <img
-                  src="/images/personal/iraq.jpg"
+                  src={imagePaths.personal.iraq1}
                   alt="N. Lee Plumb during deployment to Iraq"
                   className="w-full rounded-lg shadow-md"
                 />
@@ -199,24 +199,8 @@ export default function AboutPage() {
                 <img
                   src="/images/personal/withdaughters.jpg"
                   alt="Candidate with family"
-                  className="w-full h-full object-cover"
+                  className="w-full h-full object-cover object-center"
                 />
-              </div>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <div className="aspect-[4/3] w-full rounded-2xl overflow-hidden">
-                  <img
-                    src="/images/personal/cowboyhatwithashley.jpg"
-                    alt="N. Lee Plumb with Ashley"
-                    className="w-full h-full object-cover"
-                  />
-                </div>
-                <div className="aspect-[4/3] w-full rounded-2xl overflow-hidden">
-                  <img
-                    src="/images/personal/world series.jpg"
-                    alt="N. Lee Plumb at World Series"
-                    className="w-full h-full object-cover"
-                  />
-                </div>
               </div>
             </div>
           </div>
@@ -244,7 +228,7 @@ export default function AboutPage() {
                     <img
                       src="/images/professional/veteran-leadership.jpg"
                       alt="Military Service"
-                      className="h-full w-full object-cover"
+                      className="h-full w-full object-cover object-center"
                     />
                   </div>
                   <div className="absolute inset-0 bg-gradient-to-b from-transparent to-black/60"></div>
@@ -296,7 +280,8 @@ export default function AboutPage() {
                     <img
                       src="/images/professional/walmartpic.jpg"
                       alt="Corporate Leadership"
-                      className="h-full w-full object-cover"
+                      className="h-full w-full object-cover object-center"
+                      style={{ objectPosition: "center 20%" }}
                     />
                   </div>
                   <div className="absolute inset-0 bg-gradient-to-b from-transparent to-black/60"></div>
@@ -348,7 +333,8 @@ export default function AboutPage() {
                     <img
                       src="/images/personal/volunteering.jpg"
                       alt="Public Service"
-                      className="h-full w-full object-cover"
+                      className="h-full w-full object-cover object-center"
+                      style={{ objectPosition: "center 30%" }}
                     />
                   </div>
                   <div className="absolute inset-0 bg-gradient-to-b from-transparent to-black/60"></div>
