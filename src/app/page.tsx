@@ -63,13 +63,11 @@ export default function HomePage() {
       <div className="relative">
         {/* Background image with overlay */}
         <div className="absolute inset-0">
-          <Image
-            src={imagePaths.professional.candidate}
-            alt="Candidate speaking at podium"
-            className="h-full w-full object-cover"
-            width={1920}
-            height={1080}
-            priority
+          <img
+            src="/images/personal/merica.jpg"
+            alt="Candidate portrait"
+            className="h-full w-full object-cover object-center"
+            style={{ maxHeight: "100%" }}
           />
           <div className="absolute inset-0 bg-gradient-to-r from-blue-950/90 to-blue-800/70 mix-blend-multiply" />
         </div>
@@ -121,12 +119,14 @@ export default function HomePage() {
               {/* Experience Pillars */}
               <div className="flex flex-col rounded-lg shadow-md overflow-hidden">
                 <div className="relative h-48 w-full">
-                  <Image 
-                    src={imagePaths.personal.iraq} 
-                    alt="Military Service"
-                    className="h-full w-full object-cover"
-                    fill 
-                  />
+                  <div className="absolute inset-0">
+                    <img
+                      src="/images/personal/iraq.jpg"
+                      alt="Military Service"
+                      className="h-full w-full object-cover object-center"
+                      style={{ maxHeight: "100%" }}
+                    />
+                  </div>
                   <div className="absolute inset-0 bg-gradient-to-t from-gray-900/80 to-transparent"></div>
                   <div className="absolute bottom-0 p-4 w-full">
                     <div className="flex items-center mb-2">
@@ -146,12 +146,14 @@ export default function HomePage() {
               
               <div className="flex flex-col rounded-lg shadow-md overflow-hidden">
                 <div className="relative h-48 w-full">
-                  <Image 
-                    src={imagePaths.professional.walmartPic} 
-                    alt="Business Experience"
-                    className="h-full w-full object-cover"
-                    fill 
-                  />
+                  <div className="absolute inset-0">
+                    <img
+                      src="/images/professional/walmartpic.jpg"
+                      alt="Business Experience"
+                      className="h-full w-full object-cover object-center"
+                      style={{ maxHeight: "100%" }}
+                    />
+                  </div>
                   <div className="absolute inset-0 bg-gradient-to-t from-gray-900/80 to-transparent"></div>
                   <div className="absolute bottom-0 p-4 w-full">
                     <div className="flex items-center mb-2">
@@ -171,12 +173,14 @@ export default function HomePage() {
               
               <div className="flex flex-col rounded-lg shadow-md overflow-hidden">
                 <div className="relative h-48 w-full">
-                  <Image 
-                    src={imagePaths.personal.youngFamily} 
-                    alt="American Values"
-                    className="h-full w-full object-cover"
-                    fill 
-                  />
+                  <div className="absolute inset-0">
+                    <img
+                      src="/images/personal/youngerfamilyphoto.jpg"
+                      alt="American Values"
+                      className="h-full w-full object-cover object-center"
+                      style={{ maxHeight: "100%" }}
+                    />
+                  </div>
                   <div className="absolute inset-0 bg-gradient-to-t from-gray-900/80 to-transparent"></div>
                   <div className="absolute bottom-0 p-4 w-full">
                     <div className="flex items-center mb-2">
@@ -226,12 +230,14 @@ export default function HomePage() {
               <div key={feature.name} className="flex flex-col">
                 <dt className="text-base font-semibold leading-7 text-gray-900">
                   <div className="relative w-full h-48 mb-6 rounded-lg overflow-hidden">
-                    <Image
-                      src={feature.image}
-                      alt={feature.name}
-                      className="object-cover"
-                      fill
-                    />
+                    <div className="absolute inset-0">
+                      <img
+                        src={feature.image}
+                        alt={feature.name}
+                        className="h-full w-full object-cover object-center"
+                        style={{ maxHeight: "100%" }}
+                      />
+                    </div>
                     <div className="absolute top-0 left-0 flex h-10 w-10 items-center justify-center rounded-br-lg bg-red-700">
                       <feature.icon className="h-6 w-6 text-white" aria-hidden="true" />
                     </div>
@@ -256,12 +262,14 @@ export default function HomePage() {
               <div key={feature.name} className="flex flex-col">
                 <dt className="text-base font-semibold leading-7 text-gray-900">
                   <div className="relative w-full h-48 mb-6 rounded-lg overflow-hidden">
-                    <Image
-                      src={feature.image}
-                      alt={feature.name}
-                      className="object-cover"
-                      fill
-                    />
+                    <div className="absolute inset-0">
+                      <img
+                        src={feature.image}
+                        alt={feature.name}
+                        className="h-full w-full object-cover object-center"
+                        style={{ maxHeight: "100%" }}
+                      />
+                    </div>
                     <div className="absolute top-0 left-0 flex h-10 w-10 items-center justify-center rounded-br-lg bg-red-700">
                       <feature.icon className="h-6 w-6 text-white" aria-hidden="true" />
                     </div>
@@ -286,13 +294,14 @@ export default function HomePage() {
       <div className="relative isolate mt-32 px-6 py-32 sm:mt-40 sm:py-40 lg:px-8">
         <div className="absolute inset-0 -z-10 overflow-hidden">
           <div className="absolute inset-0 bg-gradient-to-br from-blue-900 to-red-700 opacity-20" />
-          <Image
-            src={imagePaths.general.platformCta}
-            alt="Campaign rally"
-            className="h-full w-full object-cover opacity-25"
-            width={1920}
-            height={1080}
-          />
+          <div className="absolute inset-0">
+            <img
+              src="/images/platform-cta.jpg"
+              alt="Campaign rally"
+              className="h-full w-full object-cover object-center opacity-25"
+              style={{ maxHeight: "100%" }}
+            />
+          </div>
         </div>
         <div className="mx-auto max-w-2xl text-center">
           <div className="flex justify-center mb-6">
