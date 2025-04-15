@@ -8,6 +8,7 @@ import {
   BriefcaseIcon,
   TrophyIcon
 } from '@heroicons/react/24/outline';
+import { FaShieldAlt, FaHandshake, FaRegLightbulb } from 'react-icons/fa';
 
 const experiences = [
   {
@@ -96,13 +97,10 @@ export default function AboutPage() {
       {/* Hero Section */}
       <div className="relative isolate overflow-hidden">
         <div className="absolute inset-0">
-          <Image
-            src={imagePaths.professional.aboutProfile}
+          <img
+            src="/images/professional/about-profile.jpg"
             alt="Candidate profile"
             className="h-full w-full object-cover"
-            width={1920}
-            height={1080}
-            priority
           />
           <div className="absolute inset-0 bg-gradient-to-r from-blue-900/90 to-red-700/50 mix-blend-multiply" />
         </div>
@@ -138,13 +136,13 @@ export default function AboutPage() {
                 </p>
               </blockquote>
               <figcaption className="mt-8 flex gap-x-4">
-                <Image
-                  src={imagePaths.professional.aboutProfile}
-                  alt="N. Lee Plumb headshot"
-                  className="mt-1 h-12 w-12 flex-none rounded-full bg-gray-50"
-                  width={48}
-                  height={48}
-                />
+                <div className="mt-1 h-12 w-12 flex-none rounded-full bg-gray-50 overflow-hidden">
+                  <img
+                    src="/images/professional/about-profile.jpg"
+                    alt="N. Lee Plumb headshot"
+                    className="h-full w-full object-cover"
+                  />
+                </div>
                 <div className="text-sm leading-6">
                   <div className="font-semibold text-gray-900">N. Lee Plumb</div>
                   <div className="text-gray-600">Republican for U.S. Congress</div>
@@ -161,12 +159,10 @@ export default function AboutPage() {
                 The day I turned 18, my path became clear. My father presented four options: Army, Navy, Air Force, or the Marine Corps. I chose the Army and left for service shortly after high school graduation. My commitment to our nation didn't end there; after my Army service, I dedicated six more years to the Navy JAG Corps. These years in uniform, including deployments to Iraq and service at Guantanamo Bay, taught me discipline, resilience, and the true meaning of defending our Constitution.
               </p>
               <div className="mt-6 mb-6">
-                <Image
-                  src={imagePaths.personal.iraq}
+                <img
+                  src="/images/personal/iraq.jpg"
                   alt="N. Lee Plumb during deployment to Iraq"
                   className="w-full rounded-lg shadow-md"
-                  width={800}
-                  height={500}
                 />
                 <p className="mt-2 text-sm text-gray-500 italic">
                   During my deployment to Iraq as part of my military service.
@@ -183,12 +179,10 @@ export default function AboutPage() {
               </p>
               
               <div className="mt-6 mb-6">
-                <Image
-                  src={imagePaths.professional.techEndorsement}
+                <img
+                  src="/images/professional/tech-endorsement.jpg"
                   alt="N. Lee Plumb during time at Walmart"
                   className="w-full rounded-lg shadow-md"
-                  width={800}
-                  height={500}
                 />
                 <p className="mt-2 text-sm text-gray-500 italic">
                   Leading high-volume retail operations taught me fiscal discipline and operational efficiency.
@@ -200,30 +194,26 @@ export default function AboutPage() {
               </p>
             </div>
             <div className="mt-10 flex flex-col space-y-4">
-              <Image
-                src={imagePaths.personal.withDaughters}
-                alt="Candidate with family"
-                className="aspect-[16/9] w-full rounded-2xl object-cover sm:aspect-[3/2]"
-                width={1200}
-                height={800}
-              />
+              <div className="aspect-[16/9] w-full rounded-2xl overflow-hidden sm:aspect-[3/2]">
+                <img
+                  src="/images/personal/withdaughters.jpg"
+                  alt="Candidate with family"
+                  className="w-full h-full object-cover"
+                />
+              </div>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <div>
-                  <Image
-                    src={imagePaths.personal.cowboyHat}
+                <div className="aspect-[4/3] w-full rounded-2xl overflow-hidden">
+                  <img
+                    src="/images/personal/cowboyhatwithashley.jpg"
                     alt="N. Lee Plumb with Ashley"
-                    className="aspect-[4/3] w-full rounded-2xl object-cover"
-                    width={600}
-                    height={450}
+                    className="w-full h-full object-cover"
                   />
                 </div>
-                <div>
-                  <Image
-                    src={imagePaths.personal.worldSeries}
+                <div className="aspect-[4/3] w-full rounded-2xl overflow-hidden">
+                  <img
+                    src="/images/personal/world series.jpg"
                     alt="N. Lee Plumb at World Series"
-                    className="aspect-[4/3] w-full rounded-2xl object-cover"
-                    width={600}
-                    height={450}
+                    className="w-full h-full object-cover"
                   />
                 </div>
               </div>
@@ -249,17 +239,13 @@ export default function AboutPage() {
               {/* Military Service Card */}
               <div className="flex flex-col bg-white rounded-lg shadow-sm overflow-hidden">
                 <div className="relative h-72 w-full">
-                  <Image
-                    src="/images/professional/veteran-leadership.jpg"
-                    alt="Military Service"
-                    className="h-full w-full object-cover"
-                    sizes="100vw"
-                    style={{
-                      objectFit: 'cover',
-                      objectPosition: 'center'
-                    }}
-                    fill
-                  />
+                  <div className="absolute inset-0">
+                    <img
+                      src="/images/professional/veteran-leadership.jpg"
+                      alt="Military Service"
+                      className="h-full w-full object-cover"
+                    />
+                  </div>
                   <div className="absolute inset-0 bg-gradient-to-b from-transparent to-black/60"></div>
                   <div className="absolute bottom-0 left-0 p-4">
                     <div className="flex items-center">
@@ -305,17 +291,13 @@ export default function AboutPage() {
               {/* Corporate Leadership Card */}
               <div className="flex flex-col bg-white rounded-lg shadow-sm overflow-hidden">
                 <div className="relative h-72 w-full">
-                  <Image
-                    src="/images/professional/walmartpic.jpg"
-                    alt="Corporate Leadership"
-                    className="h-full w-full object-cover"
-                    sizes="100vw"
-                    style={{
-                      objectFit: 'cover',
-                      objectPosition: 'center'
-                    }}
-                    fill
-                  />
+                  <div className="absolute inset-0">
+                    <img
+                      src="/images/professional/walmartpic.jpg"
+                      alt="Corporate Leadership"
+                      className="h-full w-full object-cover"
+                    />
+                  </div>
                   <div className="absolute inset-0 bg-gradient-to-b from-transparent to-black/60"></div>
                   <div className="absolute bottom-0 left-0 p-4">
                     <div className="flex items-center">
@@ -361,17 +343,13 @@ export default function AboutPage() {
               {/* Public Service Card */}
               <div className="flex flex-col bg-white rounded-lg shadow-sm overflow-hidden">
                 <div className="relative h-72 w-full">
-                  <Image
-                    src={imagePaths.personal.volunteering}
-                    alt="Public Service"
-                    className="h-full w-full object-cover"
-                    sizes="100vw"
-                    style={{
-                      objectFit: 'cover',
-                      objectPosition: 'center'
-                    }}
-                    fill
-                  />
+                  <div className="absolute inset-0">
+                    <img
+                      src="/images/personal/volunteering.jpg"
+                      alt="Public Service"
+                      className="h-full w-full object-cover"
+                    />
+                  </div>
                   <div className="absolute inset-0 bg-gradient-to-b from-transparent to-black/60"></div>
                   <div className="absolute bottom-0 left-0 p-4">
                     <div className="flex items-center">
@@ -419,37 +397,80 @@ export default function AboutPage() {
       </div>
 
       {/* Values Section */}
-      <div className="mx-auto max-w-7xl px-6 lg:px-8 py-24 sm:py-32">
-        <div className="mx-auto max-w-2xl lg:text-center">
-          <h2 className="text-base font-semibold leading-7 text-red-700">Core Values</h2>
-          <p className="mt-2 text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
-            Principles That Guide My Approach
-          </p>
-          <p className="mt-6 text-lg leading-8 text-gray-600">
-            These foundational values have guided me throughout my military service, business leadership, and will define my approach to public service.
-          </p>
-        </div>
-        <div className="mx-auto mt-16 max-w-2xl sm:mt-20 lg:mt-24 lg:max-w-7xl">
-          <div className="grid grid-cols-1 gap-x-8 gap-y-10 lg:grid-cols-3">
-            {values.map((value) => (
-              <div key={value.name} className="bg-white overflow-hidden rounded-lg shadow-md">
-                <div className="h-48 w-full relative">
-                  <Image
-                    src={value.image}
-                    alt={value.name}
-                    className="h-full w-full object-cover"
-                    fill
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-gray-900/90 to-gray-900/10" />
-                  <div className="absolute bottom-0 left-0 p-4">
-                    <h3 className="text-xl font-bold text-white">{value.name}</h3>
+      <div className="bg-white py-24 sm:py-32">
+        <div className="mx-auto max-w-7xl px-6 lg:px-8">
+          <div className="mx-auto max-w-2xl lg:mx-0">
+            <h2 className="text-base font-semibold leading-7 text-red-700">Values</h2>
+            <p className="mt-2 text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
+              My Guiding Principles
+            </p>
+            <p className="mt-6 text-lg leading-8 text-gray-600">
+              These core values guide my approach to leadership and public service.
+            </p>
+          </div>
+          <div className="mx-auto mt-16 max-w-2xl sm:mt-20 lg:mt-24 lg:max-w-none">
+            <dl className="grid max-w-xl grid-cols-1 gap-x-8 gap-y-16 lg:max-w-none lg:grid-cols-3">
+              <div className="flex flex-col">
+                <dt className="flex items-center gap-x-3 text-base font-semibold leading-7 text-gray-900">
+                  <div className="h-10 w-10 flex items-center justify-center rounded-lg bg-red-700">
+                    <FaShieldAlt className="h-6 w-6 text-white" aria-hidden="true" />
                   </div>
-                </div>
-                <div className="p-6">
-                  <p className="text-gray-600">{value.description}</p>
-                </div>
+                  Integrity
+                </dt>
+                <dd className="mt-4 flex flex-auto flex-col text-base leading-7 text-gray-600">
+                  <p className="flex-auto">
+                    I believe in keeping promises, practicing ethical leadership, and doing what's right even when it's difficult. True integrity means being honest and accountable, not just when it's convenient.
+                  </p>
+                  <div className="mt-6 aspect-[3/2] w-full rounded-lg overflow-hidden">
+                    <img
+                      src="/images/personal/withdaughters.jpg"
+                      alt="Integrity in family life"
+                      className="w-full h-full object-cover"
+                    />
+                  </div>
+                </dd>
               </div>
-            ))}
+              <div className="flex flex-col">
+                <dt className="flex items-center gap-x-3 text-base font-semibold leading-7 text-gray-900">
+                  <div className="h-10 w-10 flex items-center justify-center rounded-lg bg-red-700">
+                    <FaHandshake className="h-6 w-6 text-white" aria-hidden="true" />
+                  </div>
+                  Service
+                </dt>
+                <dd className="mt-4 flex flex-auto flex-col text-base leading-7 text-gray-600">
+                  <p className="flex-auto">
+                    From military service to community involvement, I've dedicated my life to serving others. I believe leadership is fundamentally about service—putting the needs of those you represent above your own.
+                  </p>
+                  <div className="mt-6 aspect-[3/2] w-full rounded-lg overflow-hidden">
+                    <img
+                      src="/images/personal/volunteering.jpg"
+                      alt="Community service"
+                      className="w-full h-full object-cover"
+                    />
+                  </div>
+                </dd>
+              </div>
+              <div className="flex flex-col">
+                <dt className="flex items-center gap-x-3 text-base font-semibold leading-7 text-gray-900">
+                  <div className="h-10 w-10 flex items-center justify-center rounded-lg bg-red-700">
+                    <FaRegLightbulb className="h-6 w-6 text-white" aria-hidden="true" />
+                  </div>
+                  Innovation
+                </dt>
+                <dd className="mt-4 flex flex-auto flex-col text-base leading-7 text-gray-600">
+                  <p className="flex-auto">
+                    My career has been built on finding innovative solutions to complex problems. I believe we need to bring modern, forward-thinking approaches to government while preserving our core values.
+                  </p>
+                  <div className="mt-6 aspect-[3/2] w-full rounded-lg overflow-hidden">
+                    <img
+                      src="/images/professional/tech-advisory.jpg"
+                      alt="Innovation leadership"
+                      className="w-full h-full object-cover"
+                    />
+                  </div>
+                </dd>
+              </div>
+            </dl>
           </div>
         </div>
       </div>
