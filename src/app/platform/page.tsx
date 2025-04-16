@@ -58,7 +58,7 @@ const issues = [
     points: [
       'Implementing policies to stop outsourcing and bring jobs back to America',
       'Reforming labor regulations to support American workers and businesses',
-      'Aligning education and vocational training with in-demand job skills (See Education)',
+      'Aligning education and vocational training with in-demand job skills',
       'Reforming immigration policies to prioritize the American workforce',
       'Reducing regulatory burdens that stifle small business growth and job creation',
       'Championing energy independence to lower costs and create domestic jobs'
@@ -73,13 +73,8 @@ const issues = [
     points: [
       'Supporting law enforcement with modern resources and training',
       'Strengthening border security through technology and barriers',
-      'Combating cyber threats to critical infrastructure',
-      'Advocating for veterans in law enforcement careers',
-      'Protecting communities from transnational criminal organizations',
-      'Creating a Texas Department of Homeland Security to prevent illegal entry and trafficking, and to deport illegal aliens to Mexico or to their nations of origin.',
-      'Prohibiting, with mandatory fines and jail time, individuals, corporations, non-profits, governments, and social media entities from assisting or inciting illegal entry.',
-      'Requiring the use of E-Verify by all employers in Texas with significant penalties for business owners who violate this requirement.',
-      'Ending all subsidies and public services, including in-state college tuition and enrollment in public schools, for illegal aliens, except for emergency medical care.'
+      'Creating a Texas Department of Homeland Security to prevent illegal entry and trafficking',
+      'Requiring the use of E-Verify by all employers in Texas with significant penalties'
     ],
     icon: ShieldCheckIcon,
     image: imagePaths.platform.safety,
@@ -105,13 +100,8 @@ const issues = [
     points: [
       'Empowering parents with school choice options',
       'Increasing vocational and technical training programs',
-      'Supporting merit-based teacher compensation',
-      'Advocating for local control of curriculum',
-      'Expanding access to STEM and computer science education',
-      'Prohibiting taxpayer funding to any entities that permit or promote sexually inappropriate content to minors and legislatively banning instruction on sexual orientation and gender ideology in schools and libraries.',
-      'Repealing affirmative defenses in Texas Penal Code (43.24, 43.25) and redefining "harmful materials" to remove loopholes provided by the modified Miller Test.',
-      'Establishing an independent Inspector General for Education to investigate fraud, waste, abuse, and criminal conduct within schools and refer findings to prosecutorial authorities.',
-      'Compelling superintendents to report sex crimes within schools to outside law enforcement and removing immunity from civil liability for schools and their employees.'
+      'Prohibiting taxpayer funding for entities promoting inappropriate content to minors',
+      'Banning instruction on sexual orientation and gender ideology in schools'
     ],
     icon: AcademicCapIcon,
     image: imagePaths.platform.education,
@@ -135,16 +125,11 @@ const issues = [
     title: 'Secure Texas Elections',
     description: "Securing elections from each citizen's registration to the final count of legal votes.",
     points: [
-      'Requiring proof of citizenship to register to vote.',
-      'Requiring the Counties and the Secretary of State to update the voter rolls at least quarterly.',
-      'Requiring a mandatory photo ID for every election, without exception.',
-      'Restricting mail-in ballots to disabled, military, and eligible citizens who are out of their county for the entire voting period.',
-      'Using only hand-marked, sequentially numbered paper ballots on anti-counterfeiting paper that are signed on the back by the election official at the voting location.',
-      'Standardizing in-person voting, with early voting limited to a period of no longer than nine (9) days, no gap before Election Day, and assigned-precinct voting locations only.',
-      'Counting ballots in precinct using a dumb-scanner method as soon as the ballot is returned by the voter and with publication of the results prior to submission to the County.',
-      'Closing party primaries for only registered Republicans.',
-      'Explicitly codifying the ability of the Attorney General to prosecute violations of the Election Code.',
-      'Removing existing Secretary of State waivers to comply with current Election Code.'
+      'Requiring proof of citizenship to register to vote',
+      'Requiring mandatory photo ID for every election, without exception',
+      'Restricting mail-in ballots to eligible citizens who are out of county, disabled, or military',
+      'Using only hand-marked, sequentially numbered paper ballots',
+      'Closing party primaries to registered Republicans only'
     ],
     icon: LockClosedIcon,
     image: imagePaths.platform.cybersecurity,
@@ -153,7 +138,10 @@ const issues = [
     id: 'no-dem-chairs',
     title: 'No Democrat Chairs',
     description: "The Republican-controlled Texas Legislature shall end the practice of awarding committee chairmanships to Democrats and require all committees to be majority Republican.",
-    points: [],
+    points: [
+      "Ensure legislative committees reflect the Republican majority.",
+      "End strategic appointments benefiting the minority party."
+    ],
     icon: UsersIcon,
     image: imagePaths.professional.veteranLeadership,
   },
@@ -161,7 +149,10 @@ const issues = [
     id: 'ban-lobbying',
     title: 'Ban Taxpayer-Funded Lobbying',
     description: "Prohibiting all forms of taxpayer-funded lobbying, including the use of tax dollars to hire lobbyists and payment of tax dollars to associations that lobby the Legislature.",
-    points: [],
+    points: [
+      "Stop the use of public money to influence lawmakers.",
+      "Eliminate lobbying payments to associations using taxpayer funds."
+    ],
     icon: BanknotesIcon,
     image: imagePaths.platform.fiscal,
   },
@@ -169,7 +160,10 @@ const issues = [
     id: 'grid-security',
     title: 'Secure the Electric Grid',
     description: "Securing the integrity of Texas electricity production and delivery of abundant, reliable, and resilient energy, ensuring that the Texas grid can withstand any natural or manmade threat to include weather, cyber, physical, electromagnetic pulse (EMP) and geomagnetic disturbances (GMD).",
-    points: [],
+    points: [
+      "Strengthen grid resilience against all threats (natural & manmade).",
+      "Ensure reliable and abundant energy production and delivery."
+    ],
     icon: BoltIcon,
     image: imagePaths.platform.infrastructure,
   },
@@ -177,7 +171,10 @@ const issues = [
     id: 'texas-not-for-sale',
     title: 'Texas is Not for Sale',
     description: "Banning the sale of real property in Texas, and discontinuing taxpayer funding and incentives, to governments, entities, and proxies of China, Iran, North Korea, and Russia, and to individuals from these nations who are not legal permanent residents or citizens of the United States.",
-    points: [],
+    points: [
+      "Prohibit land sales to hostile foreign governments and entities.",
+      "End taxpayer funding/incentives benefiting these foreign interests."
+    ],
     icon: BuildingStorefrontIcon,
     image: imagePaths.platform.economy,
   },
