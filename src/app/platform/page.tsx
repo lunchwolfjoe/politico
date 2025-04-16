@@ -24,34 +24,6 @@ console.log('Platform page loaded - rebuilt on May 10, 2024');
 
 const issues = [
   {
-    id: 'economy',
-    title: 'Fiscal Responsibility',
-    description: "As someone who's managed both military operations and business budgets at Walmart and Amazon, I understand that every dollar counts. I will bring a tech executive's efficiency and a veteran's discipline to ensure your tax dollars are spent wisely.",
-    points: [
-      'Zero-based budgeting approach to federal spending',
-      'Cutting wasteful government programs through data-driven analysis',
-      'Transparent financial reporting using modern technology',
-      'Reducing regulatory burdens on small businesses',
-      'Supporting a balanced budget amendment'
-    ],
-    icon: CurrencyDollarIcon,
-    image: imagePaths.platform.fiscal,
-  },
-  {
-    id: 'infrastructure',
-    title: 'Infrastructure & Development',
-    description: "Modern infrastructure is the backbone of American prosperity. I'll work to ensure our roads, bridges, and digital networks are world-class while maintaining fiscal responsibility.",
-    points: [
-      'Modernizing transportation infrastructure with smart technology',
-      'Expanding broadband access to rural communities',
-      'Strengthening energy infrastructure for reliability',
-      'Supporting public-private partnerships for efficiency',
-      'Prioritizing critical infrastructure security'
-    ],
-    icon: BuildingOfficeIcon,
-    image: imagePaths.platform.infrastructure,
-  },
-  {
     id: 'economic-growth',
     title: 'American Jobs & Economic Growth',
     description: "The foundation of American prosperity is the ability for citizens to provide for themselves through good-paying jobs. My top priority is ensuring our government fosters an environment where American jobs flourish, which requires comprehensive reform across labor, education, and immigration sectors to stop outsourcing and prioritize our workforce.",
@@ -78,6 +50,34 @@ const issues = [
     ],
     icon: ShieldCheckIcon,
     image: imagePaths.platform.safety,
+  },
+  {
+    id: 'economy',
+    title: 'Fiscal Responsibility',
+    description: "As someone who's managed both military operations and business budgets at Walmart and Amazon, I understand that every dollar counts. I will bring a tech executive's efficiency and a veteran's discipline to ensure your tax dollars are spent wisely.",
+    points: [
+      'Zero-based budgeting approach to federal spending',
+      'Cutting wasteful government programs through data-driven analysis',
+      'Transparent financial reporting using modern technology',
+      'Reducing regulatory burdens on small businesses',
+      'Supporting a balanced budget amendment'
+    ],
+    icon: CurrencyDollarIcon,
+    image: imagePaths.platform.fiscal,
+  },
+  {
+    id: 'infrastructure',
+    title: 'Infrastructure & Development',
+    description: "Modern infrastructure is the backbone of American prosperity. I'll work to ensure our roads, bridges, and digital networks are world-class while maintaining fiscal responsibility.",
+    points: [
+      'Modernizing transportation infrastructure with smart technology',
+      'Expanding broadband access to rural communities',
+      'Strengthening energy infrastructure for reliability',
+      'Supporting public-private partnerships for efficiency',
+      'Prioritizing critical infrastructure security'
+    ],
+    icon: BuildingOfficeIcon,
+    image: imagePaths.platform.infrastructure,
   },
   {
     id: 'innovation',
