@@ -9,7 +9,14 @@ import {
   AcademicCapIcon,
   HeartIcon,
   RocketLaunchIcon,
-  ScaleIcon
+  ScaleIcon,
+  MapPinIcon,
+  LockClosedIcon,
+  NoSymbolIcon,
+  UsersIcon,
+  BanknotesIcon,
+  BoltIcon,
+  BuildingStorefrontIcon
 } from '@heroicons/react/24/outline';
 
 // Force complete rebuild - updated on May 10, 2024
@@ -60,14 +67,19 @@ const issues = [
     image: imagePaths.platform.economy,
   },
   {
-    title: 'Public Safety',
-    description: "From the battlefield to cybersecurity, I've spent my career protecting Americans. I'll bring this experience to ensure our communities are safe and secure.",
+    id: 'safety-border',
+    title: 'Public Safety & Border Security',
+    description: "From the battlefield to the border, I've spent my career protecting Americans. I'll bring this experience to ensure our communities are safe, repel invasion, and deter illegal immigration.",
     points: [
       'Supporting law enforcement with modern resources and training',
       'Strengthening border security through technology and barriers',
       'Combating cyber threats to critical infrastructure',
       'Advocating for veterans in law enforcement careers',
-      'Protecting communities from transnational criminal organizations'
+      'Protecting communities from transnational criminal organizations',
+      'Creating a Texas Department of Homeland Security to prevent illegal entry and trafficking, and to deport illegal aliens to Mexico or to their nations of origin.',
+      'Prohibiting, with mandatory fines and jail time, individuals, corporations, non-profits, governments, and social media entities from assisting or inciting illegal entry.',
+      'Requiring the use of E-Verify by all employers in Texas with significant penalties for business owners who violate this requirement.',
+      'Ending all subsidies and public services, including in-state college tuition and enrollment in public schools, for illegal aliens, except for emergency medical care.'
     ],
     icon: ShieldCheckIcon,
     image: imagePaths.platform.safety,
@@ -87,14 +99,19 @@ const issues = [
     image: imagePaths.platform.cybersecurity,
   },
   {
-    title: 'Education',
-    description: "Quality education is the foundation of American opportunity. I'll work to ensure all Texans have access to excellent schools that prepare them for success in the 21st century economy.",
+    id: 'education-protect-kids',
+    title: 'Education & Protecting Children',
+    description: "Quality education is the foundation of American opportunity. I'll work to ensure all Texans have access to excellent schools that prepare them for success while stopping the sexualization of minors, which leads to abuse and exploitation.",
     points: [
       'Empowering parents with school choice options',
       'Increasing vocational and technical training programs',
       'Supporting merit-based teacher compensation',
       'Advocating for local control of curriculum',
-      'Expanding access to STEM and computer science education'
+      'Expanding access to STEM and computer science education',
+      'Prohibiting taxpayer funding to any entities that permit or promote sexually inappropriate content to minors and legislatively banning instruction on sexual orientation and gender ideology in schools and libraries.',
+      'Repealing affirmative defenses in Texas Penal Code (43.24, 43.25) and redefining "harmful materials" to remove loopholes provided by the modified Miller Test.',
+      'Establishing an independent Inspector General for Education to investigate fraud, waste, abuse, and criminal conduct within schools and refer findings to prosecutorial authorities.',
+      'Compelling superintendents to report sex crimes within schools to outside law enforcement and removing immunity from civil liability for schools and their employees.'
     ],
     icon: AcademicCapIcon,
     image: imagePaths.platform.education,
@@ -112,6 +129,57 @@ const issues = [
     ],
     icon: ScaleIcon,
     image: imagePaths.professional.veteranLeadership,
+  },
+  {
+    id: 'elections',
+    title: 'Secure Texas Elections',
+    description: "Securing elections from each citizen's registration to the final count of legal votes.",
+    points: [
+      'Requiring proof of citizenship to register to vote.',
+      'Requiring the Counties and the Secretary of State to update the voter rolls at least quarterly.',
+      'Requiring a mandatory photo ID for every election, without exception.',
+      'Restricting mail-in ballots to disabled, military, and eligible citizens who are out of their county for the entire voting period.',
+      'Using only hand-marked, sequentially numbered paper ballots on anti-counterfeiting paper that are signed on the back by the election official at the voting location.',
+      'Standardizing in-person voting, with early voting limited to a period of no longer than nine (9) days, no gap before Election Day, and assigned-precinct voting locations only.',
+      'Counting ballots in precinct using a dumb-scanner method as soon as the ballot is returned by the voter and with publication of the results prior to submission to the County.',
+      'Closing party primaries for only registered Republicans.',
+      'Explicitly codifying the ability of the Attorney General to prosecute violations of the Election Code.',
+      'Removing existing Secretary of State waivers to comply with current Election Code.'
+    ],
+    icon: LockClosedIcon,
+    image: imagePaths.platform.cybersecurity,
+  },
+  {
+    id: 'no-dem-chairs',
+    title: 'No Democrat Chairs',
+    description: "The Republican-controlled Texas Legislature shall end the practice of awarding committee chairmanships to Democrats and require all committees to be majority Republican.",
+    points: [],
+    icon: UsersIcon,
+    image: imagePaths.professional.veteranLeadership,
+  },
+  {
+    id: 'ban-lobbying',
+    title: 'Ban Taxpayer-Funded Lobbying',
+    description: "Prohibiting all forms of taxpayer-funded lobbying, including the use of tax dollars to hire lobbyists and payment of tax dollars to associations that lobby the Legislature.",
+    points: [],
+    icon: BanknotesIcon,
+    image: imagePaths.platform.fiscal,
+  },
+  {
+    id: 'grid-security',
+    title: 'Secure the Electric Grid',
+    description: "Securing the integrity of Texas electricity production and delivery of abundant, reliable, and resilient energy, ensuring that the Texas grid can withstand any natural or manmade threat to include weather, cyber, physical, electromagnetic pulse (EMP) and geomagnetic disturbances (GMD).",
+    points: [],
+    icon: BoltIcon,
+    image: imagePaths.platform.infrastructure,
+  },
+  {
+    id: 'texas-not-for-sale',
+    title: 'Texas is Not for Sale',
+    description: "Banning the sale of real property in Texas, and discontinuing taxpayer funding and incentives, to governments, entities, and proxies of China, Iran, North Korea, and Russia, and to individuals from these nations who are not legal permanent residents or citizens of the United States.",
+    points: [],
+    icon: BuildingStorefrontIcon,
+    image: imagePaths.platform.economy,
   },
 ];
 
@@ -171,7 +239,7 @@ export default function PlatformPage() {
         </div>
         <div className="mx-auto mt-16 grid max-w-2xl grid-cols-1 gap-x-8 gap-y-20 lg:mx-0 lg:max-w-none lg:grid-cols-2">
           {issues.map((issue) => (
-            <article key={issue.title} id={issue.id} className="flex flex-col items-start">
+            <article key={issue.id ?? issue.title} id={issue.id} className="flex flex-col items-start">
               <div className="relative w-full">
                 <div className="aspect-[16/9] w-full rounded-2xl overflow-hidden bg-gray-100">
                   <Image
@@ -199,16 +267,18 @@ export default function PlatformPage() {
                   </h3>
                   <p className="mt-5 text-base leading-6 text-gray-600">{issue.description}</p>
                 </div>
-                <div className="mt-6">
-                  <ul className="space-y-3">
-                    {issue.points.map((point, index) => (
-                      <li key={index} className="flex gap-x-3">
-                        <span className="text-red-700 font-bold">•</span>
-                        <span>{point}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
+                {issue.points && issue.points.length > 0 && (
+                  <div className="mt-6">
+                    <ul className="space-y-3">
+                      {issue.points.map((point, index) => (
+                        <li key={index} className="flex gap-x-3">
+                          <span className="text-red-700 font-bold">•</span>
+                          <span>{point}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
               </div>
             </article>
           ))}
