@@ -240,7 +240,12 @@ export default function HomePage() {
                         src={feature.image}
                         alt={feature.name}
                         className="h-full w-full object-cover object-center"
-                        style={{ maxHeight: "100%" }}
+                        style={{ 
+                          maxHeight: "100%", 
+                          objectPosition: feature.name === "Military & Legal Experience" ? "center 30%" : 
+                                          feature.name === "Corporate Leadership" ? "center 20%" :
+                                          feature.name === "Tech Innovator" ? "center 15%" : "center"
+                        }}
                       />
                     </div>
                     <div className="absolute top-0 left-0 flex h-10 w-10 items-center justify-center rounded-br-lg bg-red-700">
@@ -272,7 +277,12 @@ export default function HomePage() {
                         src={feature.image}
                         alt={feature.name}
                         className="h-full w-full object-cover object-center"
-                        style={{ maxHeight: "100%" }}
+                        style={{ 
+                          maxHeight: "100%", 
+                          objectPosition: feature.name === "Constitutional Conservative" ? "center 25%" : 
+                                          feature.name === "Economic Strategist" ? "center 20%" :
+                                          feature.name === "Texas Values" ? "center 30%" : "center"
+                        }}
                       />
                     </div>
                     <div className="absolute top-0 left-0 flex h-10 w-10 items-center justify-center rounded-br-lg bg-red-700">
