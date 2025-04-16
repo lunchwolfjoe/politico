@@ -11,6 +11,9 @@ export const imagePaths = {
     warehouseHourlyStaff: '/images/professional/warehousehourlystaff.jpg',
     warehouseLeadership: '/images/professional/warehouse leadershippic.jpg',
     walmartPic: '/images/professional/walmartpic.jpg',
+    walmartCheck: '/images/professional/Walmartcheck.JPG',
+    amazonFlow: '/images/professional/amazonflow.jpg',
+    amazonCrew: '/images/professional/amazoncrew.jpg',
   },
   personal: {
     family: '/images/personal/family.jpg',

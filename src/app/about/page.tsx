@@ -140,9 +140,9 @@ export default function AboutPage() {
                 <div className="mt-1 h-12 w-12 flex-none rounded-full bg-gray-50 overflow-hidden">
                   <img
                     src="/images/personal/thinkerheadshot.jpg"
-                    alt="N. Lee Plumb headshot"
+                  alt="N. Lee Plumb headshot"
                     className="h-full w-full object-cover"
-                  />
+                />
                 </div>
                 <div className="text-sm leading-6">
                   <div className="font-semibold text-gray-900">N. Lee Plumb</div>
@@ -198,10 +198,10 @@ export default function AboutPage() {
               <div className="aspect-[16/9] w-full rounded-2xl overflow-hidden sm:aspect-[3/2]">
                 <img
                   src="/images/personal/withdaughters.jpg"
-                  alt="Candidate with family"
+                alt="Candidate with family"
                   className="w-full h-full object-cover object-center"
                   style={{ objectPosition: "center 30%" }}
-                />
+              />
               </div>
             </div>
           </div>
@@ -280,7 +280,7 @@ export default function AboutPage() {
                 <div className="relative h-72 w-full">
                   <div className="absolute inset-0">
                     <img
-                      src="/images/professional/walmartpic.jpg"
+                      src={imagePaths.professional.walmartCheck}
                       alt="Corporate Leadership"
                       className="h-full w-full object-cover object-center"
                       style={{ objectPosition: "center 15%" }}
@@ -367,8 +367,8 @@ export default function AboutPage() {
                     <li className="flex gap-x-3 items-start">
                       <TrophyIcon className="h-5 w-5 flex-shrink-0 text-red-700 mt-0.5" aria-hidden="true" />
                       <span className="text-sm text-gray-600">Volunteer leader with multiple veterans' service organizations</span>
-                    </li>
-                  </ul>
+                        </li>
+                    </ul>
                   
                   <div className="mt-6 pt-4 border-t border-gray-100">
                     <a
@@ -390,13 +390,13 @@ export default function AboutPage() {
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
           <div className="mx-auto max-w-2xl lg:mx-0">
             <h2 className="text-base font-semibold leading-7 text-red-700">Values</h2>
-            <p className="mt-2 text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
+          <p className="mt-2 text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
               My Guiding Principles
-            </p>
-            <p className="mt-6 text-lg leading-8 text-gray-600">
+          </p>
+          <p className="mt-6 text-lg leading-8 text-gray-600">
               These core values guide my approach to leadership and public service.
-            </p>
-          </div>
+          </p>
+        </div>
           <div className="mx-auto mt-16 max-w-2xl sm:mt-20 lg:mt-24 lg:max-w-none">
             <dl className="grid max-w-xl grid-cols-1 gap-x-8 gap-y-16 lg:max-w-none lg:grid-cols-3">
               <div className="flex flex-col">
@@ -412,8 +412,8 @@ export default function AboutPage() {
                   </p>
                   <div className="mt-6 aspect-[3/2] w-full rounded-lg overflow-hidden">
                     <img
-                      src="/images/personal/family.jpg"
-                      alt="Integrity in family life"
+                      src={imagePaths.personal.parade}
+                      alt="Integrity in leadership"
                       className="w-full h-full object-cover object-center"
                     />
                   </div>
@@ -432,8 +432,8 @@ export default function AboutPage() {
                   </p>
                   <div className="mt-6 aspect-[3/2] w-full rounded-lg overflow-hidden">
                     <img
-                      src="/images/personal/parade.jpg"
-                      alt="Community service"
+                      src={imagePaths.professional.amazonCrew}
+                      alt="Service and leadership"
                       className="w-full h-full object-cover object-center"
                     />
                   </div>
@@ -452,14 +452,14 @@ export default function AboutPage() {
                   </p>
                   <div className="mt-6 aspect-[3/2] w-full rounded-lg overflow-hidden">
                     <img
-                      src="/images/professional/tech-advisory.jpg"
+                      src={imagePaths.professional.amazonFlow}
                       alt="Innovation leadership"
                       className="w-full h-full object-cover object-center"
                     />
                   </div>
                 </dd>
               </div>
-            </dl>
+          </dl>
           </div>
         </div>
       </div>
