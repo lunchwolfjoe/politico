@@ -13,7 +13,6 @@ const navigation = [
   { name: 'Get Involved', href: '/volunteer' },
   { name: 'News', href: '/news' },
   { name: 'Contact', href: '/contact' },
-  { name: 'Dashboard', href: '/dashboard' },
 ];
 
 export default function Navigation() {
@@ -46,12 +45,6 @@ export default function Navigation() {
                 {item.name}
               </Link>
             ))}
-            <Link
-              href="/donate"
-              className="inline-flex items-center justify-center rounded-md border border-transparent bg-red-700 px-5 py-2 text-base font-medium text-white hover:bg-red-800 focus:outline-none focus:ring-2 focus:ring-red-700 focus:ring-offset-2"
-            >
-              Donate
-            </Link>
           </div>
 
           {/* Mobile menu button */}
@@ -85,13 +78,6 @@ export default function Navigation() {
                   {item.name}
                 </Link>
               ))}
-              <Link
-                href="/donate"
-                className="block w-full rounded-md bg-red-700 px-3 py-3 text-center text-base font-medium text-white hover:bg-red-800"
-                onClick={() => setMobileMenuOpen(false)}
-              >
-                Donate
-              </Link>
             </div>
           </div>
         )}

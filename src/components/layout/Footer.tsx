@@ -18,7 +18,6 @@ const navigation = {
     { name: 'Platform', href: '/platform' },
     { name: 'Get Involved', href: '/volunteer' },
     { name: 'News', href: '/news' },
-    { name: 'Donate', href: '/donate' },
     { name: 'Contact', href: '/contact' },
   ],
   social: [
