@@ -421,7 +421,7 @@ export const articles: Article[] = [
       
       <p>Not for ideology. For results.</p>
     `,
-    imagePath: "/images/platform/infrastructure.jpg"
+    imagePath: "/Substacks/chainsaw.webp"
   },
   {
     id: 'delay-is-damage',
@@ -535,7 +535,7 @@ export const articles: Article[] = [
       
       <p>Time isn't just money. It's life itself. And no bureaucracy should have the power to weaponize it against the people it serves.</p>
     `,
-    imagePath: "/images/platform/safety.jpg"
+    imagePath: "/Substacks/seized in real time.webp"
   },
   {
     id: 'judicial-overreach',
@@ -639,7 +639,7 @@ export const articles: Article[] = [
       
       <p>Because in America, the people should have the final word. Not those in black robes.</p>
     `,
-    imagePath: "/images/platform/safety.jpg"
+    imagePath: "/Substacks/one judge.webp"
   },
   {
     id: 'daughter-college-rejection',
@@ -767,7 +767,7 @@ export const articles: Article[] = [
       
       <p>Not because it's easy. But because it's the country we promised to be.</p>
     `,
-    imagePath: "/images/education.jpg"
+    imagePath: "/Substacks/she didnt get in.webp"
   }
 ];
 
