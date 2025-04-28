@@ -17,14 +17,14 @@ const contactInfo = [
   },
   {
     name: 'Phone',
-    description: '(555) 123-4567',
+    description: '(832) 422-7109',
     icon: PhoneIcon,
-    href: 'tel:+15551234567',
+    href: 'tel:+18324227109',
     image: imagePaths.contact.phone,
   },
   {
     name: 'Office',
-    description: '123 Campaign Street, City, State 12345',
+    description: '21175 State Hwy 249, Ste. 272, Houston, TX 77070-1655',
     icon: MapPinIcon,
     href: 'https://maps.google.com',
     image: imagePaths.contact.office,

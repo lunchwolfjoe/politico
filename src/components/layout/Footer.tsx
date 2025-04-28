@@ -141,14 +141,14 @@ export default function Footer() {
                 </li>
                 <li className="flex items-center">
                   <PhoneIcon className="h-5 w-5 text-red-700 mr-2" aria-hidden="true" />
-                  <a href="tel:+15551234567" className="text-sm leading-6 text-gray-300 hover:text-white">
-                    (555) 123-4567
+                  <a href="tel:+18324227109" className="text-sm leading-6 text-gray-300 hover:text-white">
+                    (832) 422-7109
                   </a>
                 </li>
                 <li className="flex items-center">
                   <MapPinIcon className="h-5 w-5 text-red-700 mr-2" aria-hidden="true" />
                   <span className="text-sm leading-6 text-gray-300">
-                    123 Campaign St, Austin, TX 78701
+                    21175 State Hwy 249, Ste. 272, Houston, TX 77070-1655
                   </span>
                 </li>
               </ul>
