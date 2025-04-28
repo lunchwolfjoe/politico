@@ -1,6 +1,5 @@
 import Image from 'next/image';
 import Link from 'next/link';
-import { imagePaths } from '@/lib/image-paths';
 import { 
   CurrencyDollarIcon, 
   ShieldCheckIcon, 
@@ -9,48 +8,10 @@ import {
   AcademicCapIcon,
   HeartIcon,
   RocketLaunchIcon,
-  ScaleIcon,
-  MapPinIcon,
-  LockClosedIcon,
-  NoSymbolIcon,
-  UsersIcon,
-  BanknotesIcon,
-  BoltIcon,
-  BuildingStorefrontIcon
+  ScaleIcon
 } from '@heroicons/react/24/outline';
 
-// Force complete rebuild - updated on May 10, 2024
-console.log('Platform page loaded - rebuilt on May 10, 2024');
-
 const issues = [
-  {
-    id: 'economic-growth',
-    title: 'American Jobs & Economic Growth',
-    description: "The foundation of American prosperity is the ability for citizens to provide for themselves through good-paying jobs. My top priority is ensuring our government fosters an environment where American jobs flourish, which requires comprehensive reform across labor, education, and immigration sectors to stop outsourcing and prioritize our workforce.",
-    points: [
-      'Implementing policies to stop outsourcing and bring jobs back to America',
-      'Reforming labor regulations to support American workers and businesses',
-      'Aligning education and vocational training with in-demand job skills',
-      'Reforming immigration policies to prioritize the American workforce',
-      'Reducing regulatory burdens that stifle small business growth and job creation',
-      'Championing energy independence to lower costs and create domestic jobs'
-    ],
-    icon: ChartBarIcon,
-    image: imagePaths.platform.economy,
-  },
-  {
-    id: 'safety-border',
-    title: 'Public Safety & Border Security',
-    description: "From the battlefield to the border, I've spent my career protecting Americans. I'll bring this experience to ensure our communities are safe, repel invasion, and deter illegal immigration.",
-    points: [
-      'Supporting law enforcement with modern resources and training',
-      'Strengthening border security through technology and barriers',
-      'Creating a Texas Department of Homeland Security to prevent illegal entry and trafficking',
-      'Requiring the use of E-Verify by all employers in Texas with significant penalties'
-    ],
-    icon: ShieldCheckIcon,
-    image: imagePaths.platform.safety,
-  },
   {
     id: 'economy',
     title: 'Fiscal Responsibility',
@@ -63,7 +24,7 @@ const issues = [
       'Supporting a balanced budget amendment'
     ],
     icon: CurrencyDollarIcon,
-    image: imagePaths.platform.fiscal,
+    image: '/images/fiscal.jpg',
   },
   {
     id: 'infrastructure',
@@ -77,7 +38,33 @@ const issues = [
       'Prioritizing critical infrastructure security'
     ],
     icon: BuildingOfficeIcon,
-    image: imagePaths.platform.infrastructure,
+    image: '/images/infrastructure.jpg',
+  },
+  {
+    title: 'Economic Growth',
+    description: "Texas's future lies in embracing both our traditional strengths and new opportunities. I'll work to create an environment where businesses can thrive and create good-paying jobs for Texas families.",
+    points: [
+      'Attracting high-tech industries to Texas through innovation incentives',
+      'Supporting small business growth with reduced regulations',
+      'Modernizing infrastructure for the digital age',
+      'Developing workforce programs that address skills gaps',
+      'Championing energy independence through all domestic sources'
+    ],
+    icon: ChartBarIcon,
+    image: '/images/economy.jpg',
+  },
+  {
+    title: 'Public Safety',
+    description: "From the battlefield to cybersecurity, I've spent my career protecting Americans. I'll bring this experience to ensure our communities are safe and secure.",
+    points: [
+      'Supporting law enforcement with modern resources and training',
+      'Strengthening border security through technology and barriers',
+      'Combating cyber threats to critical infrastructure',
+      'Advocating for veterans in law enforcement careers',
+      'Protecting communities from transnational criminal organizations'
+    ],
+    icon: ShieldCheckIcon,
+    image: '/images/safety.jpg',
   },
   {
     id: 'innovation',
@@ -91,20 +78,20 @@ const issues = [
       'Reducing red tape for technology startups and entrepreneurs'
     ],
     icon: RocketLaunchIcon,
-    image: imagePaths.platform.cybersecurity,
+    image: '/images/infrastructure.jpg',
   },
   {
-    id: 'education-protect-kids',
-    title: 'Education & Protecting Children',
-    description: "Quality education is the foundation of American opportunity. I'll work to ensure all Texans have access to excellent schools that prepare them for success while stopping the sexualization of minors, which leads to abuse and exploitation.",
+    title: 'Education',
+    description: "Quality education is the foundation of American opportunity. I'll work to ensure all Texans have access to excellent schools that prepare them for success in the 21st century economy.",
     points: [
       'Empowering parents with school choice options',
       'Increasing vocational and technical training programs',
-      'Prohibiting taxpayer funding for entities promoting inappropriate content to minors',
-      'Banning instruction on sexual orientation and gender ideology in schools'
+      'Supporting merit-based teacher compensation',
+      'Advocating for local control of curriculum',
+      'Expanding access to STEM and computer science education'
     ],
     icon: AcademicCapIcon,
-    image: imagePaths.platform.education,
+    image: '/images/education.jpg',
   },
   {
     id: 'values',
@@ -118,65 +105,7 @@ const issues = [
       'Strengthening property rights against government takings'
     ],
     icon: ScaleIcon,
-    image: imagePaths.professional.veteranLeadership,
-  },
-  {
-    id: 'elections',
-    title: 'Secure Texas Elections',
-    description: "Securing elections from each citizen's registration to the final count of legal votes.",
-    points: [
-      'Requiring proof of citizenship to register to vote',
-      'Requiring mandatory photo ID for every election, without exception',
-      'Restricting mail-in ballots to eligible citizens who are out of county, disabled, or military',
-      'Using only hand-marked, sequentially numbered paper ballots',
-      'Closing party primaries to registered Republicans only'
-    ],
-    icon: LockClosedIcon,
-    image: imagePaths.platform.cybersecurity,
-  },
-  {
-    id: 'no-dem-chairs',
-    title: 'No Democrat Chairs',
-    description: "The Republican-controlled Texas Legislature shall end the practice of awarding committee chairmanships to Democrats and require all committees to be majority Republican.",
-    points: [
-      "Ensure legislative committees reflect the Republican majority.",
-      "End strategic appointments benefiting the minority party."
-    ],
-    icon: UsersIcon,
-    image: imagePaths.professional.veteranLeadership,
-  },
-  {
-    id: 'ban-lobbying',
-    title: 'Ban Taxpayer-Funded Lobbying',
-    description: "Prohibiting all forms of taxpayer-funded lobbying, including the use of tax dollars to hire lobbyists and payment of tax dollars to associations that lobby the Legislature.",
-    points: [
-      "Stop the use of public money to influence lawmakers.",
-      "Eliminate lobbying payments to associations using taxpayer funds."
-    ],
-    icon: BanknotesIcon,
-    image: imagePaths.platform.fiscal,
-  },
-  {
-    id: 'grid-security',
-    title: 'Secure the Electric Grid',
-    description: "Securing the integrity of Texas electricity production and delivery of abundant, reliable, and resilient energy, ensuring that the Texas grid can withstand any natural or manmade threat to include weather, cyber, physical, electromagnetic pulse (EMP) and geomagnetic disturbances (GMD).",
-    points: [
-      "Strengthen grid resilience against all threats (natural & manmade).",
-      "Ensure reliable and abundant energy production and delivery."
-    ],
-    icon: BoltIcon,
-    image: imagePaths.platform.infrastructure,
-  },
-  {
-    id: 'texas-not-for-sale',
-    title: 'Texas is Not for Sale',
-    description: "Banning the sale of real property in Texas, and discontinuing taxpayer funding and incentives, to governments, entities, and proxies of China, Iran, North Korea, and Russia, and to individuals from these nations who are not legal permanent residents or citizens of the United States.",
-    points: [
-      "Prohibit land sales to hostile foreign governments and entities.",
-      "End taxpayer funding/incentives benefiting these foreign interests."
-    ],
-    icon: BuildingStorefrontIcon,
-    image: imagePaths.platform.economy,
+    image: '/images/healthcare.jpg',
   },
 ];
 
@@ -187,8 +116,8 @@ export default function PlatformPage() {
       <div className="relative isolate overflow-hidden">
         <div className="absolute inset-0">
           <Image
-            src={imagePaths.platform.hero}
-            alt="Platform vision and American values"
+            src="/images/platform-hero.jpg"
+            alt="American flag"
             className="h-full w-full object-cover"
             width={1920}
             height={1080}
@@ -232,12 +161,11 @@ export default function PlatformPage() {
           </p>
           <p className="mt-6 text-lg leading-8 text-gray-600">
             These key issues reflect my commitment to conservative principles and innovative solutions.
-            Read my <Link href="/articles" className="text-red-700 hover:text-red-800 font-semibold">in-depth articles</Link> for more detailed policy positions.
           </p>
         </div>
         <div className="mx-auto mt-16 grid max-w-2xl grid-cols-1 gap-x-8 gap-y-20 lg:mx-0 lg:max-w-none lg:grid-cols-2">
           {issues.map((issue) => (
-            <article key={issue.id ?? issue.title} id={issue.id} className="flex flex-col items-start">
+            <article key={issue.title} id={issue.id} className="flex flex-col items-start">
               <div className="relative w-full">
                 <div className="aspect-[16/9] w-full rounded-2xl overflow-hidden bg-gray-100">
                   <Image
@@ -264,54 +192,17 @@ export default function PlatformPage() {
                     {issue.title}
                   </h3>
                   <p className="mt-5 text-base leading-6 text-gray-600">{issue.description}</p>
-                  {issue.id === 'infrastructure' && (
-                    <p className="mt-3 text-sm text-red-700">
-                      <Link href="/articles/chainsaw-bureaucracy" className="hover:underline">
-                        Read "Chainsaw the Bureaucracy: Why Red Tape Protects the Powerful, Not the People" →
-                      </Link>
-                    </p>
-                  )}
-                  {issue.id === 'values' && (
-                    <p className="mt-3 text-sm text-red-700">
-                      <Link href="/articles/judicial-overreach" className="hover:underline">
-                        Read "Vetoed by the Robe: How Judicial Overreach Is Undermining the Will of the People" →
-                      </Link>
-                    </p>
-                  )}
-                  {issue.id === 'innovation' && (
-                    <p className="mt-3 text-sm text-red-700">
-                      <Link href="/articles/censorship-by-algorithm" className="hover:underline">
-                        Read "Censorship by Algorithm: The Quiet War on American Speech" →
-                      </Link>
-                    </p>
-                  )}
-                  {issue.id === 'economy' && (
-                    <p className="mt-3 text-sm text-red-700">
-                      <Link href="/articles/delay-is-damage" className="hover:underline">
-                        Read "The Delay Is the Damage: How Government Weaponizes the Wait" →
-                      </Link>
-                    </p>
-                  )}
-                  {issue.id === 'education-protect-kids' && (
-                    <p className="mt-3 text-sm text-red-700">
-                      <Link href="/articles/daughter-college-rejection" className="hover:underline">
-                        Read "She Didn't Get In—And That's When I Realized the System Isn't Broken..." →
-                      </Link>
-                    </p>
-                  )}
                 </div>
-                {issue.points && issue.points.length > 0 && (
-                  <div className="mt-6">
-                    <ul className="space-y-3">
-                      {issue.points.map((point, index) => (
-                        <li key={index} className="flex gap-x-3">
-                          <span className="text-red-700 font-bold">•</span>
-                          <span>{point}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                )}
+                <div className="mt-6">
+                  <ul className="space-y-3">
+                    {issue.points.map((point, index) => (
+                      <li key={index} className="flex gap-x-3">
+                        <span className="text-red-700 font-bold">•</span>
+                        <span>{point}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
               </div>
             </article>
           ))}
@@ -331,71 +222,44 @@ export default function PlatformPage() {
         </div>
         <div className="mx-auto mt-16 max-w-2xl sm:mt-20 lg:mt-24 lg:max-w-none">
           <dl className="grid max-w-xl grid-cols-1 gap-x-8 gap-y-16 lg:max-w-none lg:grid-cols-3">
-            <div className="flex flex-col overflow-hidden rounded-lg shadow-sm">
-              <div className="relative h-48 w-full">
-                <Image
-                  src={imagePaths.personal.merica}
-                  alt="Constitutional Fidelity"
-                  className="h-full w-full object-cover"
-                  fill
-                />
-                <div className="absolute inset-0 bg-gradient-to-b from-transparent to-red-900/70"></div>
-                <div className="absolute bottom-0 left-0 p-4 flex items-center">
-                  <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-red-700">
-                    <ScaleIcon className="h-6 w-6 text-white" aria-hidden="true" />
-                  </div>
-                  <span className="ml-3 text-lg font-semibold text-white">Constitutional Fidelity</span>
+            <div className="flex flex-col">
+              <dt className="text-base font-semibold leading-7 text-gray-900">
+                <div className="mb-6 flex h-10 w-10 items-center justify-center rounded-lg bg-red-700">
+                  <ScaleIcon className="h-6 w-6 text-white" aria-hidden="true" />
                 </div>
-              </div>
-              <div className="flex-1 p-6 bg-white">
-                <p className="text-base leading-7 text-gray-600">
+                Constitutional Fidelity
+              </dt>
+              <dd className="mt-1 flex flex-auto flex-col text-base leading-7 text-gray-600">
+                <p className="flex-auto">
                   I believe our Constitution is not a living document but an enduring covenant that must be protected and preserved in its original meaning and intent.
                 </p>
-              </div>
+              </dd>
             </div>
-            <div className="flex flex-col overflow-hidden rounded-lg shadow-sm">
-              <div className="relative h-48 w-full">
-                <Image
-                  src={imagePaths.platform.fiscal}
-                  alt="Limited Government"
-                  className="h-full w-full object-cover"
-                  fill
-                />
-                <div className="absolute inset-0 bg-gradient-to-b from-transparent to-red-900/70"></div>
-                <div className="absolute bottom-0 left-0 p-4 flex items-center">
-                  <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-red-700">
-                    <CurrencyDollarIcon className="h-6 w-6 text-white" aria-hidden="true" />
-                  </div>
-                  <span className="ml-3 text-lg font-semibold text-white">Limited Government</span>
+            <div className="flex flex-col">
+              <dt className="text-base font-semibold leading-7 text-gray-900">
+                <div className="mb-6 flex h-10 w-10 items-center justify-center rounded-lg bg-red-700">
+                  <CurrencyDollarIcon className="h-6 w-6 text-white" aria-hidden="true" />
                 </div>
-              </div>
-              <div className="flex-1 p-6 bg-white">
-                <p className="text-base leading-7 text-gray-600">
+                Limited Government
+              </dt>
+              <dd className="mt-1 flex flex-auto flex-col text-base leading-7 text-gray-600">
+                <p className="flex-auto">
                   The best government is that which governs least. I believe in reducing the size, scope, and reach of the federal government in our daily lives.
                 </p>
-              </div>
+              </dd>
             </div>
-            <div className="flex flex-col overflow-hidden rounded-lg shadow-sm">
-              <div className="relative h-48 w-full">
-                <Image
-                  src={imagePaths.professional.veteranLeadership}
-                  alt="Strong National Defense"
-                  className="h-full w-full object-cover"
-                  fill
-                />
-                <div className="absolute inset-0 bg-gradient-to-b from-transparent to-red-900/70"></div>
-                <div className="absolute bottom-0 left-0 p-4 flex items-center">
-                  <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-red-700">
-                    <ShieldCheckIcon className="h-6 w-6 text-white" aria-hidden="true" />
-                  </div>
-                  <span className="ml-3 text-lg font-semibold text-white">Strong National Defense</span>
+            <div className="flex flex-col">
+              <dt className="text-base font-semibold leading-7 text-gray-900">
+                <div className="mb-6 flex h-10 w-10 items-center justify-center rounded-lg bg-red-700">
+                  <ShieldCheckIcon className="h-6 w-6 text-white" aria-hidden="true" />
                 </div>
-              </div>
-              <div className="flex-1 p-6 bg-white">
-                <p className="text-base leading-7 text-gray-600">
+                Strong National Defense
+              </dt>
+              <dd className="mt-1 flex flex-auto flex-col text-base leading-7 text-gray-600">
+                <p className="flex-auto">
                   As a veteran, I believe America must maintain the strongest, most lethal fighting force in the world to protect our interests and deter our adversaries.
                 </p>
-              </div>
+              </dd>
             </div>
           </dl>
         </div>
@@ -405,7 +269,7 @@ export default function PlatformPage() {
       <div className="relative">
         <div className="absolute inset-0">
           <Image
-            src={imagePaths.general.platformCta}
+            src="/images/platform-cta.jpg"
             alt="American flag"
             className="h-full w-full object-cover"
             width={1920}

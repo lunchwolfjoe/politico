@@ -3,7 +3,9 @@ import Link from 'next/link';
 import { imagePaths } from '@/lib/image-paths';
 import { 
   MegaphoneIcon,
-  PhoneIcon
+  PhoneIcon,
+  DocumentTextIcon,
+  UserGroupIcon
 } from '@heroicons/react/24/outline';
 
 const newsItems = [
@@ -15,11 +17,29 @@ const newsItems = [
     icon: MegaphoneIcon,
     link: "/news/campaign-launch",
     image: imagePaths.general.digitalPlatform
+  },
+  {
+    title: "Fiscal Responsibility Through Veterans Leadership",
+    date: "May 10, 2025",
+    category: "Policy Paper",
+    description: "New policy paper outlines how military leadership principles can transform government spending and bring fiscal discipline to Washington. Learn how veterans' experience creates accountability.",
+    icon: DocumentTextIcon,
+    link: "/news/fiscal-policy",
+    image: imagePaths.platform.fiscal
+  },
+  {
+    title: "Veterans For Responsible Government Coalition Announces Support",
+    date: "May 15, 2025",
+    category: "Endorsement",
+    description: "A coalition of veterans organizations endorses campaign platform focused on fiscal discipline and responsible governance learned through military service.",
+    icon: UserGroupIcon,
+    link: "/news/veterans-coalition",
+    image: imagePaths.professional.veteranLeadership
   }
 ];
 
 const featuredNews = newsItems[0];
-const recentNews = [];
+const recentNews = newsItems.slice(1);
 const allNews = newsItems;
 
 export default function NewsPage() {
@@ -55,10 +75,10 @@ export default function NewsPage() {
         <div className="mx-auto max-w-2xl lg:mx-0">
           <h2 className="text-base font-semibold leading-7 text-red-700">Latest News</h2>
           <p className="mt-2 text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
-            Campaign Launch
+            From the Campaign Trail
           </p>
           <p className="mt-3 text-lg text-gray-600">
-            For more in-depth policy discussions and opinion pieces, check out our <Link href="/articles" className="text-red-700 hover:underline">articles section</Link>.
+            Campaign updates, policy announcements, and endorsements from our campaign.
           </p>
         </div>
         
@@ -132,6 +152,50 @@ export default function NewsPage() {
                 </li>
               </ul>
             </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Recent News Items */}
+      <div className="bg-gray-50 py-24">
+        <div className="mx-auto max-w-7xl px-6 lg:px-8">
+          <div className="mx-auto max-w-2xl text-center">
+            <h2 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">Recent Updates</h2>
+            <p className="mt-2 text-lg leading-8 text-gray-600">
+              Stay informed with our latest policy papers and endorsements
+            </p>
+          </div>
+          <div className="mx-auto mt-16 grid max-w-2xl auto-rows-fr grid-cols-1 gap-8 sm:mt-20 lg:mx-0 lg:max-w-none lg:grid-cols-2">
+            {recentNews.map((item) => (
+              <article key={item.title} className="relative isolate flex flex-col justify-end overflow-hidden rounded-2xl bg-gray-900 px-8 pb-8 pt-32 sm:pt-64 lg:pt-48">
+                <Image
+                  src={item.image}
+                  alt={item.title}
+                  className="absolute inset-0 -z-10 h-full w-full object-cover"
+                  width={500}
+                  height={300}
+                />
+                <div className="absolute inset-0 -z-10 bg-gradient-to-t from-gray-900 via-gray-900/40"></div>
+                <div className="absolute inset-0 -z-10 rounded-2xl ring-1 ring-inset ring-gray-900/10"></div>
+
+                <div className="flex flex-wrap items-center gap-y-1 overflow-hidden text-sm leading-6 text-gray-300">
+                  <time dateTime={item.date} className="mr-8">
+                    {item.date}
+                  </time>
+                  <div className="-ml-4 flex items-center gap-x-4">
+                    <span className="inline-flex items-center rounded-full bg-red-700 px-3 py-1 text-sm font-medium text-white">
+                      {item.category}
+                    </span>
+                  </div>
+                </div>
+                <h3 className="mt-3 text-lg font-semibold leading-6 text-white">
+                  <Link href={item.link}>
+                    <span className="absolute inset-0" />
+                    {item.title}
+                  </Link>
+                </h3>
+              </article>
+            ))}
           </div>
         </div>
       </div>
