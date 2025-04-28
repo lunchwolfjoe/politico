@@ -1,0 +1,139 @@
+import Image from 'next/image';
+import Link from 'next/link';
+import { notFound } from 'next/navigation';
+import { ArrowLeftIcon } from '@heroicons/react/24/outline';
+import { getArticleBySlug, articles } from '@/lib/articles';
+
+export async function generateStaticParams() {
+  return articles.map((article) => ({
+    slug: article.slug,
+  }));
+}
+
+export async function generateMetadata({ params }: { params: { slug: string } }) {
+  const article = getArticleBySlug(params.slug);
+  
+  if (!article) {
+    return {
+      title: 'Article Not Found',
+      description: 'The requested article could not be found.',
+    };
+  }
+  
+  return {
+    title: `${article.title} | N. Lee Plumb for Congress`,
+    description: article.description,
+  };
+}
+
+export default function ArticlePage({ params }: { params: { slug: string } }) {
+  const article = getArticleBySlug(params.slug);
+  
+  if (!article) {
+    notFound();
+  }
+  
+  return (
+    <div className="bg-white">
+      {/* Hero Section */}
+      <div className="relative isolate overflow-hidden">
+        <div className="absolute inset-0">
+          <Image
+            src={article.imagePath}
+            alt={article.title}
+            className="h-full w-full object-cover brightness-75"
+            width={1920}
+            height={1080}
+            priority
+          />
+          <div className="absolute inset-0 bg-gradient-to-r from-blue-900/80 to-red-900/50 mix-blend-multiply" />
+        </div>
+        <div className="relative py-24 px-6 sm:py-32 lg:px-8">
+          <div className="mx-auto max-w-3xl">
+            <div className="flex items-center gap-x-4 text-xs mb-8">
+              <time dateTime={article.date} className="text-gray-100">
+                {article.date}
+              </time>
+              <span className="relative z-10 rounded-full bg-red-700 px-3 py-1.5 font-medium text-white">
+                {article.category}
+              </span>
+            </div>
+            <h1 className="text-4xl font-bold tracking-tight text-white sm:text-5xl">
+              {article.title}
+            </h1>
+            <p className="mt-6 text-xl leading-8 text-gray-100">
+              {article.description}
+            </p>
+            <div className="mt-8">
+              <Link
+                href="/articles"
+                className="inline-flex items-center text-base font-semibold text-white hover:text-gray-200"
+              >
+                <ArrowLeftIcon className="h-5 w-5 mr-2" />
+                Back to Articles
+              </Link>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Article Content */}
+      <div className="mx-auto max-w-3xl px-6 lg:px-8 py-16">
+        <div 
+          className="prose prose-lg prose-red mx-auto"
+          dangerouslySetInnerHTML={{ __html: article.content }}
+        />
+        
+        {/* Author Card */}
+        <div className="mt-16 border-t border-gray-200 pt-16">
+          <div className="flex items-center">
+            <div className="h-16 w-16 rounded-full overflow-hidden">
+              <Image 
+                src="/images/professional/candidate.jpg"
+                alt="N. Lee Plumb"
+                width={64}
+                height={64}
+                className="h-full w-full object-cover"
+              />
+            </div>
+            <div className="ml-6">
+              <p className="text-sm font-medium text-gray-900">Written by</p>
+              <h3 className="text-xl font-bold text-gray-900">N. Lee Plumb</h3>
+              <p className="text-base text-gray-500">Candidate for Congress</p>
+            </div>
+          </div>
+        </div>
+        
+        {/* Related Articles */}
+        <div className="mt-16">
+          <h2 className="text-2xl font-bold tracking-tight text-gray-900">More Articles</h2>
+          <div className="mt-6 grid grid-cols-1 gap-y-10 gap-x-6 sm:grid-cols-2">
+            {articles
+              .filter(a => a.id !== article.id)
+              .slice(0, 2)
+              .map((relatedArticle) => (
+                <div key={relatedArticle.id} className="group relative">
+                  <div className="aspect-[16/9] w-full overflow-hidden rounded-lg bg-gray-100">
+                    <Image
+                      src={relatedArticle.imagePath}
+                      alt={relatedArticle.title}
+                      className="h-full w-full object-cover group-hover:opacity-75"
+                      width={500}
+                      height={280}
+                    />
+                  </div>
+                  <h3 className="mt-4 text-lg font-semibold text-gray-900">
+                    <Link href={`/articles/${relatedArticle.slug}`}>
+                      <span className="absolute inset-0" />
+                      {relatedArticle.title}
+                    </Link>
+                  </h3>
+                  <p className="mt-1 text-sm text-gray-500 line-clamp-2">{relatedArticle.excerpt}</p>
+                </div>
+              ))}
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+} 

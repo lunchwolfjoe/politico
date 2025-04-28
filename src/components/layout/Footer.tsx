@@ -16,6 +16,7 @@ const navigation = {
     { name: 'Home', href: '/' },
     { name: 'About', href: '/about' },
     { name: 'Platform', href: '/platform' },
+    { name: 'Articles', href: '/articles' },
     { name: 'Get Involved', href: '/volunteer' },
     { name: 'News', href: '/news' },
     { name: 'Contact', href: '/contact' },

@@ -1,4 +1,5 @@
 import Image from 'next/image';
+import Link from 'next/link';
 import { imagePaths } from '@/lib/image-paths';
 import { 
   ShieldCheckIcon, 
@@ -218,6 +219,7 @@ export default function AboutPage() {
             </p>
             <p className="mt-6 text-lg leading-8 text-gray-600">
               My diverse background combines military service, legal expertise, and executive leadership in America's most innovative companies.
+              Read my article <Link href="/articles/leadership-deficit" className="text-red-700 hover:underline">The Leadership Deficit: Why Congress Operates Like a Broken Warehouse Floor</Link> to learn how I'll bring operational excellence to Washington.
             </p>
           </div>
           <div className="mx-auto mt-16 max-w-2xl sm:mt-20 lg:mt-24 lg:max-w-none">

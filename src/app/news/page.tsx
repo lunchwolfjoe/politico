@@ -57,6 +57,9 @@ export default function NewsPage() {
           <p className="mt-2 text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
             Campaign Launch
           </p>
+          <p className="mt-3 text-lg text-gray-600">
+            For more in-depth policy discussions and opinion pieces, check out our <Link href="/articles" className="text-red-700 hover:underline">articles section</Link>.
+          </p>
         </div>
         
         <div className="mx-auto mt-16 grid max-w-2xl grid-cols-1 gap-x-8 gap-y-16 lg:mx-0 lg:mt-10 lg:max-w-none lg:grid-cols-12">

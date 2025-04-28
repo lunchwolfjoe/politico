@@ -232,6 +232,7 @@ export default function PlatformPage() {
           </p>
           <p className="mt-6 text-lg leading-8 text-gray-600">
             These key issues reflect my commitment to conservative principles and innovative solutions.
+            Read my <Link href="/articles" className="text-red-700 hover:text-red-800 font-semibold">in-depth articles</Link> for more detailed policy positions.
           </p>
         </div>
         <div className="mx-auto mt-16 grid max-w-2xl grid-cols-1 gap-x-8 gap-y-20 lg:mx-0 lg:max-w-none lg:grid-cols-2">
@@ -263,6 +264,41 @@ export default function PlatformPage() {
                     {issue.title}
                   </h3>
                   <p className="mt-5 text-base leading-6 text-gray-600">{issue.description}</p>
+                  {issue.id === 'infrastructure' && (
+                    <p className="mt-3 text-sm text-red-700">
+                      <Link href="/articles/chainsaw-bureaucracy" className="hover:underline">
+                        Read "Chainsaw the Bureaucracy: Why Red Tape Protects the Powerful, Not the People" →
+                      </Link>
+                    </p>
+                  )}
+                  {issue.id === 'values' && (
+                    <p className="mt-3 text-sm text-red-700">
+                      <Link href="/articles/judicial-overreach" className="hover:underline">
+                        Read "Vetoed by the Robe: How Judicial Overreach Is Undermining the Will of the People" →
+                      </Link>
+                    </p>
+                  )}
+                  {issue.id === 'innovation' && (
+                    <p className="mt-3 text-sm text-red-700">
+                      <Link href="/articles/censorship-by-algorithm" className="hover:underline">
+                        Read "Censorship by Algorithm: The Quiet War on American Speech" →
+                      </Link>
+                    </p>
+                  )}
+                  {issue.id === 'economy' && (
+                    <p className="mt-3 text-sm text-red-700">
+                      <Link href="/articles/delay-is-damage" className="hover:underline">
+                        Read "The Delay Is the Damage: How Government Weaponizes the Wait" →
+                      </Link>
+                    </p>
+                  )}
+                  {issue.id === 'education-protect-kids' && (
+                    <p className="mt-3 text-sm text-red-700">
+                      <Link href="/articles/daughter-college-rejection" className="hover:underline">
+                        Read "She Didn't Get In—And That's When I Realized the System Isn't Broken..." →
+                      </Link>
+                    </p>
+                  )}
                 </div>
                 {issue.points && issue.points.length > 0 && (
                   <div className="mt-6">
