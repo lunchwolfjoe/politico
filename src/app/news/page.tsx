@@ -107,7 +107,7 @@ export default function NewsPage() {
                 <li className="flex gap-x-3">
                   <PhoneIcon className="mt-1 h-5 w-5 flex-none text-red-700" aria-hidden="true" />
                   <span>
-                    <strong className="font-semibold text-gray-900">Phone:</strong> (512) 555-0123
+                    <strong className="font-semibold text-gray-900">Phone:</strong> (832) 422-7109
                   </span>
                 </li>
                 <li className="flex gap-x-3">
@@ -115,7 +115,16 @@ export default function NewsPage() {
                     <path strokeLinecap="round" strokeLinejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75" />
                   </svg>
                   <span>
-                    <strong className="font-semibold text-gray-900">Email:</strong> press@campaign.com
+                    <strong className="font-semibold text-gray-900">Email:</strong> info@nleeplumb.com
+                  </span>
+                </li>
+                <li className="flex gap-x-3">
+                  <svg className="mt-1 h-5 w-5 flex-none text-red-700" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z" />
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z" />
+                  </svg>
+                  <span>
+                    <strong className="font-semibold text-gray-900">Address:</strong> 21175 State Hwy 249, Ste. 272, Houston, TX 77070-1655
                   </span>
                 </li>
               </ul>
