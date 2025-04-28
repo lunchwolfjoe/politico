@@ -2,7 +2,28 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { ArrowLeftIcon } from '@heroicons/react/24/outline';
-import { getArticleBySlug, articles } from '@/lib/articles';
+import { getArticleBySlug, articles, formatArticleContent } from '@/lib/articles';
+
+// Calculate reading time for an article
+const calculateReadingTime = (content: string): number => {
+  // Average reading speed (words per minute)
+  const wordsPerMinute = 225;
+  // Count the number of words in the content (roughly)
+  const wordCount = content.replace(/<[^>]*>/g, '').split(/\s+/).length;
+  // Calculate reading time in minutes
+  return Math.ceil(wordCount / wordsPerMinute);
+};
+
+const articleStyles = {
+  firstParagraph: 'text-xl font-medium text-gray-900 mb-8 leading-relaxed',
+  emphasis: 'font-semibold text-gray-900',
+  heading: 'text-2xl font-bold text-gray-900 mt-10 mb-6',
+  subheading: 'text-xl font-bold text-gray-900 mt-8 mb-4',
+  paragraph: 'mb-6 text-gray-700 leading-relaxed',
+  list: 'mb-8 mt-4 space-y-2',
+  listItem: 'flex items-start',
+  listBullet: 'text-red-700 font-bold mr-2',
+};
 
 export async function generateStaticParams() {
   return articles.map((article) => ({
@@ -33,6 +54,12 @@ export default function ArticlePage({ params }: { params: { slug: string } }) {
     notFound();
   }
   
+  // Format the article content with our helper function
+  const formattedContent = formatArticleContent(article.content);
+  
+  // Calculate reading time
+  const readingTime = calculateReadingTime(article.content);
+  
   return (
     <div className="bg-white">
       {/* Hero Section */}
@@ -57,6 +84,9 @@ export default function ArticlePage({ params }: { params: { slug: string } }) {
               <span className="relative z-10 rounded-full bg-red-700 px-3 py-1.5 font-medium text-white">
                 {article.category}
               </span>
+              <span className="relative z-10 text-gray-100">
+                {readingTime} min read
+              </span>
             </div>
             <h1 className="text-4xl font-bold tracking-tight text-white sm:text-5xl">
               {article.title}
@@ -80,8 +110,8 @@ export default function ArticlePage({ params }: { params: { slug: string } }) {
       {/* Article Content */}
       <div className="mx-auto max-w-3xl px-6 lg:px-8 py-16">
         <div 
-          className="prose prose-lg prose-red mx-auto"
-          dangerouslySetInnerHTML={{ __html: article.content }}
+          className="article-content"
+          dangerouslySetInnerHTML={{ __html: formattedContent }}
         />
         
         {/* Author Card */}

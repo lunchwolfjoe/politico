@@ -773,4 +773,25 @@ export const articles: Article[] = [
 
 export const getArticleBySlug = (slug: string): Article | undefined => {
   return articles.find(article => article.slug === slug);
+};
+
+// Function to format article content before rendering
+export const formatArticleContent = (content: string): string => {
+  // Process the content with better formatting
+  let formattedContent = content
+    // Format the first paragraph as a lead paragraph
+    .replace(/<p><em>(.*?)<\/em><\/p>/, '<p class="text-xl font-medium text-gray-900 mb-8 leading-relaxed"><em>$1</em></p>')
+    // Format regular paragraphs
+    .replace(/<p>/g, '<p class="mb-6 text-gray-700 leading-relaxed">')
+    // Format headings
+    .replace(/<h2>/g, '<h2 class="text-2xl font-bold text-gray-900 mt-10 mb-6">')
+    .replace(/<h3>/g, '<h3 class="text-xl font-bold text-gray-900 mt-8 mb-4">')
+    // Format lists
+    .replace(/<ul>/g, '<ul class="mb-8 mt-4 space-y-2 pl-0 list-none">')
+    .replace(/<li>/g, '<li class="flex items-start"><span class="text-red-700 font-bold mr-2">•</span><span>')
+    .replace(/<\/li>/g, '</span></li>')
+    // Format emphasis
+    .replace(/<strong>/g, '<strong class="font-semibold text-gray-900">');
+    
+  return formattedContent;
 }; 

@@ -2,6 +2,14 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { articles } from '@/lib/articles';
 import { formatDate } from '@/lib/utils';
+import { ClockIcon } from '@heroicons/react/24/outline';
+
+// Calculate reading time for an article
+const calculateReadingTime = (content: string): number => {
+  const wordsPerMinute = 225;
+  const wordCount = content.replace(/<[^>]*>/g, '').split(/\s+/).length;
+  return Math.ceil(wordCount / wordsPerMinute);
+};
 
 export const metadata = {
   title: 'Articles | N. Lee Plumb for Congress',
@@ -72,6 +80,10 @@ export default function ArticlesPage() {
                   </time>
                   <span className="relative z-10 rounded-full bg-gray-200 px-3 py-1.5 font-medium text-gray-800">
                     {article.category}
+                  </span>
+                  <span className="flex items-center text-gray-500">
+                    <ClockIcon className="h-3 w-3 mr-1" />
+                    {calculateReadingTime(article.content)} min
                   </span>
                 </div>
                 <div className="group relative">
