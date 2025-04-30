@@ -47,7 +47,7 @@ const experiences = [
     title: 'Public Service',
     description: 'Commitment to Texas through government service and community leadership',
     icon: UserGroupIcon,
-    image: imagePaths.personal.volunteering,
+    image: '/images/personal/volunteering.jpg',
     details: [
       'Served in Texas Department of Licensing and Regulation General Counsel\'s Office',
       'Applied legal expertise to protect Texas consumers and businesses',
@@ -335,10 +335,10 @@ export default function AboutPage() {
                 <div className="relative h-72 w-full">
                   <div className="absolute inset-0">
                     <img
-                      src="/images/professional/publicspeakingwalmart.jpg"
+                      src="/images/personal/volunteering.jpg"
                       alt="Public Service"
                       className="h-full w-full object-cover object-center"
-                      style={{ objectPosition: "center 15%" }}
+                      style={{ objectPosition: "center top" }}
                     />
                   </div>
                   <div className="absolute inset-0 bg-gradient-to-b from-transparent to-black/60"></div>
@@ -457,6 +457,7 @@ export default function AboutPage() {
                       src={imagePaths.professional.amazonFlow}
                       alt="Innovation leadership"
                       className="w-full h-full object-cover object-center"
+                      style={{ objectPosition: "center top" }}
                     />
                   </div>
                 </dd>
