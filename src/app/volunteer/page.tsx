@@ -186,7 +186,7 @@ export default function VolunteerPage() {
       <div className="relative isolate overflow-hidden">
         <div className="absolute inset-0 -z-10">
           <Image
-            src={imagePaths.volunteer.hero}
+            src="/images/personal/merica.jpg"
             alt="Volunteers working together"
             className="h-full w-full object-cover brightness-50"
             width={1920}

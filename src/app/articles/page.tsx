@@ -23,7 +23,7 @@ export default function ArticlesPage() {
       <div className="relative isolate overflow-hidden">
         <div className="absolute inset-0">
           <Image
-            src="/images/platform/hero.jpg"
+            src="/images/personal/merica.jpg"
             alt="Policy articles"
             className="h-full w-full object-cover brightness-75"
             width={1920}

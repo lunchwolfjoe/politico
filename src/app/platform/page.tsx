@@ -116,14 +116,14 @@ export default function PlatformPage() {
       <div className="relative isolate overflow-hidden">
         <div className="absolute inset-0">
           <Image
-            src="/images/platform-hero.jpg"
+            src="/images/personal/merica.jpg"
             alt="American flag"
             className="h-full w-full object-cover"
             width={1920}
             height={1080}
             priority
           />
-          <div className="absolute inset-0 bg-gradient-to-r from-red-700/80 to-blue-900/80 mix-blend-multiply" />
+          <div className="absolute inset-0 bg-gradient-to-r from-blue-950/90 to-blue-800/70 mix-blend-multiply" />
         </div>
         <div className="relative px-6 py-24 sm:py-32 lg:px-8">
           <div className="mx-auto max-w-2xl text-center">

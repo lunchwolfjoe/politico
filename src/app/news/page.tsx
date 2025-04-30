@@ -49,7 +49,7 @@ export default function NewsPage() {
       <div className="relative isolate overflow-hidden">
         <div className="absolute inset-0">
           <Image
-            src={imagePaths.news.hero}
+            src="/images/personal/merica.jpg"
             alt="Campaign press conference"
             className="h-full w-full object-cover brightness-75"
             width={1920}

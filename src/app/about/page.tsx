@@ -99,10 +99,10 @@ export default function AboutPage() {
       <div className="relative isolate overflow-hidden">
         <div className="absolute inset-0">
           <img
-            src="/images/personal/thinkerheadshot.jpg"
+            src="/images/personal/merica.jpg"
             alt="Candidate profile"
             className="h-full w-full object-cover object-center"
-            style={{ objectPosition: "center 50%" }}
+            style={{ objectPosition: "center 10%" }}
           />
           <div className="absolute inset-0 bg-gradient-to-r from-blue-900/90 to-red-700/50 mix-blend-multiply" />
         </div>
