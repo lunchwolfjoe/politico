@@ -107,6 +107,34 @@ const issues = [
     icon: ScaleIcon,
     image: '/images/healthcare.jpg',
   },
+  {
+    id: 'healthcare',
+    title: 'Healthcare Reform',
+    description: "Healthcare should be accessible, affordable, and patient-centered. I'll work to implement market-driven solutions that put you in control of your healthcare decisions.",
+    points: [
+      'Expanding telehealth access and innovation',
+      'Increasing price transparency in medical services',
+      'Supporting health savings accounts and direct primary care',
+      'Protecting those with pre-existing conditions',
+      'Reducing prescription drug costs through competition'
+    ],
+    icon: HeartIcon,
+    image: '/images/fiscal.jpg',
+  },
+  {
+    id: 'veterans',
+    title: 'Veterans Affairs',
+    description: "As a veteran who served in both the Army and Navy JAG Corps, I understand firsthand the challenges our veterans face. I'll fight to ensure they receive the care and support they've earned.",
+    points: [
+      'Modernizing VA healthcare delivery systems',
+      'Expanding mental health services and suicide prevention',
+      'Improving transition support for service members',
+      "Protecting veterans' education benefits",
+      'Ensuring timely processing of disability claims'
+    ],
+    icon: ShieldCheckIcon,
+    image: '/images/safety.jpg',
+  }
 ];
 
 export default function PlatformPage() {
