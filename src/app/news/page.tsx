@@ -46,25 +46,31 @@ export default function NewsPage() {
   return (
     <div className="bg-white">
       {/* Hero Section */}
-      <div className="relative isolate overflow-hidden">
+      <div className="relative">
+        {/* Background image with overlay */}
         <div className="absolute inset-0">
-          <Image
-            src="/images/personal/merica.jpg"
-            alt="Campaign press conference"
-            className="h-full w-full object-cover brightness-75"
-            width={1920}
-            height={1080}
-            priority
-          />
-          <div className="absolute inset-0 bg-gradient-to-r from-blue-900/80 to-red-900/50 mix-blend-multiply" />
+          <div className="h-full w-full overflow-hidden">
+            <img
+              src="/images/personal/merica.jpg"
+              alt="Candidate portrait"
+              className="h-full w-full object-cover"
+              style={{ 
+                maxHeight: "100%", 
+                objectPosition: "center 10%"
+              }}
+            />
+          </div>
+          <div className="absolute inset-0 bg-gradient-to-r from-blue-950/90 to-blue-800/70 mix-blend-multiply" />
         </div>
-        <div className="relative py-24 px-6 sm:py-32 lg:px-8">
+
+        {/* Hero content */}
+        <div className="relative py-32 px-6 sm:py-40 lg:py-56 lg:px-8">
           <div className="mx-auto max-w-2xl text-center">
             <h1 className="text-4xl font-bold tracking-tight text-white sm:text-6xl">
-              Campaign News
+              News & Updates
             </h1>
             <p className="mt-6 text-xl leading-8 text-gray-100">
-              Stay informed about our campaign, policy positions, and upcoming events.
+              Stay informed about our campaign's progress and important announcements.
             </p>
           </div>
         </div>

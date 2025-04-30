@@ -113,19 +113,25 @@ export default function PlatformPage() {
   return (
     <div className="bg-white">
       {/* Hero Section */}
-      <div className="relative isolate overflow-hidden">
+      <div className="relative">
+        {/* Background image with overlay */}
         <div className="absolute inset-0">
-          <Image
-            src="/images/personal/merica.jpg"
-            alt="American flag"
-            className="h-full w-full object-cover"
-            width={1920}
-            height={1080}
-            priority
-          />
+          <div className="h-full w-full overflow-hidden">
+            <img
+              src="/images/personal/merica.jpg"
+              alt="Candidate portrait"
+              className="h-full w-full object-cover"
+              style={{ 
+                maxHeight: "100%", 
+                objectPosition: "center 10%"
+              }}
+            />
+          </div>
           <div className="absolute inset-0 bg-gradient-to-r from-blue-950/90 to-blue-800/70 mix-blend-multiply" />
         </div>
-        <div className="relative px-6 py-24 sm:py-32 lg:px-8">
+
+        {/* Hero content */}
+        <div className="relative py-32 px-6 sm:py-40 lg:py-56 lg:px-8">
           <div className="mx-auto max-w-2xl text-center">
             <h1 className="text-4xl font-bold tracking-tight text-white sm:text-6xl">
               America First Platform
