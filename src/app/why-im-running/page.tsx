@@ -5,37 +5,36 @@ import { ShieldCheckIcon, BuildingOffice2Icon, UserGroupIcon } from '@heroicons/
 export default function WhyImRunningPage() {
   return (
     <div className="bg-white">
-      {/* Hero Section - Option: Use a relevant personal image like Navy or Iraq */}
-      <div className="relative isolate overflow-hidden bg-gradient-to-b from-blue-900/20 pt-14">
-         <div
-          className="absolute inset-y-0 right-1/2 -z-10 -mr-96 w-[200%] origin-top-right skew-x-[-30deg] bg-white shadow-xl shadow-blue-900/10 ring-1 ring-blue-50 sm:-mr-80 lg:-mr-96"
-          aria-hidden="true"
-        />
-        <div className="mx-auto max-w-7xl px-6 py-32 sm:py-40 lg:px-8">
-          <div className="mx-auto max-w-2xl lg:mx-0 lg:grid lg:max-w-none lg:grid-cols-2 lg:gap-x-16 lg:gap-y-6 xl:grid-cols-1 xl:grid-rows-1 xl:gap-x-8">
-            <h1 className="max-w-2xl text-4xl font-bold tracking-tight text-gray-900 sm:text-6xl lg:col-span-2 xl:col-auto">
-              Leadership Forged in Service, Ready for Congress
+      {/* Hero Section */}
+      <div className="relative">
+        {/* Background image with overlay */}
+        <div className="absolute inset-0">
+          <div className="h-full w-full overflow-hidden">
+            <img
+              src="/images/personal/merica.jpg"
+              alt="Candidate portrait"
+              className="h-full w-full object-cover"
+              style={{ 
+                maxHeight: "100%", 
+                objectPosition: "center 10%"
+              }}
+            />
+          </div>
+          <div className="absolute inset-0 bg-gradient-to-r from-blue-950/90 to-blue-800/70 mix-blend-multiply" />
+        </div>
+
+        {/* Hero content */}
+        <div className="relative py-32 px-6 sm:py-40 lg:py-56 lg:px-8">
+          <div className="mx-auto max-w-2xl text-center">
+            <h1 className="text-4xl font-bold tracking-tight text-white sm:text-6xl">
+              Why I'm Running
             </h1>
-            <div className="mt-6 max-w-xl lg:mt-0 xl:col-end-1 xl:row-start-1">
-              <p className="text-lg leading-8 text-gray-600">
-                Real-world experience, conservative principles, and a commitment to fighting for our district's future.
-              </p>
-            </div>
-             <div className="mt-10 max-w-lg sm:mt-16 lg:mt-0 lg:max-w-none lg:row-span-2 lg:row-end-2 lg:col-span-2 lg:col-start-1 xl:row-start-1 xl:col-start-2">
-              <Image
-                className="h-full w-full max-w-lg rounded-2xl object-cover shadow-xl ring-1 ring-gray-400/10"
-                src="/images/personal/navy.jpg" // Placeholder - Use a strong relevant image
-                alt="N. Lee Plumb in Navy uniform"
-                width={800}
-                height={1067} // Adjust aspect ratio if needed
-                priority
-              />
-            </div>
+            <p className="mt-6 text-xl leading-8 text-gray-100">
+              Real-world experience, conservative principles, and a commitment to fighting for our district's future.
+            </p>
           </div>
         </div>
-        <div className="absolute inset-x-0 bottom-0 -z-10 h-24 bg-gradient-to-t from-white sm:h-32" />
       </div>
-
 
       {/* Main Content Section */}
       <div className="mx-auto max-w-7xl px-6 lg:px-8 py-24 sm:py-32">
