@@ -54,7 +54,8 @@ const issues = [
     image: '/images/economy.jpg',
   },
   {
-    title: 'Public Safety',
+    id: 'military',
+    title: 'Military Service',
     description: "From the battlefield to cybersecurity, I've spent my career protecting Americans. I'll bring this experience to ensure our communities are safe and secure.",
     points: [
       'Supporting law enforcement with modern resources and training',
@@ -64,7 +65,7 @@ const issues = [
       'Protecting communities from transnational criminal organizations'
     ],
     icon: ShieldCheckIcon,
-    image: '/images/safety.jpg',
+    image: '/images/battleship.jpg',
   },
   {
     id: 'innovation',
