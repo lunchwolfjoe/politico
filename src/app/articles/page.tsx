@@ -61,46 +61,44 @@ export default function ArticlesPage() {
         
         <div className="mx-auto mt-16 grid max-w-2xl grid-cols-1 gap-x-8 gap-y-12 lg:mx-0 lg:max-w-none lg:grid-cols-3">
           {articles.map((article) => (
-            <article key={article.id} className="flex flex-col items-start justify-between">
+            <article key={article.id} className="flex flex-col items-start justify-between bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow">
               <div className="relative w-full">
-                <div className="aspect-[16/9] w-full rounded-2xl bg-gray-100 overflow-hidden">
+                <div className="aspect-[16/9] w-full bg-gray-100 overflow-hidden">
                   <img
                     src={article.imagePath}
                     alt={article.title}
-                    className="absolute inset-0 h-full w-full object-cover"
+                    className="h-full w-full object-cover"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-b from-transparent via-gray-900/60 to-gray-900/90" />
-                  <div className="absolute bottom-0 left-0 right-0 p-6">
-                    <div className="flex items-center gap-x-2">
-                      <article.icon className="h-5 w-5 text-red-500" />
-                      <span className="text-sm font-medium text-red-400">{article.category}</span>
-                    </div>
-                    <h3 className="mt-2 text-xl font-semibold text-white line-clamp-2">
-                      {article.title}
-                    </h3>
+                </div>
+                <div className="absolute top-0 left-0 p-3">
+                  <div className="inline-flex items-center rounded-full bg-red-700 px-3 py-1 text-sm font-medium text-white">
+                    {article.category}
                   </div>
                 </div>
               </div>
-              <div className="max-w-xl">
-                <div className="mt-8 flex items-center gap-x-4 text-xs">
-                  <time dateTime={article.date} className="text-gray-500">
+              <div className="p-6 flex-1 flex flex-col">
+                <div className="flex items-center gap-x-2 text-xs text-gray-500 mb-3">
+                  <time dateTime={article.date}>
                     {article.date}
                   </time>
-                  <span className="relative z-10 rounded-full bg-gray-100 px-3 py-1.5 font-medium text-gray-600">
-                    {article.category}
-                  </span>
+                  <span>•</span>
+                  <div className="flex items-center">
+                    <article.icon className="h-4 w-4 mr-1 text-red-700" />
+                    <span>{article.category}</span>
+                  </div>
                 </div>
-                <div className="group relative">
-                  <p className="mt-5 line-clamp-3 text-sm leading-6 text-gray-600">
-                    {article.excerpt}
-                  </p>
-                </div>
-                <div className="mt-4">
+                <h3 className="text-xl font-bold text-gray-900 mb-3 line-clamp-2">
+                  {article.title}
+                </h3>
+                <p className="mt-2 line-clamp-3 text-sm leading-6 text-gray-600 flex-grow">
+                  {article.excerpt}
+                </p>
+                <div className="mt-6 pt-4 border-t border-gray-100">
                   <Link
                     href={`/articles/${article.slug}`}
-                    className="text-sm font-semibold leading-6 text-red-700"
+                    className="inline-flex items-center text-sm font-semibold text-red-700 hover:text-red-800"
                   >
-                    Read article <span aria-hidden="true">→</span>
+                    Read article <span aria-hidden="true" className="ml-1">→</span>
                   </Link>
                 </div>
               </div>

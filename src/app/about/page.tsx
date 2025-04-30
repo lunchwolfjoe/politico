@@ -229,10 +229,10 @@ export default function AboutPage() {
                 <div className="relative h-72 w-full">
                   <div className="absolute inset-0">
                     <img
-                      src="/images/professional/veteran-leadership.jpg"
+                      src="/images/personal/battleship.jpg"
                       alt="Military Service"
                       className="h-full w-full object-cover object-center"
-                      style={{ objectPosition: "center 20%" }}
+                      style={{ objectPosition: "center 30%" }}
                     />
                   </div>
                   <div className="absolute inset-0 bg-gradient-to-b from-transparent to-black/60"></div>
@@ -285,7 +285,7 @@ export default function AboutPage() {
                       src={imagePaths.professional.walmartCheck}
                       alt="Corporate Leadership"
                       className="h-full w-full object-cover object-center"
-                      style={{ objectPosition: "center 15%" }}
+                      style={{ objectPosition: "center 10%" }}
                     />
                   </div>
                   <div className="absolute inset-0 bg-gradient-to-b from-transparent to-black/60"></div>
@@ -335,10 +335,10 @@ export default function AboutPage() {
                 <div className="relative h-72 w-full">
                   <div className="absolute inset-0">
                     <img
-                      src="/images/personal/volunteering.jpg"
+                      src="/images/professional/publicspeakingwalmart.jpg"
                       alt="Public Service"
                       className="h-full w-full object-cover object-center"
-                      style={{ objectPosition: "center 25%" }}
+                      style={{ objectPosition: "center 15%" }}
                     />
                   </div>
                   <div className="absolute inset-0 bg-gradient-to-b from-transparent to-black/60"></div>

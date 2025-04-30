@@ -63,32 +63,27 @@ export default function ArticlePage({ params }: { params: { slug: string } }) {
   return (
     <div className="bg-white">
       {/* Hero Section */}
-      <div className="relative isolate overflow-hidden">
+      <div className="relative">
+        {/* Background image with overlay */}
         <div className="absolute inset-0">
-          <div className="relative h-64 w-full overflow-hidden rounded-lg">
+          <div className="h-full w-full overflow-hidden">
             <img
-              src={article.imagePath}
-              alt={article.title}
+              src="/images/personal/merica.jpg"
+              alt="Policy articles"
               className="h-full w-full object-cover"
+              style={{ 
+                maxHeight: "100%", 
+                objectPosition: "center 10%"
+              }}
             />
-            <div className="absolute inset-0 bg-gradient-to-b from-transparent via-gray-900/60 to-gray-900/90" />
-            <div className="absolute bottom-0 left-0 right-0 p-6">
-              <div className="flex items-center">
-                <article.icon className="h-6 w-6 text-red-500" />
-                <p className="ml-2 text-sm font-medium text-red-400">{article.category}</p>
-              </div>
-              <h3 className="mt-2 text-xl font-semibold text-white">
-                {article.title}
-              </h3>
-              <p className="mt-2 text-sm text-gray-300 line-clamp-2">
-                {article.excerpt}
-              </p>
-            </div>
           </div>
+          <div className="absolute inset-0 bg-gradient-to-r from-blue-950/90 to-red-700/70 mix-blend-multiply" />
         </div>
+
+        {/* Hero content */}
         <div className="relative py-24 px-6 sm:py-32 lg:px-8">
           <div className="mx-auto max-w-3xl">
-            <div className="flex items-center gap-x-4 text-xs mb-8">
+            <div className="flex items-center gap-x-4 text-xs mb-4">
               <time dateTime={article.date} className="text-gray-100">
                 {article.date}
               </time>
@@ -99,10 +94,10 @@ export default function ArticlePage({ params }: { params: { slug: string } }) {
                 {readingTime} min read
               </span>
             </div>
-            <h1 className="text-4xl font-bold tracking-tight text-white sm:text-5xl">
+            <h1 className="text-3xl font-bold tracking-tight text-white sm:text-4xl">
               {article.title}
             </h1>
-            <p className="mt-6 text-xl leading-8 text-gray-100">
+            <p className="mt-4 text-lg leading-8 text-gray-100">
               {article.description}
             </p>
             <div className="mt-8">
@@ -119,15 +114,27 @@ export default function ArticlePage({ params }: { params: { slug: string } }) {
       </div>
 
       {/* Article Content */}
-      <div className="mx-auto max-w-3xl px-6 lg:px-8 py-16">
+      <div className="mx-auto max-w-3xl px-6 lg:px-8 py-12">
+        {/* Featured Image */}
+        <div className="mb-10 rounded-lg overflow-hidden shadow-md">
+          <img
+            src={article.imagePath}
+            alt={article.title}
+            className="w-full h-auto object-cover"
+          />
+          <div className="bg-gray-100 p-3 text-sm text-gray-600 italic">
+            Featured image for "{article.title}"
+          </div>
+        </div>
+        
         <div 
-          className="article-content"
+          className="article-content prose prose-lg prose-red mx-auto"
           dangerouslySetInnerHTML={{ __html: formattedContent }}
         />
         
         {/* Author Card */}
-        <div className="mt-16 border-t border-gray-200 pt-16">
-          <div className="flex items-center">
+        <div className="mt-16 border-t border-gray-200 pt-8">
+          <div className="flex items-center bg-gray-50 p-6 rounded-lg">
             <div className="h-16 w-16 rounded-full overflow-hidden">
               <Image 
                 src="/images/professional/candidate.jpg"
@@ -147,29 +154,31 @@ export default function ArticlePage({ params }: { params: { slug: string } }) {
         
         {/* Related Articles */}
         <div className="mt-16">
-          <h2 className="text-2xl font-bold tracking-tight text-gray-900">More Articles</h2>
-          <div className="mt-6 grid grid-cols-1 gap-y-10 gap-x-6 sm:grid-cols-2">
+          <h2 className="text-2xl font-bold tracking-tight text-gray-900 mb-6">More Articles</h2>
+          <div className="grid grid-cols-1 gap-y-10 gap-x-6 sm:grid-cols-2">
             {articles
               .filter(a => a.id !== article.id)
               .slice(0, 2)
               .map((relatedArticle) => (
-                <div key={relatedArticle.id} className="group relative">
-                  <div className="aspect-[16/9] w-full overflow-hidden rounded-lg bg-gray-100">
+                <div key={relatedArticle.id} className="group relative bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow">
+                  <div className="aspect-[16/9] w-full overflow-hidden">
                     <Image
                       src={relatedArticle.imagePath}
                       alt={relatedArticle.title}
-                      className="h-full w-full object-cover group-hover:opacity-75"
+                      className="h-full w-full object-cover group-hover:opacity-90"
                       width={500}
                       height={280}
                     />
                   </div>
-                  <h3 className="mt-4 text-lg font-semibold text-gray-900">
-                    <Link href={`/articles/${relatedArticle.slug}`}>
-                      <span className="absolute inset-0" />
-                      {relatedArticle.title}
-                    </Link>
-                  </h3>
-                  <p className="mt-1 text-sm text-gray-500 line-clamp-2">{relatedArticle.excerpt}</p>
+                  <div className="p-5">
+                    <h3 className="text-lg font-bold text-gray-900 mb-2">
+                      <Link href={`/articles/${relatedArticle.slug}`}>
+                        <span className="absolute inset-0" />
+                        {relatedArticle.title}
+                      </Link>
+                    </h3>
+                    <p className="text-sm text-gray-600 line-clamp-2">{relatedArticle.excerpt}</p>
+                  </div>
                 </div>
               ))}
           </div>
