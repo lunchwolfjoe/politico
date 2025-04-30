@@ -33,6 +33,8 @@ export async function middleware(req: NextRequest) {
     }
   );
 
+  // Site is now fully public - commenting out the password protection logic
+  /*
   // Check if the site is in preview mode via cookies
   const isAuthenticated = req.cookies.has('preview-access')
   
@@ -48,6 +50,7 @@ export async function middleware(req: NextRequest) {
   if (!isAuthenticated) {
     return NextResponse.redirect(new URL('/coming-soon', req.url))
   }
+  */
   
   // Check if the request is for the dashboard
   if (req.nextUrl.pathname.startsWith('/dashboard')) {
