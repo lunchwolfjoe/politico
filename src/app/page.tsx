@@ -31,7 +31,7 @@ const features = [
     description: 'Founding member of Amazon\'s IDEA team and current Sr. Product Manager for Global Compensation Analytics, bringing cutting-edge expertise to government.',
     icon: LightBulbIcon,
     link: '/platform#innovation',
-    image: imagePaths.professional.leadershipTeam
+    image: imagePaths.professional.warehouseLeadership
   },
   {
     name: 'Constitutional Conservative',
@@ -153,7 +153,7 @@ export default function HomePage() {
                 <div className="relative h-80 w-full">
                   <div className="absolute inset-0">
                     <img
-                      src={imagePaths.professional.leadershipTeam}
+                      src={imagePaths.professional.warehouseLeadership}
                       alt="Business Experience"
                       className="h-full w-full object-cover object-center"
                       style={{ maxHeight: "100%" }}
