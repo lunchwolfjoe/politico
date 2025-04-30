@@ -152,33 +152,6 @@ const volunteerOpportunities = [
   },
 ];
 
-const testimonials = [
-  {
-    content: "Volunteering for this campaign has been incredibly rewarding. As a veteran myself, I appreciate working with a candidate who truly understands military service and veteran needs.",
-    author: {
-      name: "James R.",
-      role: "Veteran Outreach Volunteer",
-      imageUrl: imagePaths.volunteer.impact
-    }
-  },
-  {
-    content: "Using my tech skills to help modernize a political campaign has been a unique experience. The candidate's background in technology means he actually understands and values our contributions.",
-    author: {
-      name: "Sarah T.",
-      role: "Tech Advisory Team Member",
-      imageUrl: imagePaths.professional.techAdvisory
-    }
-  },
-  {
-    content: "As a community organizer, I've worked on several campaigns, but this one stands out. There's a genuine commitment to conservative values and practical solutions for our community's challenges.",
-    author: {
-      name: "Michael D.",
-      role: "Community Organizing Volunteer",
-      imageUrl: imagePaths.volunteer.impact
-    }
-  }
-];
-
 export default function VolunteerPage() {
   return (
     <div className="bg-white">
@@ -331,42 +304,6 @@ export default function VolunteerPage() {
               </div>
             ))}
           </dl>
-        </div>
-      </div>
-
-      {/* Testimonials */}
-      <div className="bg-white py-24 sm:py-32">
-        <div className="mx-auto max-w-7xl px-6 lg:px-8">
-          <div className="mx-auto max-w-2xl lg:text-center">
-            <h2 className="text-base font-semibold leading-7 text-red-700">Volunteer Testimonials</h2>
-            <p className="mt-2 text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
-              Hear From Our Team
-            </p>
-          </div>
-          <div className="mx-auto mt-16 grid max-w-2xl grid-cols-1 gap-x-8 gap-y-16 lg:mx-0 lg:max-w-none lg:grid-cols-3">
-            {testimonials.map((testimonial) => (
-              <div key={testimonial.author.name} className="flex flex-col justify-between bg-white rounded-2xl shadow-sm ring-1 ring-gray-200 p-8">
-                <blockquote className="text-gray-700">
-                  <p className="text-lg font-semibold italic">"{testimonial.content}"</p>
-                </blockquote>
-                <div className="mt-6 flex items-center gap-x-4">
-                  <div className="h-10 w-10 rounded-full bg-gray-50 overflow-hidden">
-                    <Image
-                      src={testimonial.author.imageUrl}
-                      alt={testimonial.author.name}
-                      className="h-full w-full object-cover"
-                      width={40}
-                      height={40}
-                    />
-                  </div>
-                  <div>
-                    <p className="font-semibold text-gray-900">{testimonial.author.name}</p>
-                    <p className="text-sm text-gray-600">{testimonial.author.role}</p>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
         </div>
       </div>
 
