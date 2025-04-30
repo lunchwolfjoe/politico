@@ -57,45 +57,32 @@ export default function WhyImRunningPage() {
             <p className="mt-4">
               Serving our nation in uniform, including deployments to Iraq and duty at Guantanamo Bay, wasn't just a job; it was a profound responsibility. It instilled in me an unshakeable discipline, resilience in the face of adversity, and a deep, personal understanding of what it means to defend the Constitution – an oath I took multiple times and hold sacred. But it also highlighted a stark reality: today, the starting wage for many military enlistees, those willing to put their lives on the line for our country, is being outpaced by entry-level positions at companies like Amazon. This isn't just a statistic; it's a sign that we need to re-evaluate how we support those who serve and ensure our economy provides dignified opportunities for all hardworking Americans.
             </p>
-             <figure className="mt-8">
-                <Image
-                  className="aspect-video rounded-xl bg-gray-50 object-cover"
-                  src="/images/personal/iraq1.jpg" // Placeholder - Use Iraq photo
-                  alt="N. Lee Plumb during Iraq deployment"
-                  width={1000}
-                  height={563}
-                />
-                <figcaption className="mt-4 flex gap-x-2 text-sm leading-6 text-gray-500">
-                  <ShieldCheckIcon className="mt-0.5 h-5 w-5 flex-none text-red-700" aria-hidden="true" />
-                  Service in Iraq taught me the real-world consequences of decisions made in Washington.
-                </figcaption>
-              </figure>
-             <p className="mt-8">
-                This experience didn't just teach me about law and order; it taught me about managing complex operations under pressure, the critical need for clear strategy, and the importance of unwavering integrity when the stakes are high – lessons desperately needed in Congress today.
-             </p>
+             
+            <div className="mt-4 flex gap-x-2 text-sm leading-6 text-gray-500">
+              <ShieldCheckIcon className="mt-0.5 h-5 w-5 flex-none text-red-700" aria-hidden="true" />
+              Service in Iraq taught me the real-world consequences of decisions made in Washington.
+            </div>
+
+            <p className="mt-8">
+              This experience didn't just teach me about law and order; it taught me about managing complex operations under pressure, the critical need for clear strategy, and the importance of unwavering integrity when the stakes are high – lessons desperately needed in Congress today.
+            </p>
 
             <h3 className="mt-16 text-2xl font-bold tracking-tight text-gray-900">From Military Precision to Business Results</h3>
             <p className="mt-6">
               Transitioning from military life, I sought new ways to contribute... I joined Walmart with a simple goal: to learn, compete, and deliver results through hard work. I didn't have connections or a fancy degree to rely on – just determination. It paid off. By my third anniversary, I was managing the third highest-volume and most profitable store in the entire chain.
             </p>
+            
             <p className="mt-4">
               My subsequent career at Amazon further honed my leadership skills. Launching new fulfillment centers demanded innovation, efficiency, and the ability to build and lead high-performing teams. Thriving in fast-paced, results-driven environments like Walmart and Amazon required constant adaptation and innovative problem-solving – precisely the skills needed to navigate today's complex economy and modernize government. My experience isn't just about past success; it's about understanding the logistics, technology, and economic realities that shape the job market *now* and how we can create *future* opportunities right here.
             </p>
-             <figure className="mt-8">
-                 <Image
-                  className="aspect-video rounded-xl bg-gray-50 object-cover"
-                  src="/images/professional/walmartpic.jpg" // Placeholder - Use Walmart photo
-                  alt="N. Lee Plumb during time at Walmart"
-                  width={1000}
-                  height={563}
-                />
-                <figcaption className="mt-4 flex gap-x-2 text-sm leading-6 text-gray-500">
-                  <BuildingOffice2Icon className="mt-0.5 h-5 w-5 flex-none text-red-700" aria-hidden="true" />
-                  Leading high-volume retail operations taught me fiscal discipline and operational efficiency.
-                </figcaption>
-             </figure>
-             <p className="mt-8">
-               My path, from a challenging start, through military service, and into the heart of American corporate giants, wasn't accidental. It was built on the promise that hard work creates opportunity. But I see that promise becoming harder to reach for too many young people today, burdened by student debt and facing a rapidly changing job market. We need urgent education reform that prepares our kids not just for college, but for well-paying careers in trades, technology, and essential industries right here in our district. We need to ensure that the opportunities I fought for are available – and expanding – for the next generation.
+
+            <div className="mt-4 flex gap-x-2 text-sm leading-6 text-gray-500">
+              <BuildingOffice2Icon className="mt-0.5 h-5 w-5 flex-none text-red-700" aria-hidden="true" />
+              Leading high-volume retail operations taught me fiscal discipline and operational efficiency.
+            </div>
+
+            <p className="mt-8">
+              My path, from a challenging start, through military service, and into the heart of American corporate giants, wasn't accidental. It was built on the promise that hard work creates opportunity. But I see that promise becoming harder to reach for too many young people today, burdened by student debt and facing a rapidly changing job market. We need urgent education reform that prepares our kids not just for college, but for well-paying careers in trades, technology, and essential industries right here in our district. We need to ensure that the opportunities I fought for are available – and expanding – for the next generation.
             </p>
 
             <h3 className="mt-16 text-2xl font-bold tracking-tight text-gray-900">A Pragmatic Problem-Solver, Not a Politician</h3>
