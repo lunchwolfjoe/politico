@@ -63,15 +63,13 @@ export default function ArticlesPage() {
         
         <div className="mx-auto mt-16 grid max-w-2xl grid-cols-1 gap-x-8 gap-y-20 lg:mx-0 lg:max-w-none lg:grid-cols-3">
           {articles.map((article) => (
-            <article key={article.id} className="flex flex-col items-start">
+            <article key={article.id} className="flex flex-col items-start justify-between h-full">
               <div className="relative w-full">
-                <div className="aspect-[16/9] w-[115%] -ml-[7.5%] rounded-2xl overflow-hidden bg-gray-100">
-                  <Image
+                <div className="aspect-[16/9] w-full rounded-2xl bg-gray-100 overflow-hidden">
+                  <img
                     src={article.imagePath}
                     alt={article.title}
-                    className="h-full w-full object-cover"
-                    width={800}
-                    height={450}
+                    className="absolute inset-0 h-full w-full object-cover"
                   />
                   <div className="absolute inset-0 rounded-2xl ring-1 ring-inset ring-gray-900/10" />
                 </div>
@@ -98,14 +96,14 @@ export default function ArticlesPage() {
                   </h3>
                   <p className="mt-5 text-sm leading-6 text-gray-600 line-clamp-3">{article.excerpt}</p>
                 </div>
-                <div className="mt-4">
-                  <Link
-                    href={`/articles/${article.slug}`}
-                    className="text-sm font-semibold leading-6 text-red-700"
-                  >
-                    Read full article <span aria-hidden="true">→</span>
-                  </Link>
-                </div>
+              </div>
+              <div className="mt-8">
+                <Link
+                  href={`/articles/${article.slug}`}
+                  className="text-sm font-semibold leading-6 text-red-700"
+                >
+                  Read full article <span aria-hidden="true">→</span>
+                </Link>
               </div>
             </article>
           ))}
