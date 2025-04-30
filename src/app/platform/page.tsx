@@ -214,14 +214,19 @@ export default function PlatformPage() {
             <article key={issue.title} id={issue.id} className="flex flex-col items-start">
               <div className="relative w-full">
                 <div className="aspect-[16/9] w-full rounded-2xl overflow-hidden bg-gray-100">
-                  <Image
-                    src={issue.image}
-                    alt={issue.title}
-                    className="h-full w-full object-cover"
-                    width={800}
-                    height={450}
-                    style={getImagePosition(issue.title)}
-                  />
+                  <div className="relative h-full">
+                    <Image
+                      src={issue.image}
+                      alt={issue.title}
+                      className="absolute top-0 left-0 w-full object-cover"
+                      width={800}
+                      height={450}
+                      style={{ 
+                        height: '200%',
+                        objectPosition: 'center top'
+                      }}
+                    />
+                  </div>
                   <div className="absolute inset-0 rounded-2xl ring-1 ring-inset ring-gray-900/10" />
                 </div>
                 <div className="absolute left-0 top-0 w-10 h-10 bg-red-700 flex items-center justify-center rounded-br-xl rounded-tl-xl">
