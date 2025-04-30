@@ -31,7 +31,7 @@ const features = [
     description: 'Founding member of Amazon\'s IDEA team and current Sr. Product Manager for Global Compensation Analytics, bringing cutting-edge expertise to government.',
     icon: LightBulbIcon,
     link: '/platform#innovation',
-    image: imagePaths.professional.warehouseLeadership
+    image: imagePaths.professional.amazonCrew
   },
   {
     name: 'Constitutional Conservative',
