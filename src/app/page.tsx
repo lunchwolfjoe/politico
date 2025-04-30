@@ -153,7 +153,7 @@ export default function HomePage() {
                 <div className="relative h-80 w-full">
                   <div className="absolute inset-0">
                     <img
-                      src="/images/professional/walmartpic.jpg"
+                      src={imagePaths.professional.warehouseLeadership}
                       alt="Business Experience"
                       className="h-full w-full object-cover object-center"
                       style={{ maxHeight: "100%" }}
