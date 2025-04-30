@@ -17,7 +17,7 @@ const experiences = [
     title: 'Military Service',
     description: 'Dual-branch JAG Corps veteran with deployments to Iraq and Guantanamo Bay',
     icon: ShieldCheckIcon,
-    image: imagePaths.professional.gtmokhadr,
+    image: '/images/personal/battleship.jpg',
     details: [
       'Served in both Army and Navy JAG Corps with distinction',
       'Deployed to Iraq during combat operations',
