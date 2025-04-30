@@ -182,7 +182,7 @@ export default function AboutPage() {
               
               <div className="mt-6 mb-6">
                 <img
-                  src="/images/professional/tech-endorsement.jpg"
+                  src={imagePaths.professional.warehouseHourlyStaff}
                   alt="N. Lee Plumb during time at Walmart"
                   className="w-full rounded-lg shadow-md"
                 />

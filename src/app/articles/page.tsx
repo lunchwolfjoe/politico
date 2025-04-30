@@ -20,19 +20,25 @@ export default function ArticlesPage() {
   return (
     <div className="bg-white">
       {/* Hero Section */}
-      <div className="relative isolate overflow-hidden">
+      <div className="relative">
+        {/* Background image with overlay */}
         <div className="absolute inset-0">
-          <Image
-            src="/images/personal/merica.jpg"
-            alt="Policy articles"
-            className="h-full w-full object-cover brightness-75"
-            width={1920}
-            height={1080}
-            priority
-          />
-          <div className="absolute inset-0 bg-gradient-to-r from-blue-900/80 to-red-900/50 mix-blend-multiply" />
+          <div className="h-full w-full overflow-hidden">
+            <img
+              src="/images/personal/merica.jpg"
+              alt="Policy articles"
+              className="h-full w-full object-cover"
+              style={{ 
+                maxHeight: "100%", 
+                objectPosition: "center 10%"
+              }}
+            />
+          </div>
+          <div className="absolute inset-0 bg-gradient-to-r from-blue-950/90 to-blue-800/70 mix-blend-multiply" />
         </div>
-        <div className="relative py-24 px-6 sm:py-32 lg:px-8">
+
+        {/* Hero content */}
+        <div className="relative py-32 px-6 sm:py-40 lg:py-56 lg:px-8">
           <div className="mx-auto max-w-2xl text-center">
             <h1 className="text-4xl font-bold tracking-tight text-white sm:text-6xl">
               Policy Articles
@@ -59,7 +65,7 @@ export default function ArticlesPage() {
           {articles.map((article) => (
             <article key={article.id} className="flex flex-col items-start">
               <div className="relative w-full">
-                <div className="aspect-[16/9] w-full rounded-2xl overflow-hidden bg-gray-100">
+                <div className="aspect-[16/9] w-[115%] -ml-[7.5%] rounded-2xl overflow-hidden bg-gray-100">
                   <Image
                     src={article.imagePath}
                     alt={article.title}
@@ -68,9 +74,6 @@ export default function ArticlesPage() {
                     height={450}
                   />
                   <div className="absolute inset-0 rounded-2xl ring-1 ring-inset ring-gray-900/10" />
-                </div>
-                <div className="absolute left-0 top-0 flex items-center rounded-tl-2xl rounded-br-2xl bg-red-700 py-1.5 px-3">
-                  <article.icon className="h-4 w-4 text-white" aria-hidden="true" />
                 </div>
               </div>
               <div className="max-w-xl">

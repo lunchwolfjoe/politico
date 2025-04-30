@@ -183,45 +183,32 @@ export default function VolunteerPage() {
   return (
     <div className="bg-white">
       {/* Hero Section */}
-      <div className="relative isolate overflow-hidden">
-        <div className="absolute inset-0 -z-10">
-          <Image
-            src="/images/personal/merica.jpg"
-            alt="Volunteers working together"
-            className="h-full w-full object-cover brightness-50"
-            width={1920}
-            height={1080}
-            priority
-          />
-          <div className="absolute inset-0 bg-gradient-to-b from-blue-950/40 to-red-900/30" />
+      <div className="relative">
+        {/* Background image with overlay */}
+        <div className="absolute inset-0">
+          <div className="h-full w-full overflow-hidden">
+            <img
+              src="/images/personal/merica.jpg"
+              alt="Get involved"
+              className="h-full w-full object-cover"
+              style={{ 
+                maxHeight: "100%", 
+                objectPosition: "center 10%"
+              }}
+            />
+          </div>
+          <div className="absolute inset-0 bg-gradient-to-r from-blue-950/90 to-blue-800/70 mix-blend-multiply" />
         </div>
-        <div className="mx-auto max-w-7xl px-6 pb-24 pt-10 sm:pb-32 lg:flex lg:px-8 lg:py-40">
-          <div className="mx-auto max-w-2xl lg:mx-0 lg:max-w-xl lg:pt-8">
-            <div className="mt-24 sm:mt-32 lg:mt-16">
-              <span className="rounded-full bg-red-700/10 px-3 py-1 text-sm font-semibold leading-6 text-white ring-1 ring-inset ring-red-700/20">
-                Get Involved
-              </span>
-            </div>
-            <h1 className="mt-10 text-4xl font-bold tracking-tight text-white sm:text-6xl">
-              Join Our Mission
+
+        {/* Hero content */}
+        <div className="relative py-32 px-6 sm:py-40 lg:py-56 lg:px-8">
+          <div className="mx-auto max-w-2xl text-center">
+            <h1 className="text-4xl font-bold tracking-tight text-white sm:text-6xl">
+              Get Involved
             </h1>
-            <p className="mt-6 text-lg leading-8 text-gray-100">
-              Our campaign is powered by patriots like you who are ready to restore American excellence. Whether you have military experience, tech skills, or simply a passion for conservative values, there's a place for you in our movement.
+            <p className="mt-6 text-xl leading-8 text-gray-100">
+              Join our campaign and help make a difference in our community.
             </p>
-            <div className="mt-10 flex gap-x-6">
-              <a
-                href="#opportunities"
-                className="rounded-md bg-red-700 px-5 py-3 text-base font-semibold text-white shadow-sm hover:bg-red-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-600"
-              >
-                See Opportunities
-              </a>
-              <a
-                href="#sign-up"
-                className="rounded-md border border-white px-5 py-3 text-base font-semibold text-white shadow-sm hover:bg-white/10"
-              >
-                Sign Up Now
-              </a>
-            </div>
           </div>
         </div>
       </div>
