@@ -10,7 +10,7 @@ export const imagePaths = {
     storeManager: '/images/professional/store manager.jpg',
     warehouseHourlyStaff: '/images/professional/warehousehourlystaff.jpg',
     warehouseLeadership: '/images/professional/warehouse leadershippic.jpg',
-    leadershipTeam: '/images/professional/leadershipteam.jpg',
+    leadershipTeam: '/images/professional/ledaershipteam.jpg',
     walmartPic: '/images/professional/walmartpic.jpg',
     walmartCheck: '/images/professional/Walmartcheck.JPG',
     amazonFlow: '/images/professional/amazonflow.jpg',
