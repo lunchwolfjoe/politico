@@ -65,7 +65,7 @@ const issues = [
       'Protecting communities from transnational criminal organizations'
     ],
     icon: ShieldCheckIcon,
-    image: '/images/battleship.jpg',
+    image: '/images/personal/battleship.jpg',
   },
   {
     id: 'innovation',
