@@ -65,15 +65,26 @@ export default function ArticlePage({ params }: { params: { slug: string } }) {
       {/* Hero Section */}
       <div className="relative isolate overflow-hidden">
         <div className="absolute inset-0">
-          <Image
-            src={article.imagePath}
-            alt={article.title}
-            className="h-full w-full object-cover brightness-75"
-            width={1920}
-            height={1080}
-            priority
-          />
-          <div className="absolute inset-0 bg-gradient-to-r from-blue-900/80 to-red-900/50 mix-blend-multiply" />
+          <div className="relative h-64 w-full overflow-hidden rounded-lg">
+            <img
+              src={article.imagePath}
+              alt={article.title}
+              className="h-full w-full object-cover"
+            />
+            <div className="absolute inset-0 bg-gradient-to-b from-transparent via-gray-900/60 to-gray-900/90" />
+            <div className="absolute bottom-0 left-0 right-0 p-6">
+              <div className="flex items-center">
+                <article.icon className="h-6 w-6 text-red-500" />
+                <p className="ml-2 text-sm font-medium text-red-400">{article.category}</p>
+              </div>
+              <h3 className="mt-2 text-xl font-semibold text-white">
+                {article.title}
+              </h3>
+              <p className="mt-2 text-sm text-gray-300 line-clamp-2">
+                {article.excerpt}
+              </p>
+            </div>
+          </div>
         </div>
         <div className="relative py-24 px-6 sm:py-32 lg:px-8">
           <div className="mx-auto max-w-3xl">

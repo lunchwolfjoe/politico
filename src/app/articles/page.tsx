@@ -53,17 +53,15 @@ export default function ArticlesPage() {
       {/* Articles List */}
       <div className="mx-auto max-w-7xl px-6 lg:px-8 py-24">
         <div className="mx-auto max-w-2xl lg:mx-0">
-          <h2 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
-            Latest Articles
-          </h2>
-          <p className="mt-2 text-lg leading-8 text-gray-600">
+          <h2 className="text-base font-semibold leading-7 text-red-700">Latest Articles</h2>
+          <p className="mt-2 text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
             Thoughtful analysis and policy proposals from N. Lee Plumb.
           </p>
         </div>
         
-        <div className="mx-auto mt-16 grid max-w-2xl grid-cols-1 gap-x-8 gap-y-20 lg:mx-0 lg:max-w-none lg:grid-cols-3">
+        <div className="mx-auto mt-16 grid max-w-2xl grid-cols-1 gap-x-8 gap-y-12 lg:mx-0 lg:max-w-none lg:grid-cols-3">
           {articles.map((article) => (
-            <article key={article.id} className="flex flex-col items-start justify-between h-full">
+            <article key={article.id} className="flex flex-col items-start justify-between">
               <div className="relative w-full">
                 <div className="aspect-[16/9] w-full rounded-2xl bg-gray-100 overflow-hidden">
                   <img
@@ -71,7 +69,16 @@ export default function ArticlesPage() {
                     alt={article.title}
                     className="absolute inset-0 h-full w-full object-cover"
                   />
-                  <div className="absolute inset-0 rounded-2xl ring-1 ring-inset ring-gray-900/10" />
+                  <div className="absolute inset-0 bg-gradient-to-b from-transparent via-gray-900/60 to-gray-900/90" />
+                  <div className="absolute bottom-0 left-0 right-0 p-6">
+                    <div className="flex items-center gap-x-2">
+                      <article.icon className="h-5 w-5 text-red-500" />
+                      <span className="text-sm font-medium text-red-400">{article.category}</span>
+                    </div>
+                    <h3 className="mt-2 text-xl font-semibold text-white line-clamp-2">
+                      {article.title}
+                    </h3>
+                  </div>
                 </div>
               </div>
               <div className="max-w-xl">
@@ -79,31 +86,23 @@ export default function ArticlesPage() {
                   <time dateTime={article.date} className="text-gray-500">
                     {article.date}
                   </time>
-                  <span className="relative z-10 rounded-full bg-gray-200 px-3 py-1.5 font-medium text-gray-800">
+                  <span className="relative z-10 rounded-full bg-gray-100 px-3 py-1.5 font-medium text-gray-600">
                     {article.category}
-                  </span>
-                  <span className="flex items-center text-gray-500">
-                    <ClockIcon className="h-3 w-3 mr-1" />
-                    {calculateReadingTime(article.content)} min
                   </span>
                 </div>
                 <div className="group relative">
-                  <h3 className="mt-3 text-lg font-semibold leading-6 text-gray-900 group-hover:text-gray-600">
-                    <Link href={`/articles/${article.slug}`}>
-                      <span className="absolute inset-0" />
-                      {article.title}
-                    </Link>
-                  </h3>
-                  <p className="mt-5 text-sm leading-6 text-gray-600 line-clamp-3">{article.excerpt}</p>
+                  <p className="mt-5 line-clamp-3 text-sm leading-6 text-gray-600">
+                    {article.excerpt}
+                  </p>
                 </div>
-              </div>
-              <div className="mt-8">
-                <Link
-                  href={`/articles/${article.slug}`}
-                  className="text-sm font-semibold leading-6 text-red-700"
-                >
-                  Read full article <span aria-hidden="true">→</span>
-                </Link>
+                <div className="mt-4">
+                  <Link
+                    href={`/articles/${article.slug}`}
+                    className="text-sm font-semibold leading-6 text-red-700"
+                  >
+                    Read article <span aria-hidden="true">→</span>
+                  </Link>
+                </div>
               </div>
             </article>
           ))}
