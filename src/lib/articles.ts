@@ -146,7 +146,7 @@ export const articles: Article[] = [
       
       <p>Let's fix the ops floor. Let's lead again.</p>
     `,
-    imagePath: "/images/professional/veteran-leadership.jpg"
+    imagePath: "/images/@broken floor.PNG"
   },
   {
     id: 'censorship-by-algorithm',
@@ -310,7 +310,7 @@ export const articles: Article[] = [
       
       <p>And if we don't act fast, that freedom disappears behind a polite, sterile curtain… pulled by an AI no one elected.</p>
     `,
-    imagePath: "/images/platform/cybersecurity.jpg"
+    imagePath: "/images/@censored.PNG"
   },
   {
     id: 'chainsaw-bureaucracy',
