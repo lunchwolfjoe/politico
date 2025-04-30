@@ -65,7 +65,7 @@ const issues = [
       'Protecting communities from transnational criminal organizations'
     ],
     icon: ShieldCheckIcon,
-    image: '/images/personal/battleship.jpg',
+    image: '/images/battleship.jpg',
   },
   {
     id: 'innovation',
@@ -218,13 +218,12 @@ export default function PlatformPage() {
                     <Image
                       src={issue.image}
                       alt={issue.title}
-                      className="absolute top-0 left-0 w-full object-cover"
+                      className="h-full w-full object-cover object-center"
                       width={800}
                       height={450}
-                      style={{ 
-                        height: '200%',
-                        objectPosition: 'center top'
-                      }}
+                      style={issue.title === 'Public Service' ? { objectPosition: 'center top' } : 
+                             issue.title === 'Corporate Leadership' ? { objectPosition: 'center 15%' } :
+                             issue.title === 'Military Service' ? { objectPosition: 'center 20%' } : undefined}
                     />
                   </div>
                   <div className="absolute inset-0 rounded-2xl ring-1 ring-inset ring-gray-900/10" />
