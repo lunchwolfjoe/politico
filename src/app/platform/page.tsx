@@ -138,6 +138,17 @@ const issues = [
   }
 ];
 
+const getImagePosition = (title: string) => {
+  switch (title) {
+    case 'Public Service':
+      return { objectPosition: 'center top' };
+    case 'Corporate Leadership':
+      return { objectPosition: 'center 20%' };
+    default:
+      return undefined;
+  }
+};
+
 export default function PlatformPage() {
   return (
     <div className="bg-white">
@@ -209,7 +220,7 @@ export default function PlatformPage() {
                     className="h-full w-full object-cover"
                     width={800}
                     height={450}
-                    style={issue.title === 'Public Service' ? { objectPosition: 'center 25%' } : undefined}
+                    style={getImagePosition(issue.title)}
                   />
                   <div className="absolute inset-0 rounded-2xl ring-1 ring-inset ring-gray-900/10" />
                 </div>
