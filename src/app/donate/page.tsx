@@ -19,15 +19,23 @@ const stripePromise = loadStripe(stripePublicKey!);
 const MAX_CONTRIBUTION = 3300; // $3,300 per election
 const presetAmounts = [25, 50, 100, 250, 500, 1000, 3300];
 
-function DonationForm() {
+function DonationForm({ amount, setAmount, employer, setEmployer, occupation, setOccupation }) {
   const stripe = useStripe();
   const elements = useElements();
-  const [amount, setAmount] = useState<number>(50);
   const [customAmount, setCustomAmount] = useState<string>('');
   const [isProcessing, setIsProcessing] = useState(false);
   const [errorMessage, setErrorMessage] = useState<string>('');
-  const [employer, setEmployer] = useState<string>('');
-  const [occupation, setOccupation] = useState<string>('');
+  const [elementsLoaded, setElementsLoaded] = useState(false);
+
+  useEffect(() => {
+    // Check if elements is ready
+    if (elements) {
+      console.log('Elements object is loaded and ready');
+      setElementsLoaded(true);
+    } else {
+      console.log('Elements object is not yet available');
+    }
+  }, [elements]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -35,6 +43,11 @@ function DonationForm() {
     if (!stripe || !elements) {
       setErrorMessage('Stripe has not initialized properly');
       console.error('Stripe not initialized', { stripe, elements });
+      return;
+    }
+
+    if (!elementsLoaded) {
+      setErrorMessage('Payment form is still loading. Please wait a moment and try again.');
       return;
     }
 
@@ -47,10 +60,17 @@ function DonationForm() {
     setErrorMessage('');
 
     try {
+      console.log('Attempting to confirm payment...');
+      
       const { error } = await stripe.confirmPayment({
         elements,
         confirmParams: {
           return_url: `${window.location.origin}/donate/thank-you`,
+          payment_method_data: {
+            billing_details: {
+              name: 'Test User', // You might want to collect this from the user
+            },
+          },
         },
       });
 
@@ -60,7 +80,7 @@ function DonationForm() {
       }
     } catch (err) {
       console.error('Unexpected error during payment:', err);
-      setErrorMessage('An unexpected error occurred');
+      setErrorMessage('An unexpected error occurred during payment processing');
     }
 
     setIsProcessing(false);
@@ -161,7 +181,9 @@ function DonationForm() {
 
       <div className="space-y-4">
         <h3 className="text-lg font-medium text-gray-900">Payment Details</h3>
-        <PaymentElement />
+        <div id="payment-element">
+          <PaymentElement />
+        </div>
       </div>
 
       {errorMessage && (
@@ -184,7 +206,7 @@ function DonationForm() {
 
       <button
         type="submit"
-        disabled={!stripe || isProcessing}
+        disabled={!stripe || !elementsLoaded || isProcessing}
         className="w-full rounded-md bg-red-700 px-4 py-2 text-white hover:bg-red-800 focus:outline-none focus:ring-2 focus:ring-red-700 focus:ring-offset-2 disabled:opacity-50"
       >
         {isProcessing ? 'Processing...' : `Donate $${amount}`}
@@ -197,6 +219,9 @@ export default function DonatePage() {
   const [clientSecret, setClientSecret] = useState<string>('');
   const [pageError, setPageError] = useState<string>('');
   const [isLoading, setIsLoading] = useState<boolean>(true);
+  const [amount, setAmount] = useState<number>(50);
+  const [employer, setEmployer] = useState<string>('');
+  const [occupation, setOccupation] = useState<string>('');
 
   useEffect(() => {
     // Create PaymentIntent as soon as the page loads
@@ -231,6 +256,18 @@ export default function DonatePage() {
         setIsLoading(false);
       });
   }, []);
+
+  const appearance = {
+    theme: 'stripe',
+    variables: {
+      colorPrimary: '#be123c',
+    }
+  };
+  
+  const options = {
+    clientSecret,
+    appearance,
+  };
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -274,8 +311,15 @@ export default function DonatePage() {
           )}
           
           {clientSecret && (
-            <Elements stripe={stripePromise} options={{ clientSecret }}>
-              <DonationForm />
+            <Elements stripe={stripePromise} options={options}>
+              <DonationForm 
+                amount={amount}
+                setAmount={setAmount}
+                employer={employer}
+                setEmployer={setEmployer}
+                occupation={occupation}
+                setOccupation={setOccupation}
+              />
             </Elements>
           )}
           
