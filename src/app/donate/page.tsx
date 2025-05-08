@@ -283,105 +283,90 @@ function DonationForm({ clientSecret, amount, setAmount, employer, setEmployer, 
         <h3 className="text-lg font-medium text-gray-900">Required Information</h3>
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
           <div>
-            <label htmlFor="name" className="block text-sm font-medium text-gray-700">
-              Full Name
-            </label>
+            <label htmlFor="name" className="block text-sm font-medium text-gray-700">Full Name</label>
             <input
               type="text"
               id="name"
               value={name}
-              onChange={(e) => setName(e.target.value)}
+              onChange={e => setName(e.target.value)}
               required
+              autoFocus
               className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-red-700 focus:ring-red-700 sm:text-sm"
             />
           </div>
           <div>
-            <label htmlFor="email" className="block text-sm font-medium text-gray-700">
-              Email
-            </label>
+            <label htmlFor="email" className="block text-sm font-medium text-gray-700">Email</label>
             <input
               type="email"
               id="email"
               value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              onChange={e => setEmail(e.target.value)}
               required
               className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-red-700 focus:ring-red-700 sm:text-sm"
             />
           </div>
           <div>
-            <label htmlFor="address" className="block text-sm font-medium text-gray-700">
-              Street Address
-            </label>
+            <label htmlFor="address" className="block text-sm font-medium text-gray-700">Street Address</label>
             <input
               type="text"
               id="address"
               value={address}
-              onChange={(e) => setAddress(e.target.value)}
+              onChange={e => setAddress(e.target.value)}
               required
               className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-red-700 focus:ring-red-700 sm:text-sm"
             />
           </div>
           <div>
-            <label htmlFor="city" className="block text-sm font-medium text-gray-700">
-              City
-            </label>
+            <label htmlFor="city" className="block text-sm font-medium text-gray-700">City</label>
             <input
               type="text"
               id="city"
               value={city}
-              onChange={(e) => setCity(e.target.value)}
+              onChange={e => setCity(e.target.value)}
               required
               className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-red-700 focus:ring-red-700 sm:text-sm"
             />
           </div>
           <div>
-            <label htmlFor="state" className="block text-sm font-medium text-gray-700">
-              State
-            </label>
+            <label htmlFor="state" className="block text-sm font-medium text-gray-700">State</label>
             <input
               type="text"
               id="state"
               value={state}
-              onChange={(e) => setState(e.target.value)}
+              onChange={e => setState(e.target.value)}
               required
               className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-red-700 focus:ring-red-700 sm:text-sm"
             />
           </div>
           <div>
-            <label htmlFor="zip" className="block text-sm font-medium text-gray-700">
-              ZIP Code
-            </label>
+            <label htmlFor="zip" className="block text-sm font-medium text-gray-700">ZIP Code</label>
             <input
               type="text"
               id="zip"
               value={zip}
-              onChange={(e) => setZip(e.target.value)}
+              onChange={e => setZip(e.target.value)}
               required
               className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-red-700 focus:ring-red-700 sm:text-sm"
             />
           </div>
           <div>
-            <label htmlFor="employer" className="block text-sm font-medium text-gray-700">
-              Employer
-            </label>
+            <label htmlFor="employer" className="block text-sm font-medium text-gray-700">Employer</label>
             <input
               type="text"
               id="employer"
               value={employer}
-              onChange={(e) => setEmployer(e.target.value)}
+              onChange={e => setEmployer(e.target.value)}
               required
               className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-red-700 focus:ring-red-700 sm:text-sm"
             />
           </div>
           <div>
-            <label htmlFor="occupation" className="block text-sm font-medium text-gray-700">
-              Occupation
-            </label>
+            <label htmlFor="occupation" className="block text-sm font-medium text-gray-700">Occupation</label>
             <input
               type="text"
               id="occupation"
               value={occupation}
-              onChange={(e) => setOccupation(e.target.value)}
+              onChange={e => setOccupation(e.target.value)}
               required
               className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-red-700 focus:ring-red-700 sm:text-sm"
             />
