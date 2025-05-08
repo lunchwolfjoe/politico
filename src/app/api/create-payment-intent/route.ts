@@ -79,10 +79,8 @@ export async function POST(req: Request) {
       amount: Math.round(amount * 100), // Convert to cents and ensure it's an integer
       currency: 'usd',
       automatic_payment_methods: {
-        enabled: true,
-        allow_redirects: 'never'
+        enabled: true
       },
-      payment_method_types: ['card', 'apple_pay'],
       metadata: {
         employer: employer || '',
         occupation: occupation || '',
