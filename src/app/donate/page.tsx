@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { loadStripe, StripeElementsOptions, Appearance, StripeElement, StripePaymentElement } from '@stripe/stripe-js';
+import { loadStripe, StripeElementsOptions, Appearance, StripeElement, StripePaymentElement, StripePaymentElementOptionsErrorEvent } from '@stripe/stripe-js';
 import {
   Elements,
   PaymentElement,
@@ -72,6 +72,12 @@ function DonationForm({ clientSecret, amount, setAmount }) {
       setIsPaymentElementReady(false);
     }
   }, [stripe, elements, clientSecret]);
+
+  const handleLoadError = (event: StripePaymentElementOptionsErrorEvent) => {
+    console.error('Payment Element onLoadError:', event.error);
+    setErrorMessage(event.error.message || 'The payment form failed to load. Please try refreshing the page.');
+    setIsPaymentElementReady(false);
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -215,13 +221,14 @@ function DonationForm({ clientSecret, amount, setAmount }) {
       <div className="space-y-4">
         <h3 className="text-lg font-medium text-gray-900">Payment Details</h3>
         <div id="payment-element">
-          <PaymentElement 
+          <PaymentElement
             options={{
               layout: {
                 type: 'tabs',
                 defaultCollapsed: false,
               },
             }}
+            onLoadError={handleLoadError}
           />
         </div>
       </div>
