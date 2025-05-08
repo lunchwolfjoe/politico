@@ -6,7 +6,8 @@ import {
   Elements,
   PaymentElement,
   useStripe,
-  useElements
+  useElements,
+  PaymentElement as PaymentElementType
 } from '@stripe/react-stripe-js';
 import Image from 'next/image';
 
@@ -39,7 +40,7 @@ function DonationForm({ clientSecret, amount, setAmount }) {
     }
 
     // Listen for changes in the PaymentElement and handle errors
-    const paymentElement = elements.getElement(PaymentElement);
+    const paymentElement = elements.getElement(PaymentElement) as PaymentElementType;
     if (paymentElement) {
       console.log('Payment Element found in the DOM');
       
