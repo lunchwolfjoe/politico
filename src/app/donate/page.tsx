@@ -1,13 +1,12 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { loadStripe } from '@stripe/stripe-js';
+import { loadStripe, StripeElementsOptions } from '@stripe/stripe-js';
 import {
   Elements,
   PaymentElement,
   useStripe,
-  useElements,
-  StripeElementsOptions
+  useElements
 } from '@stripe/react-stripe-js';
 import Image from 'next/image';
 
