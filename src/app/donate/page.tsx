@@ -179,6 +179,8 @@ function DonationForm({ clientSecret, amount, setAmount }) {
   const handleCustomAmountChange = (e) => {
     const value = e.target.value;
     setCustomAmount(value);
+    
+    // Update amount immediately when input changes
     if (value) {
       const numValue = parseFloat(value);
       if (!isNaN(numValue)) {
@@ -190,16 +192,9 @@ function DonationForm({ clientSecret, amount, setAmount }) {
           setErrorMessage('');
         }
       }
-    }
-  };
-
-  const handleCustomAmountKeyPress = (e) => {
-    if (e.key === 'Enter') {
-      e.preventDefault();
-      const value = parseFloat(customAmount);
-      if (value && value > 0 && value <= MAX_CONTRIBUTION) {
-        setAmount(value);
-      }
+    } else {
+      // If input is cleared, reset to default amount
+      setAmount(50);
     }
   };
 
@@ -280,7 +275,6 @@ function DonationForm({ clientSecret, amount, setAmount }) {
               id="custom-amount"
               value={customAmount}
               onChange={handleCustomAmountChange}
-              onKeyPress={handleCustomAmountKeyPress}
               placeholder="Enter amount"
               min="1"
               max={MAX_CONTRIBUTION}
