@@ -27,14 +27,15 @@ export default function ThankYouPage() {
     <div className="min-h-screen bg-gray-50">
       <div className="relative">
         <div className="absolute inset-0">
-          <Image
-            src="/images/thank-you-hero.jpg"
-            alt="Thank you"
-            className="h-full w-full object-cover"
-            width={1920}
-            height={1080}
-          />
-          <div className="absolute inset-0 bg-gradient-to-r from-blue-900/70 to-red-900/70" />
+          <div className="h-full w-full overflow-hidden">
+            <img
+              src="/images/personal/merica.jpg"
+              alt="Support our campaign"
+              className="h-full w-full object-cover"
+              style={{ maxHeight: '100%', objectPosition: 'center 10%' }}
+            />
+          </div>
+          <div className="absolute inset-0 bg-gradient-to-r from-blue-950/90 to-blue-800/70 mix-blend-multiply" />
         </div>
         <div className="relative py-24 px-6 sm:py-32 lg:px-8">
           <div className="mx-auto max-w-2xl text-center">
