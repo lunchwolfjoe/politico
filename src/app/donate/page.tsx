@@ -27,6 +27,12 @@ function DonationForm({ clientSecret, amount, setAmount }) {
   const [errorMessage, setErrorMessage] = useState<string>('');
   const [employer, setEmployer] = useState<string>('');
   const [occupation, setOccupation] = useState<string>('');
+  const [name, setName] = useState<string>('');
+  const [email, setEmail] = useState<string>('');
+  const [address, setAddress] = useState<string>('');
+  const [city, setCity] = useState<string>('');
+  const [state, setState] = useState<string>('');
+  const [zip, setZip] = useState<string>('');
   const [isPaymentElementReady, setIsPaymentElementReady] = useState(false);
 
   useEffect(() => {
@@ -92,8 +98,8 @@ function DonationForm({ clientSecret, amount, setAmount }) {
       return;
     }
 
-    if (!employer || !occupation) {
-      setErrorMessage('Please provide your employer and occupation information');
+    if (!employer || !occupation || !name || !email || !address || !city || !state || !zip) {
+      setErrorMessage('Please fill in all required fields');
       return;
     }
 
@@ -107,7 +113,15 @@ function DonationForm({ clientSecret, amount, setAmount }) {
           return_url: `${window.location.origin}/donate/thank-you`,
           payment_method_data: {
             billing_details: {
-              name: 'Campaign Donor',
+              name: name,
+              email: email,
+              address: {
+                line1: address,
+                city: city,
+                state: state,
+                postal_code: zip,
+                country: 'US',
+              },
             },
           },
         },
@@ -186,9 +200,87 @@ function DonationForm({ clientSecret, amount, setAmount }) {
         </div>
       </div>
 
-      <div className="space-y-4">
+      <div>
         <h3 className="text-lg font-medium text-gray-900">Required Information</h3>
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+          <div>
+            <label htmlFor="name" className="block text-sm font-medium text-gray-700">
+              Full Name
+            </label>
+            <input
+              type="text"
+              id="name"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              required
+              className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-red-700 focus:ring-red-700 sm:text-sm"
+            />
+          </div>
+          <div>
+            <label htmlFor="email" className="block text-sm font-medium text-gray-700">
+              Email
+            </label>
+            <input
+              type="email"
+              id="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+              className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-red-700 focus:ring-red-700 sm:text-sm"
+            />
+          </div>
+          <div>
+            <label htmlFor="address" className="block text-sm font-medium text-gray-700">
+              Street Address
+            </label>
+            <input
+              type="text"
+              id="address"
+              value={address}
+              onChange={(e) => setAddress(e.target.value)}
+              required
+              className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-red-700 focus:ring-red-700 sm:text-sm"
+            />
+          </div>
+          <div>
+            <label htmlFor="city" className="block text-sm font-medium text-gray-700">
+              City
+            </label>
+            <input
+              type="text"
+              id="city"
+              value={city}
+              onChange={(e) => setCity(e.target.value)}
+              required
+              className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-red-700 focus:ring-red-700 sm:text-sm"
+            />
+          </div>
+          <div>
+            <label htmlFor="state" className="block text-sm font-medium text-gray-700">
+              State
+            </label>
+            <input
+              type="text"
+              id="state"
+              value={state}
+              onChange={(e) => setState(e.target.value)}
+              required
+              className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-red-700 focus:ring-red-700 sm:text-sm"
+            />
+          </div>
+          <div>
+            <label htmlFor="zip" className="block text-sm font-medium text-gray-700">
+              ZIP Code
+            </label>
+            <input
+              type="text"
+              id="zip"
+              value={zip}
+              onChange={(e) => setZip(e.target.value)}
+              required
+              className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-red-700 focus:ring-red-700 sm:text-sm"
+            />
+          </div>
           <div>
             <label htmlFor="employer" className="block text-sm font-medium text-gray-700">
               Employer

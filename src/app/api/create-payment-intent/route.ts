@@ -30,9 +30,29 @@ export async function POST(req: Request) {
   try {
     console.log('Creating payment intent...');
     const body = await req.json();
-    const { amount, employer, occupation } = body;
+    const { 
+      amount, 
+      employer, 
+      occupation,
+      name,
+      email,
+      address,
+      city,
+      state,
+      zip
+    } = body;
     
-    console.log('Request data:', { amount, employer, occupation });
+    console.log('Request data:', { 
+      amount, 
+      employer, 
+      occupation,
+      name,
+      email,
+      address,
+      city,
+      state,
+      zip
+    });
 
     // Validate amount
     if (!amount || isNaN(amount) || amount <= 0) {
@@ -51,6 +71,15 @@ export async function POST(req: Request) {
       );
     }
 
+    // Validate required fields
+    if (!name || !email || !address || !city || !state || !zip || !employer || !occupation) {
+      console.error('Missing required fields');
+      return NextResponse.json(
+        { error: 'All fields are required' },
+        { status: 400 }
+      );
+    }
+
     // Create a PaymentIntent with the order amount and currency
     const paymentIntent = await stripe.paymentIntents.create({
       amount: Math.round(amount * 100), // Convert to cents
@@ -59,10 +88,21 @@ export async function POST(req: Request) {
         enabled: true,
       },
       metadata: {
-        employer: employer || 'Not provided',
-        occupation: occupation || 'Not provided',
+        employer: employer,
+        occupation: occupation,
         election: '2024 General',
         fec_reporting: amount >= 200 ? 'Yes' : 'No',
+      },
+      receipt_email: email,
+      shipping: {
+        name: name,
+        address: {
+          line1: address,
+          city: city,
+          state: state,
+          postal_code: zip,
+          country: 'US',
+        },
       },
     });
 
