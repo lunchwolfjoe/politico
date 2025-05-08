@@ -45,7 +45,7 @@ function DonationForm({ clientSecret, amount, setAmount }) {
     // Check if Apple Pay is available
     const checkApplePaySupport = async () => {
       try {
-        const { paymentRequest } = await stripe.paymentRequest({
+        const paymentRequest = stripe.paymentRequest({
           country: 'US',
           currency: 'usd',
           total: {
