@@ -43,26 +43,29 @@ function DonationForm({ clientSecret, amount, setAmount }) {
     if (paymentElement) {
       console.log('Payment Element found in the DOM');
       
-      // Add event listener for the ready event
-      paymentElement.on('ready', () => {
+      // Use the correct event handling method
+      const handleReady = () => {
         console.log('Payment Element is ready');
         setIsPaymentElementReady(true);
-      });
+      };
 
-      // Add event listener for the change event
-      paymentElement.on('change', (event) => {
+      const handleChange = (event: any) => {
         if (event.error) {
           console.error('Payment Element error:', event.error);
           setErrorMessage(event.error.message || 'An error occurred with the payment form');
         } else {
           setErrorMessage('');
         }
-      });
+      };
+
+      // Add event listeners using the correct method
+      paymentElement.addEventListener('ready', handleReady);
+      paymentElement.addEventListener('change', handleChange);
 
       // Cleanup function
       return () => {
-        paymentElement.off('ready');
-        paymentElement.off('change');
+        paymentElement.removeEventListener('ready', handleReady);
+        paymentElement.removeEventListener('change', handleChange);
       };
     } else {
       console.log('Payment Element NOT found in the DOM');
