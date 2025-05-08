@@ -339,7 +339,7 @@ function DonationForm({ clientSecret, amount, setAmount }) {
           <li>Contributions from corporations, labor organization treasury funds, foreign nationals without green cards, and federal government contractors are prohibited.</li>
           <li>Contributions must be made from the donor's own funds, not those provided by another person or entity for the purpose of making the contribution.</li>
           <li>Contributions are limited to $3,300 per election.</li>
-          <li>By law, the maximum amount an individual may contribute is $3,300 per election. Your contribution (up to $3,300) will be designated for the 2024 general election.</li>
+          <li>By law, the maximum amount an individual may contribute is $3,300 per election. Your contribution (up to $3,300) will be designated for the 2026 primary election, unless otherwise directed.</li>
         </ul>
       </div>
 
