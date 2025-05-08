@@ -43,10 +43,29 @@ function DonationForm({ clientSecret, amount, setAmount }) {
     if (!stripe) return;
 
     // Check if Apple Pay is available
-    stripe.isApplePaySupported().then((supported) => {
-      setIsApplePayAvailable(supported);
-    });
-  }, [stripe]);
+    const checkApplePaySupport = async () => {
+      try {
+        const { paymentRequest } = await stripe.paymentRequest({
+          country: 'US',
+          currency: 'usd',
+          total: {
+            label: 'Donation',
+            amount: amount * 100,
+          },
+          requestPayerName: true,
+          requestPayerEmail: true,
+        });
+
+        const result = await paymentRequest.canMakePayment();
+        setIsApplePayAvailable(result?.applePay === true);
+      } catch (err) {
+        console.error('Error checking Apple Pay support:', err);
+        setIsApplePayAvailable(false);
+      }
+    };
+
+    checkApplePaySupport();
+  }, [stripe, amount]);
 
   useEffect(() => {
     if (!stripe || !elements) {
