@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { loadStripe, StripeElementsOptions, Appearance, StripeElement, StripePaymentElement, StripePaymentElementOptionsErrorEvent } from '@stripe/stripe-js';
+import { loadStripe, StripeElementsOptions, Appearance, StripeElement, StripePaymentElement, StripeError } from '@stripe/stripe-js';
 import {
   Elements,
   PaymentElement,
@@ -73,7 +73,7 @@ function DonationForm({ clientSecret, amount, setAmount }) {
     }
   }, [stripe, elements, clientSecret]);
 
-  const handleLoadError = (event: StripePaymentElementOptionsErrorEvent) => {
+  const handleLoadError = (event: { error: StripeError }) => {
     console.error('Payment Element onLoadError:', event.error);
     setErrorMessage(event.error.message || 'The payment form failed to load. Please try refreshing the page.');
     setIsPaymentElementReady(false);
