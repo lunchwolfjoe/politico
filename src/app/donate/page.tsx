@@ -188,24 +188,28 @@ function DonationForm({ clientSecret, amount, setAmount }) {
     setErrorMessage('');
 
     try {
-      const { error } = await stripe.confirmApplePayPayment(clientSecret, {
-        paymentMethod: {
-          billing_details: {
-            name: name,
-            email: email,
-            address: {
-              line1: address,
-              city: city,
-              state: state,
-              postal_code: zip,
-              country: 'US',
+      const { error } = await stripe.confirmPayment({
+        elements,
+        confirmParams: {
+          return_url: `${window.location.origin}/donate/thank-you`,
+          payment_method_data: {
+            billing_details: {
+              name: name,
+              email: email,
+              address: {
+                line1: address,
+                city: city,
+                state: state,
+                postal_code: zip,
+                country: 'US',
+              },
             },
           },
         },
       });
 
       if (error) {
-        console.error('Apple Pay payment error:', error);
+        console.error('Payment error:', error);
         setErrorMessage(error.message || 'An error occurred during payment processing');
       }
     } catch (err) {
@@ -372,11 +376,14 @@ function DonationForm({ clientSecret, amount, setAmount }) {
         
         {isApplePayAvailable && (
           <div className="mb-4">
-            <ApplePayButton
+            <button
+              type="button"
               onClick={handleApplePayPayment}
               disabled={isProcessing}
-              className="w-full"
-            />
+              className="w-full rounded-md bg-black px-4 py-2 text-white hover:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-black focus:ring-offset-2 disabled:opacity-50"
+            >
+              {isProcessing ? 'Processing...' : 'Pay with Apple Pay'}
+            </button>
           </div>
         )}
 
@@ -387,6 +394,7 @@ function DonationForm({ clientSecret, amount, setAmount }) {
                 type: 'tabs',
                 defaultCollapsed: false,
               },
+              paymentMethodOrder: ['apple_pay', 'card'],
             }}
             onLoadError={handleLoadError}
           />
