@@ -71,15 +71,9 @@ export async function POST(req: Request) {
       );
     }
 
-    // Validate required fields
-    if (!name || !email || !address || !city || !state || !zip || !employer || !occupation) {
-      console.error('Missing required fields');
-      return NextResponse.json(
-        { error: 'All fields are required' },
-        { status: 400 }
-      );
-    }
-
+    // Only validate donor information if it's provided
+    const hasDonorInfo = name && email && address && city && state && zip && employer && occupation;
+    
     // Create a PaymentIntent with the order amount and currency
     const paymentIntent = await stripe.paymentIntents.create({
       amount: Math.round(amount * 100), // Convert to cents
@@ -87,23 +81,25 @@ export async function POST(req: Request) {
       automatic_payment_methods: {
         enabled: true,
       },
-      metadata: {
-        employer: employer,
-        occupation: occupation,
-        election: '2024 General',
-        fec_reporting: amount >= 200 ? 'Yes' : 'No',
-      },
-      receipt_email: email,
-      shipping: {
-        name: name,
-        address: {
-          line1: address,
-          city: city,
-          state: state,
-          postal_code: zip,
-          country: 'US',
+      ...(hasDonorInfo && {
+        metadata: {
+          employer: employer,
+          occupation: occupation,
+          election: '2024 General',
+          fec_reporting: amount >= 200 ? 'Yes' : 'No',
         },
-      },
+        receipt_email: email,
+        shipping: {
+          name: name,
+          address: {
+            line1: address,
+            city: city,
+            state: state,
+            postal_code: zip,
+            country: 'US',
+          },
+        },
+      }),
     });
 
     console.log('Payment intent created successfully:', paymentIntent.id);
