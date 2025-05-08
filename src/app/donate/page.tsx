@@ -22,20 +22,12 @@ const stripePromise = loadStripe(stripePublicKey!, {
 const MAX_CONTRIBUTION = 3300; // $3,300 per election
 const presetAmounts = [25, 50, 100, 250, 500, 1000, 3300];
 
-function DonationForm({ clientSecret, amount, setAmount }) {
+function DonationForm({ clientSecret, amount, setAmount, employer, setEmployer, occupation, setOccupation, name, setName, email, setEmail, address, setAddress, city, setCity, state, setState, zip, setZip }) {
   const stripe = useStripe();
   const elements = useElements();
   const [customAmount, setCustomAmount] = useState<string>('');
   const [isProcessing, setIsProcessing] = useState(false);
   const [errorMessage, setErrorMessage] = useState<string>('');
-  const [employer, setEmployer] = useState<string>('');
-  const [occupation, setOccupation] = useState<string>('');
-  const [name, setName] = useState<string>('');
-  const [email, setEmail] = useState<string>('');
-  const [address, setAddress] = useState<string>('');
-  const [city, setCity] = useState<string>('');
-  const [state, setState] = useState<string>('');
-  const [zip, setZip] = useState<string>('');
   const [isPaymentElementReady, setIsPaymentElementReady] = useState(false);
   const [isApplePayAvailable, setIsApplePayAvailable] = useState(false);
 
@@ -462,6 +454,16 @@ export default function DonatePage() {
   const [pageError, setPageError] = useState('');
   const [isLoading, setIsLoading] = useState(false);
 
+  // Add state for all form fields
+  const [employer, setEmployer] = useState('');
+  const [occupation, setOccupation] = useState('');
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [address, setAddress] = useState('');
+  const [city, setCity] = useState('');
+  const [state, setState] = useState('');
+  const [zip, setZip] = useState('');
+
   // Create payment intent only when user submits the form
   const handleStartDonation = async (e) => {
     e.preventDefault();
@@ -472,7 +474,17 @@ export default function DonatePage() {
       const response = await fetch('/api/create-payment-intent', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ amount }),
+        body: JSON.stringify({
+          amount,
+          employer,
+          occupation,
+          name,
+          email,
+          address,
+          city,
+          state,
+          zip
+        }),
       });
       if (!response.ok) {
         throw new Error(`API error: ${response.status}`);
@@ -589,6 +601,16 @@ export default function DonatePage() {
                   </button>
                 </div>
               </div>
+              <div className="mt-4 grid grid-cols-1 gap-4 sm:grid-cols-2">
+                <input type="text" placeholder="Full Name" value={name} onChange={e => setName(e.target.value)} required className="..." />
+                <input type="email" placeholder="Email" value={email} onChange={e => setEmail(e.target.value)} required className="..." />
+                <input type="text" placeholder="Street Address" value={address} onChange={e => setAddress(e.target.value)} required className="..." />
+                <input type="text" placeholder="City" value={city} onChange={e => setCity(e.target.value)} required className="..." />
+                <input type="text" placeholder="State" value={state} onChange={e => setState(e.target.value)} required className="..." />
+                <input type="text" placeholder="ZIP Code" value={zip} onChange={e => setZip(e.target.value)} required className="..." />
+                <input type="text" placeholder="Employer" value={employer} onChange={e => setEmployer(e.target.value)} required className="..." />
+                <input type="text" placeholder="Occupation" value={occupation} onChange={e => setOccupation(e.target.value)} required className="..." />
+              </div>
             </form>
           ) : (
             <Elements stripe={stripePromise} options={{ clientSecret, appearance: { theme: 'stripe', variables: { colorPrimary: '#be123c' } } }}>
@@ -596,6 +618,22 @@ export default function DonatePage() {
                 clientSecret={clientSecret}
                 amount={amount}
                 setAmount={setAmount}
+                employer={employer}
+                setEmployer={setEmployer}
+                occupation={occupation}
+                setOccupation={setOccupation}
+                name={name}
+                setName={setName}
+                email={email}
+                setEmail={setEmail}
+                address={address}
+                setAddress={setAddress}
+                city={city}
+                setCity={setCity}
+                state={state}
+                setState={setState}
+                zip={zip}
+                setZip={setZip}
               />
             </Elements>
           )}
