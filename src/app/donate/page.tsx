@@ -181,12 +181,24 @@ function DonationForm({ clientSecret, amount, setAmount }) {
     setCustomAmount(value);
     if (value) {
       const numValue = parseFloat(value);
-      if (numValue > MAX_CONTRIBUTION) {
-        setErrorMessage(`Contributions cannot exceed $${MAX_CONTRIBUTION.toLocaleString()}`);
-        setAmount(MAX_CONTRIBUTION);
-      } else {
-        setAmount(numValue);
-        setErrorMessage('');
+      if (!isNaN(numValue)) {
+        if (numValue > MAX_CONTRIBUTION) {
+          setErrorMessage(`Contributions cannot exceed $${MAX_CONTRIBUTION.toLocaleString()}`);
+          setAmount(MAX_CONTRIBUTION);
+        } else if (numValue > 0) {
+          setAmount(numValue);
+          setErrorMessage('');
+        }
+      }
+    }
+  };
+
+  const handleCustomAmountKeyPress = (e) => {
+    if (e.key === 'Enter') {
+      e.preventDefault();
+      const value = parseFloat(customAmount);
+      if (value && value > 0 && value <= MAX_CONTRIBUTION) {
+        setAmount(value);
       }
     }
   };
@@ -268,7 +280,9 @@ function DonationForm({ clientSecret, amount, setAmount }) {
               id="custom-amount"
               value={customAmount}
               onChange={handleCustomAmountChange}
+              onKeyPress={handleCustomAmountKeyPress}
               placeholder="Enter amount"
+              min="1"
               max={MAX_CONTRIBUTION}
               className="block w-full rounded-md border-gray-300 shadow-sm focus:border-red-700 focus:ring-red-700 sm:text-sm"
             />
@@ -442,7 +456,7 @@ function DonationForm({ clientSecret, amount, setAmount }) {
         disabled={!stripe || isProcessing || !isPaymentElementReady}
         className="w-full rounded-md bg-red-700 px-4 py-2 text-white hover:bg-red-800 focus:outline-none focus:ring-2 focus:ring-red-700 focus:ring-offset-2 disabled:opacity-50"
       >
-        {isProcessing ? 'Processing...' : `Donate $${amount}`}
+        {isProcessing ? 'Processing...' : `Donate $${amount.toFixed(2)}`}
       </button>
     </form>
   );
