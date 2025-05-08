@@ -27,9 +27,10 @@ function DonationForm({ clientSecret, amount, setAmount }) {
   const [errorMessage, setErrorMessage] = useState<string>('');
   const [employer, setEmployer] = useState<string>('');
   const [occupation, setOccupation] = useState<string>('');
+  const [isPaymentElementReady, setIsPaymentElementReady] = useState(false);
 
   useEffect(() => {
-    if (!stripe) {
+    if (!stripe || !elements) {
       return;
     }
 
@@ -37,12 +38,35 @@ function DonationForm({ clientSecret, amount, setAmount }) {
       return;
     }
 
-    // Listen for changes in the CardElement and handle errors
-    const paymentElement = elements?.getElement(PaymentElement);
+    // Listen for changes in the PaymentElement and handle errors
+    const paymentElement = elements.getElement(PaymentElement);
     if (paymentElement) {
       console.log('Payment Element found in the DOM');
+      
+      // Add event listener for the ready event
+      paymentElement.on('ready', () => {
+        console.log('Payment Element is ready');
+        setIsPaymentElementReady(true);
+      });
+
+      // Add event listener for the change event
+      paymentElement.on('change', (event) => {
+        if (event.error) {
+          console.error('Payment Element error:', event.error);
+          setErrorMessage(event.error.message || 'An error occurred with the payment form');
+        } else {
+          setErrorMessage('');
+        }
+      });
+
+      // Cleanup function
+      return () => {
+        paymentElement.off('ready');
+        paymentElement.off('change');
+      };
     } else {
       console.log('Payment Element NOT found in the DOM');
+      setIsPaymentElementReady(false);
     }
   }, [stripe, elements, clientSecret]);
 
@@ -51,6 +75,11 @@ function DonationForm({ clientSecret, amount, setAmount }) {
 
     if (!stripe || !elements) {
       setErrorMessage('Stripe is still loading. Please try again in a moment.');
+      return;
+    }
+
+    if (!isPaymentElementReady) {
+      setErrorMessage('Payment form is not ready. Please wait a moment and try again.');
       return;
     }
 
@@ -183,7 +212,14 @@ function DonationForm({ clientSecret, amount, setAmount }) {
       <div className="space-y-4">
         <h3 className="text-lg font-medium text-gray-900">Payment Details</h3>
         <div id="payment-element">
-          <PaymentElement />
+          <PaymentElement 
+            options={{
+              layout: {
+                type: 'tabs',
+                defaultCollapsed: false,
+              },
+            }}
+          />
         </div>
       </div>
 
@@ -207,7 +243,7 @@ function DonationForm({ clientSecret, amount, setAmount }) {
 
       <button
         type="submit"
-        disabled={!stripe || isProcessing}
+        disabled={!stripe || isProcessing || !isPaymentElementReady}
         className="w-full rounded-md bg-red-700 px-4 py-2 text-white hover:bg-red-800 focus:outline-none focus:ring-2 focus:ring-red-700 focus:ring-offset-2 disabled:opacity-50"
       >
         {isProcessing ? 'Processing...' : `Donate $${amount}`}
