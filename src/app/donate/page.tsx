@@ -457,36 +457,33 @@ function DonationForm({ clientSecret, amount, setAmount }) {
 }
 
 export default function DonatePage() {
-  const [clientSecret, setClientSecret] = useState('');
   const [amount, setAmount] = useState(50);
+  const [clientSecret, setClientSecret] = useState('');
   const [pageError, setPageError] = useState('');
   const [isLoading, setIsLoading] = useState(false);
 
-  const createPaymentIntent = async (amount: number) => {
+  // Create payment intent only when user submits the form
+  const handleStartDonation = async (e) => {
+    e.preventDefault();
     setIsLoading(true);
-    console.log('Creating payment intent for amount:', amount);
-    
+    setPageError('');
+    setClientSecret('');
     try {
       const response = await fetch('/api/create-payment-intent', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ amount }),
       });
-
       if (!response.ok) {
         throw new Error(`API error: ${response.status}`);
       }
-
       const data = await response.json();
-      console.log('Payment intent created:', data.clientSecret ? 'Success' : 'Missing client secret');
-      
       if (data.clientSecret) {
         setClientSecret(data.clientSecret);
       } else if (data.error) {
         setPageError(data.error || 'Failed to initialize payment');
       }
     } catch (err) {
-      console.error('Error creating payment intent:', err);
       setPageError('Failed to initialize payment system. Please try again later.');
     } finally {
       setIsLoading(false);
@@ -498,11 +495,6 @@ export default function DonatePage() {
     variables: {
       colorPrimary: '#be123c',
     },
-  };
-
-  const options: StripeElementsOptions = {
-    clientSecret,
-    appearance,
   };
 
   return (
@@ -543,72 +535,69 @@ export default function DonatePage() {
               <div className="h-8 w-8 animate-spin rounded-full border-4 border-red-600 border-t-transparent"></div>
             </div>
           )}
-          
           {pageError && (
             <div className="rounded-md bg-red-50 p-4 my-4">
               <div className="text-sm text-red-700">{pageError}</div>
             </div>
           )}
-          
-          {clientSecret ? (
-            <Elements stripe={stripePromise} options={options}>
+          {!clientSecret ? (
+            <form onSubmit={handleStartDonation} className="bg-white shadow sm:rounded-lg px-4 py-5 sm:p-6">
+              <h3 className="text-lg font-medium leading-6 text-gray-900">Select Donation Amount</h3>
+              <div className="mt-4 grid grid-cols-2 gap-4 sm:grid-cols-3">
+                {presetAmounts.map((presetAmount) => (
+                  <button
+                    key={presetAmount}
+                    type="button"
+                    onClick={() => setAmount(presetAmount)}
+                    className={`inline-flex items-center justify-center rounded-md border px-4 py-2 text-sm font-medium shadow-sm focus:outline-none focus:ring-2 focus:ring-red-700 focus:ring-offset-2 ${amount === presetAmount ? 'border-red-700 bg-red-50 text-red-700' : 'border-gray-300 bg-white text-gray-700 hover:bg-gray-50'}`}
+                  >
+                    ${presetAmount}
+                  </button>
+                ))}
+              </div>
+              <div className="mt-4">
+                <label htmlFor="custom-amount" className="sr-only">
+                  Custom Amount
+                </label>
+                <div className="mt-1 flex rounded-md shadow-sm">
+                  <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
+                    <span className="text-gray-500 sm:text-sm">$</span>
+                  </div>
+                  <input
+                    type="number"
+                    name="custom-amount"
+                    id="custom-amount"
+                    className="block w-full rounded-none rounded-l-md border-gray-300 pl-7 focus:border-red-700 focus:ring-red-700 sm:text-sm"
+                    placeholder="Custom amount"
+                    min="1"
+                    max="3300"
+                    value={amount && !presetAmounts.includes(amount) ? amount : ''}
+                    onChange={e => {
+                      const value = parseFloat(e.target.value);
+                      if (!isNaN(value) && value > 0 && value <= 3300) {
+                        setAmount(value);
+                      } else if (e.target.value === '') {
+                        setAmount(50);
+                      }
+                    }}
+                  />
+                  <button
+                    type="submit"
+                    className="relative -ml-px inline-flex items-center space-x-2 rounded-r-md border border-gray-300 bg-gray-50 px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-100 focus:border-red-700 focus:outline-none focus:ring-1 focus:ring-red-700"
+                  >
+                    Donate
+                  </button>
+                </div>
+              </div>
+            </form>
+          ) : (
+            <Elements stripe={stripePromise} options={{ clientSecret, appearance: { theme: 'stripe', variables: { colorPrimary: '#be123c' } } }}>
               <DonationForm 
                 clientSecret={clientSecret}
                 amount={amount}
                 setAmount={setAmount}
               />
             </Elements>
-          ) : (
-            <div className="bg-white shadow sm:rounded-lg">
-              <div className="px-4 py-5 sm:p-6">
-                <h3 className="text-lg font-medium leading-6 text-gray-900">Select Donation Amount</h3>
-                <div className="mt-4 grid grid-cols-2 gap-4 sm:grid-cols-3">
-                  {[25, 50, 100, 250, 500, 1000].map((presetAmount) => (
-                    <button
-                      key={presetAmount}
-                      onClick={() => createPaymentIntent(presetAmount)}
-                      className="inline-flex items-center justify-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-red-700 focus:ring-offset-2"
-                    >
-                      ${presetAmount}
-                    </button>
-                  ))}
-                </div>
-                <div className="mt-4">
-                  <label htmlFor="custom-amount" className="sr-only">
-                    Custom Amount
-                  </label>
-                  <div className="mt-1 flex rounded-md shadow-sm">
-                    <div className="relative flex flex-grow items-stretch focus-within:z-10">
-                      <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
-                        <span className="text-gray-500 sm:text-sm">$</span>
-                      </div>
-                      <input
-                        type="number"
-                        name="custom-amount"
-                        id="custom-amount"
-                        className="block w-full rounded-none rounded-l-md border-gray-300 pl-7 focus:border-red-700 focus:ring-red-700 sm:text-sm"
-                        placeholder="Custom amount"
-                        min="1"
-                        max="3300"
-                      />
-                    </div>
-                    <button
-                      type="button"
-                      onClick={() => {
-                        const input = document.getElementById('custom-amount') as HTMLInputElement;
-                        const value = parseFloat(input.value);
-                        if (value && value > 0 && value <= 3300) {
-                          createPaymentIntent(value);
-                        }
-                      }}
-                      className="relative -ml-px inline-flex items-center space-x-2 rounded-r-md border border-gray-300 bg-gray-50 px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-100 focus:border-red-700 focus:outline-none focus:ring-1 focus:ring-red-700"
-                    >
-                      Donate
-                    </button>
-                  </div>
-                </div>
-              </div>
-            </div>
           )}
         </div>
       </div>
