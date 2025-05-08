@@ -12,6 +12,7 @@ const navigation = [
   { name: 'Platform', href: '/platform' },
   { name: 'Articles', href: '/articles' },
   { name: 'Get Involved', href: '/volunteer' },
+  { name: 'Donate', href: '/donate' },
   { name: 'News', href: '/news' },
   { name: 'Contact', href: '/contact' },
 ];

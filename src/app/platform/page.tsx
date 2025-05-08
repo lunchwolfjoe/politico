@@ -1,8 +1,5 @@
-"use client";
-
 import Image from 'next/image';
 import Link from 'next/link';
-import { useState } from 'react';
 import { 
   CurrencyDollarIcon, 
   ShieldCheckIcon, 
@@ -11,27 +8,10 @@ import {
   AcademicCapIcon,
   HeartIcon,
   RocketLaunchIcon,
-  ScaleIcon,
-  DocumentTextIcon,
-  ArrowTopRightOnSquareIcon,
-  ExclamationTriangleIcon,
-  ArrowPathIcon
+  ScaleIcon
 } from '@heroicons/react/24/outline';
 
-interface PlatformIssue {
-  id: string;
-  title: string;
-  description: string;
-  points: string[];
-  icon: any;
-  relatedArticle?: {
-    slug: string;
-    title: string;
-  };
-  category: string;
-}
-
-const issues: PlatformIssue[] = [
+const issues = [
   {
     id: 'economy',
     title: 'Fiscal Responsibility',
@@ -44,7 +24,7 @@ const issues: PlatformIssue[] = [
       'Supporting a balanced budget amendment'
     ],
     icon: CurrencyDollarIcon,
-    category: 'Economy'
+    image: '/images/fiscal.jpg',
   },
   {
     id: 'infrastructure',
@@ -58,10 +38,9 @@ const issues: PlatformIssue[] = [
       'Prioritizing critical infrastructure security'
     ],
     icon: BuildingOfficeIcon,
-    category: 'Economy'
+    image: '/images/infrastructure.jpg',
   },
   {
-    id: 'growth',
     title: 'Economic Growth',
     description: "Texas's future lies in embracing both our traditional strengths and new opportunities. I'll work to create an environment where businesses can thrive and create good-paying jobs for Texas families.",
     points: [
@@ -72,11 +51,10 @@ const issues: PlatformIssue[] = [
       'Championing energy independence through all domestic sources'
     ],
     icon: ChartBarIcon,
-    category: 'Economy'
+    image: '/images/economy.jpg',
   },
   {
-    id: 'military',
-    title: 'Military Service',
+    title: 'Public Safety',
     description: "From the battlefield to cybersecurity, I've spent my career protecting Americans. I'll bring this experience to ensure our communities are safe and secure.",
     points: [
       'Supporting law enforcement with modern resources and training',
@@ -86,7 +64,7 @@ const issues: PlatformIssue[] = [
       'Protecting communities from transnational criminal organizations'
     ],
     icon: ShieldCheckIcon,
-    category: 'Security'
+    image: '/images/safety.jpg',
   },
   {
     id: 'innovation',
@@ -100,14 +78,9 @@ const issues: PlatformIssue[] = [
       'Reducing red tape for technology startups and entrepreneurs'
     ],
     icon: RocketLaunchIcon,
-    relatedArticle: {
-      slug: "censorship-by-algorithm",
-      title: "Censorship by Algorithm: The Quiet War on American Speech"
-    },
-    category: 'Technology'
+    image: '/images/infrastructure.jpg',
   },
   {
-    id: 'education',
     title: 'Education',
     description: "Quality education is the foundation of American opportunity. I'll work to ensure all Texans have access to excellent schools that prepare them for success in the 21st century economy.",
     points: [
@@ -118,11 +91,7 @@ const issues: PlatformIssue[] = [
       'Expanding access to STEM and computer science education'
     ],
     icon: AcademicCapIcon,
-    relatedArticle: {
-      slug: "daughter-college-rejection",
-      title: "She Didn't Get In—And That's When I Realized the System Isn't Broken. It's Working Exactly as Designed."
-    },
-    category: 'Education'
+    image: '/images/education.jpg',
   },
   {
     id: 'values',
@@ -136,131 +105,27 @@ const issues: PlatformIssue[] = [
       'Strengthening property rights against government takings'
     ],
     icon: ScaleIcon,
-    relatedArticle: {
-      slug: "judicial-overreach",
-      title: "Vetoed by the Robe: How Judicial Overreach Is Undermining the Will of the People"
-    },
-    category: 'Rights'
+    image: '/images/healthcare.jpg',
   },
-  {
-    id: 'healthcare',
-    title: 'Healthcare Reform',
-    description: "Healthcare should be accessible, affordable, and patient-centered. I'll work to implement market-driven solutions that put you in control of your healthcare decisions.",
-    points: [
-      'Expanding telehealth access and innovation',
-      'Increasing price transparency in medical services',
-      'Supporting health savings accounts and direct primary care',
-      'Protecting those with pre-existing conditions',
-      'Reducing prescription drug costs through competition'
-    ],
-    icon: HeartIcon,
-    category: 'Healthcare'
-  },
-  {
-    id: 'veterans',
-    title: 'Veterans Affairs',
-    description: "As a veteran who served in both the Army and Navy JAG Corps, I understand firsthand the challenges our veterans face. I'll fight to ensure they receive the care and support they've earned.",
-    points: [
-      'Modernizing VA healthcare delivery systems',
-      'Expanding mental health services and suicide prevention',
-      'Improving transition support for service members',
-      "Protecting veterans' education benefits",
-      'Ensuring timely processing of disability claims'
-    ],
-    icon: ShieldCheckIcon,
-    relatedArticle: {
-      slug: "delay-is-damage",
-      title: "The Delay Is the Damage: How Government Weaponizes the Wait"
-    },
-    category: 'Security'
-  },
-  {
-    id: 'government',
-    title: 'Government Reform',
-    description: "Washington is broken. I'll bring my operational expertise from the private sector to make government more efficient, transparent, and accountable to the people it serves.",
-    points: [
-      'Implementing performance metrics for federal agencies',
-      'Streamlining bureaucratic processes to reduce waste',
-      'Increasing transparency in government operations',
-      'Ending the revolving door between government and lobbying',
-      'Advocating for term limits to reduce career politicians'
-    ],
-    icon: ExclamationTriangleIcon,
-    relatedArticle: {
-      slug: "chainsaw-bureaucracy",
-      title: "Chainsaw the Bureaucracy: Why Red Tape Protects the Powerful, Not the People"
-    },
-    category: 'Government'
-  },
-  {
-    id: 'leadership',
-    title: 'Leadership Accountability',
-    description: "Congress doesn't need more politicians. It needs leaders who understand how to manage complex operations and deliver results.",
-    points: [
-      'Bringing operational excellence to congressional offices',
-      'Holding federal agencies accountable with metrics-based oversight',
-      'Leading by example with transparent constituent communications',
-      'Focusing on outcomes rather than partisan politics',
-      'Working across the aisle to solve real problems'
-    ],
-    icon: ArrowPathIcon,
-    relatedArticle: {
-      slug: "leadership-deficit",
-      title: "The Leadership Deficit: Why Congress Operates Like a Broken Warehouse Floor"
-    },
-    category: 'Leadership'
-  }
 ];
-
-// Group issues by category
-const categories = issues.reduce((acc, issue) => {
-  if (!acc[issue.category]) {
-    acc[issue.category] = [];
-  }
-  acc[issue.category].push(issue);
-  return acc;
-}, {} as Record<string, PlatformIssue[]>);
-
-// Get ordered category keys and their labels
-const categoryOrder = [
-  { key: 'Economy', label: 'Economic Prosperity' },
-  { key: 'Security', label: 'Safety & Security' },
-  { key: 'Rights', label: 'Constitutional Rights' },
-  { key: 'Technology', label: 'Innovation & Technology' },
-  { key: 'Government', label: 'Government Reform' },
-  { key: 'Healthcare', label: 'Healthcare Reform' },
-  { key: 'Education', label: 'Education Excellence' },
-  { key: 'Leadership', label: 'Leadership Accountability' }
-];
-
-// Filter out categories that don't exist in our data
-const orderedCategories = categoryOrder.filter(cat => categories[cat.key]);
 
 export default function PlatformPage() {
-  const [activeCategory, setActiveCategory] = useState(orderedCategories[0].key);
-
   return (
     <div className="bg-white">
       {/* Hero Section */}
-      <div className="relative">
-        {/* Background image with overlay */}
+      <div className="relative isolate overflow-hidden">
         <div className="absolute inset-0">
-          <div className="h-full w-full overflow-hidden">
-            <img
-              src="/images/personal/merica.jpg"
-              alt="American flag"
-              className="h-full w-full object-cover"
-              style={{ 
-                maxHeight: "100%", 
-                objectPosition: "center 10%"
-              }}
-            />
-          </div>
-          <div className="absolute inset-0 bg-gradient-to-r from-blue-950/90 to-blue-800/70 mix-blend-multiply" />
+          <Image
+            src="/images/platform-hero.jpg"
+            alt="American flag"
+            className="h-full w-full object-cover"
+            width={1920}
+            height={1080}
+            priority
+          />
+          <div className="absolute inset-0 bg-gradient-to-r from-red-700/80 to-blue-900/80 mix-blend-multiply" />
         </div>
-
-        {/* Hero content */}
-        <div className="relative py-28 px-6 sm:py-32 lg:py-40 lg:px-8">
+        <div className="relative px-6 py-24 sm:py-32 lg:px-8">
           <div className="mx-auto max-w-2xl text-center">
             <h1 className="text-4xl font-bold tracking-tight text-white sm:text-6xl">
               America First Platform
@@ -268,18 +133,12 @@ export default function PlatformPage() {
             <p className="mt-6 text-xl leading-8 text-gray-100">
               Combining military discipline, legal expertise, and business innovation to restore American excellence.
             </p>
-            <div className="mt-10">
-              <Link href="/articles" className="inline-flex items-center rounded-md bg-red-700 px-5 py-3 text-base font-semibold text-white shadow-sm hover:bg-red-800">
-                Read My Articles
-                <ArrowTopRightOnSquareIcon className="ml-2 h-5 w-5" aria-hidden="true" />
-              </Link>
-            </div>
           </div>
         </div>
       </div>
 
       {/* Platform Introduction */}
-      <div className="mx-auto max-w-7xl px-6 lg:px-8 py-16">
+      <div className="mx-auto max-w-7xl px-6 lg:px-8 py-24">
         <div className="mx-auto max-w-2xl lg:text-center">
           <h2 className="text-base font-semibold leading-7 text-red-700">My Vision</h2>
           <p className="mt-2 text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
@@ -293,101 +152,66 @@ export default function PlatformPage() {
         </div>
       </div>
 
-      {/* Platform Tab Navigation */}
-      <div className="bg-gray-50 py-8">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="border-b border-gray-200 mb-4">
-            <nav className="-mb-px flex space-x-8 overflow-x-auto" aria-label="Categories">
-              {orderedCategories.map((category) => (
-                <button
-                  key={category.key}
-                  onClick={() => setActiveCategory(category.key)}
-                  className={`
-                    whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm
-                    ${activeCategory === category.key
-                      ? 'border-red-700 text-red-700'
-                      : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'}
-                  `}
-                >
-                  {category.label}
-                </button>
-              ))}
-            </nav>
-          </div>
-
-          {/* Platform Cards */}
-          <div className="mb-16">
-            {orderedCategories.map((category) => (
-              <div 
-                key={category.key}
-                className={activeCategory === category.key ? 'block' : 'hidden'}
-              >
-                <div className="mb-6">
-                  <h2 className="text-3xl font-bold tracking-tight text-gray-900">
-                    {category.label}
-                  </h2>
-                  <p className="mt-3 text-lg text-gray-600">
-                    {category.key === 'Economy' ? 'Building a strong economy that creates jobs and prosperity for all Americans.' :
-                     category.key === 'Security' ? 'Ensuring the safety and security of our nation at home and abroad.' :
-                     category.key === 'Rights' ? 'Defending the constitutional rights that form the foundation of our republic.' :
-                     category.key === 'Technology' ? 'Embracing innovation while protecting personal liberties in the digital age.' :
-                     category.key === 'Government' ? 'Making government more efficient, accountable, and responsive to the people.' :
-                     category.key === 'Healthcare' ? 'Creating a healthcare system that puts patients first.' :
-                     category.key === 'Education' ? 'Preparing the next generation for success in a competitive world.' :
-                     category.key === 'Leadership' ? 'Bringing operational excellence and accountability to Washington.' : ''}
-                  </p>
+      {/* Issues Grid */}
+      <div className="mx-auto max-w-7xl px-6 lg:px-8">
+        <div className="mx-auto max-w-2xl lg:mx-0">
+          <h2 className="text-base font-semibold leading-7 text-red-700">Key Issues</h2>
+          <p className="mt-2 text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
+            Policy Priorities
+          </p>
+          <p className="mt-6 text-lg leading-8 text-gray-600">
+            These key issues reflect my commitment to conservative principles and innovative solutions.
+          </p>
+        </div>
+        <div className="mx-auto mt-16 grid max-w-2xl grid-cols-1 gap-x-8 gap-y-20 lg:mx-0 lg:max-w-none lg:grid-cols-2">
+          {issues.map((issue) => (
+            <article key={issue.title} id={issue.id} className="flex flex-col items-start">
+              <div className="relative w-full">
+                <div className="aspect-[16/9] w-full rounded-2xl overflow-hidden bg-gray-100">
+                  <Image
+                    src={issue.image}
+                    alt={issue.title}
+                    className="h-full w-full object-cover"
+                    width={800}
+                    height={450}
+                  />
+                  <div className="absolute inset-0 rounded-2xl ring-1 ring-inset ring-gray-900/10" />
                 </div>
-                <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
-                  {categories[category.key].map((issue) => (
-                    <div
-                      key={issue.id}
-                      id={issue.id}
-                      className="flex flex-col bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow h-full"
-                    >
-                      <div className="p-6 flex-1 flex flex-col">
-                        <div className="flex items-center gap-x-3 mb-4">
-                          <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-red-700 flex-shrink-0">
-                            <issue.icon className="h-6 w-6 text-white" aria-hidden="true" />
-                          </div>
-                          <h3 className="text-lg font-semibold text-gray-900">{issue.title}</h3>
-                        </div>
-                        
-                        <p className="text-sm text-gray-600 mb-4">{issue.description}</p>
-                        
-                        <ul className="mb-6 space-y-2 flex-grow">
-                          {issue.points.map((point, idx) => (
-                            <li key={idx} className="flex items-start gap-x-2">
-                              <span className="text-red-700 font-bold mt-0.5 flex-shrink-0">•</span>
-                              <span className="text-sm text-gray-700">{point}</span>
-                            </li>
-                          ))}
-                        </ul>
-                        
-                        {issue.relatedArticle && (
-                          <div className="mt-auto pt-4 border-t border-gray-100">
-                            <Link
-                              href={`/articles/${issue.relatedArticle.slug}`}
-                              className="inline-flex items-center text-sm font-semibold text-red-700 hover:text-red-800"
-                            >
-                              <DocumentTextIcon className="h-4 w-4 mr-1" />
-                              Read: {issue.relatedArticle.title}
-                              <ArrowTopRightOnSquareIcon className="ml-1 h-3 w-3" aria-hidden="true" />
-                            </Link>
-                          </div>
-                        )}
-                      </div>
-                    </div>
-                  ))}
+                <div className="absolute left-0 top-0 w-10 h-10 bg-red-700 flex items-center justify-center rounded-br-xl rounded-tl-xl">
+                  <issue.icon className="h-6 w-6 text-white" aria-hidden="true" />
                 </div>
               </div>
-            ))}
-          </div>
+              <div className="max-w-xl">
+                <div className="mt-8 flex items-center gap-x-4 text-xs">
+                  <time dateTime="2023-03-16" className="text-gray-500">
+                    Priority
+                  </time>
+                </div>
+                <div className="group relative">
+                  <h3 className="mt-3 text-2xl font-semibold leading-6 text-gray-900 group-hover:text-gray-600">
+                    {issue.title}
+                  </h3>
+                  <p className="mt-5 text-base leading-6 text-gray-600">{issue.description}</p>
+                </div>
+                <div className="mt-6">
+                  <ul className="space-y-3">
+                    {issue.points.map((point, index) => (
+                      <li key={index} className="flex gap-x-3">
+                        <span className="text-red-700 font-bold">•</span>
+                        <span>{point}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
+            </article>
+          ))}
         </div>
       </div>
 
       {/* Core Principles */}
-      <div className="mx-auto max-w-7xl px-6 lg:px-8 py-16">
-        <div className="mx-auto max-w-2xl lg:text-center mb-10">
+      <div className="mx-auto max-w-7xl px-6 lg:px-8 py-24 sm:py-32 mt-12 bg-gray-50">
+        <div className="mx-auto max-w-2xl lg:text-center">
           <h2 className="text-base font-semibold leading-7 text-red-700">Guiding Principles</h2>
           <p className="mt-2 text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
             America First. Always.
@@ -396,42 +220,42 @@ export default function PlatformPage() {
             These fundamental principles guide every policy position and decision I make, ensuring consistency and fidelity to our shared conservative values.
           </p>
         </div>
-        <div className="mx-auto max-w-5xl">
-          <dl className="grid grid-cols-1 gap-x-8 gap-y-10 lg:grid-cols-3">
-            <div className="flex flex-col bg-gray-50 p-6 rounded-lg shadow-sm">
-              <dt className="text-base font-semibold leading-7 text-gray-900 flex items-center mb-4">
-                <div className="mr-4 flex h-10 w-10 items-center justify-center rounded-lg bg-red-700">
+        <div className="mx-auto mt-16 max-w-2xl sm:mt-20 lg:mt-24 lg:max-w-none">
+          <dl className="grid max-w-xl grid-cols-1 gap-x-8 gap-y-16 lg:max-w-none lg:grid-cols-3">
+            <div className="flex flex-col">
+              <dt className="text-base font-semibold leading-7 text-gray-900">
+                <div className="mb-6 flex h-10 w-10 items-center justify-center rounded-lg bg-red-700">
                   <ScaleIcon className="h-6 w-6 text-white" aria-hidden="true" />
                 </div>
                 Constitutional Fidelity
               </dt>
-              <dd className="flex flex-auto flex-col text-base leading-7 text-gray-600">
+              <dd className="mt-1 flex flex-auto flex-col text-base leading-7 text-gray-600">
                 <p className="flex-auto">
                   I believe our Constitution is not a living document but an enduring covenant that must be protected and preserved in its original meaning and intent.
                 </p>
               </dd>
             </div>
-            <div className="flex flex-col bg-gray-50 p-6 rounded-lg shadow-sm">
-              <dt className="text-base font-semibold leading-7 text-gray-900 flex items-center mb-4">
-                <div className="mr-4 flex h-10 w-10 items-center justify-center rounded-lg bg-red-700">
+            <div className="flex flex-col">
+              <dt className="text-base font-semibold leading-7 text-gray-900">
+                <div className="mb-6 flex h-10 w-10 items-center justify-center rounded-lg bg-red-700">
                   <CurrencyDollarIcon className="h-6 w-6 text-white" aria-hidden="true" />
                 </div>
                 Limited Government
               </dt>
-              <dd className="flex flex-auto flex-col text-base leading-7 text-gray-600">
+              <dd className="mt-1 flex flex-auto flex-col text-base leading-7 text-gray-600">
                 <p className="flex-auto">
                   The best government is that which governs least. I believe in reducing the size, scope, and reach of the federal government in our daily lives.
                 </p>
               </dd>
             </div>
-            <div className="flex flex-col bg-gray-50 p-6 rounded-lg shadow-sm">
-              <dt className="text-base font-semibold leading-7 text-gray-900 flex items-center mb-4">
-                <div className="mr-4 flex h-10 w-10 items-center justify-center rounded-lg bg-red-700">
+            <div className="flex flex-col">
+              <dt className="text-base font-semibold leading-7 text-gray-900">
+                <div className="mb-6 flex h-10 w-10 items-center justify-center rounded-lg bg-red-700">
                   <ShieldCheckIcon className="h-6 w-6 text-white" aria-hidden="true" />
                 </div>
                 Strong National Defense
               </dt>
-              <dd className="flex flex-auto flex-col text-base leading-7 text-gray-600">
+              <dd className="mt-1 flex flex-auto flex-col text-base leading-7 text-gray-600">
                 <p className="flex-auto">
                   As a veteran, I believe America must maintain the strongest, most lethal fighting force in the world to protect our interests and deter our adversaries.
                 </p>
@@ -453,7 +277,7 @@ export default function PlatformPage() {
           />
           <div className="absolute inset-0 bg-red-700/70 mix-blend-multiply" />
         </div>
-        <div className="relative py-16 px-6 sm:py-24 lg:px-8">
+        <div className="relative py-24 px-6 sm:py-32 lg:px-8">
           <div className="mx-auto max-w-2xl text-center">
             <h2 className="text-3xl font-bold tracking-tight text-white sm:text-4xl">
               Join Our Conservative Movement
