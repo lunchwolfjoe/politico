@@ -119,6 +119,7 @@ export default function PlatformPage() {
             src="/images/personal/merica.jpg"
             alt="American flag"
             className="h-full w-full object-cover"
+            style={{ objectPosition: 'center 10%' }}
             width={1920}
             height={1080}
             priority
