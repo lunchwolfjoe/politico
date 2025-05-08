@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { loadStripe, StripeElementsOptions } from '@stripe/stripe-js';
+import { loadStripe, StripeElementsOptions, Appearance } from '@stripe/stripe-js';
 import {
   Elements,
   PaymentElement,
@@ -256,7 +256,7 @@ export default function DonatePage() {
       });
   }, []);
 
-  const appearance = {
+  const appearance: Appearance = {
     theme: 'stripe',
     variables: {
       colorPrimary: '#be123c',
