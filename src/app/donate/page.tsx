@@ -43,7 +43,7 @@ function DonationForm({ clientSecret, amount, setAmount }) {
     if (paymentElement) {
       console.log('Payment Element found in the DOM');
       
-      // Use the correct event handling method
+      // Use the correct Stripe Elements event handling
       const handleReady = () => {
         console.log('Payment Element is ready');
         setIsPaymentElementReady(true);
@@ -58,14 +58,14 @@ function DonationForm({ clientSecret, amount, setAmount }) {
         }
       };
 
-      // Add event listeners using the correct method
-      paymentElement.addEventListener('ready', handleReady);
-      paymentElement.addEventListener('change', handleChange);
+      // Add event listeners using Stripe's event handling
+      paymentElement.on('ready', handleReady);
+      paymentElement.on('change', handleChange);
 
       // Cleanup function
       return () => {
-        paymentElement.removeEventListener('ready', handleReady);
-        paymentElement.removeEventListener('change', handleChange);
+        paymentElement.off('ready', handleReady);
+        paymentElement.off('change', handleChange);
       };
     } else {
       console.log('Payment Element NOT found in the DOM');
