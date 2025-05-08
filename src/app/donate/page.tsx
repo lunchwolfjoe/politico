@@ -7,6 +7,7 @@ import {
   PaymentElement,
   useStripe,
   useElements,
+  StripeElementsOptions
 } from '@stripe/react-stripe-js';
 import Image from 'next/image';
 
@@ -257,16 +258,15 @@ export default function DonatePage() {
       });
   }, []);
 
-  const appearance = {
-    theme: 'stripe',
-    variables: {
-      colorPrimary: '#be123c',
-    }
-  };
-  
-  const options = {
+  // Define the options for Stripe Elements with proper typing
+  const options: StripeElementsOptions = {
     clientSecret,
-    appearance,
+    appearance: {
+      theme: 'stripe',
+      variables: {
+        colorPrimary: '#be123c',
+      }
+    },
   };
 
   return (
