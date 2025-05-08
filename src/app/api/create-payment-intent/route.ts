@@ -1,16 +1,50 @@
 import { NextResponse } from 'next/server';
 import Stripe from 'stripe';
 
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
-  apiVersion: '2023-10-16',
-});
+// Debug stripe configuration
+const stripeSecretKey = process.env.STRIPE_SECRET_KEY;
+console.log('Stripe Secret Key:', stripeSecretKey ? 'Available' : 'Missing');
+
+if (!stripeSecretKey) {
+  console.error('STRIPE_SECRET_KEY is not defined in the environment variables');
+}
+
+let stripe: Stripe | null = null;
+try {
+  stripe = new Stripe(stripeSecretKey!, {
+    apiVersion: '2023-10-16',
+  });
+} catch (error) {
+  console.error('Failed to initialize Stripe:', error);
+}
 
 export async function POST(req: Request) {
+  if (!stripe) {
+    console.error('Stripe not initialized, cannot process payment intent');
+    return NextResponse.json(
+      { error: 'Payment system not configured properly' },
+      { status: 500 }
+    );
+  }
+
   try {
-    const { amount, employer, occupation } = await req.json();
+    console.log('Creating payment intent...');
+    const body = await req.json();
+    const { amount, employer, occupation } = body;
+    
+    console.log('Request data:', { amount, employer, occupation });
 
     // Validate amount
+    if (!amount || isNaN(amount) || amount <= 0) {
+      console.error('Invalid amount:', amount);
+      return NextResponse.json(
+        { error: 'Invalid contribution amount' },
+        { status: 400 }
+      );
+    }
+
     if (amount > 3300) {
+      console.error('Amount exceeds limit:', amount);
       return NextResponse.json(
         { error: 'Contribution amount exceeds FEC limit' },
         { status: 400 }
@@ -25,13 +59,14 @@ export async function POST(req: Request) {
         enabled: true,
       },
       metadata: {
-        employer,
-        occupation,
+        employer: employer || 'Not provided',
+        occupation: occupation || 'Not provided',
         election: '2024 General',
         fec_reporting: amount >= 200 ? 'Yes' : 'No',
       },
     });
 
+    console.log('Payment intent created successfully:', paymentIntent.id);
     return NextResponse.json({
       clientSecret: paymentIntent.client_secret,
     });

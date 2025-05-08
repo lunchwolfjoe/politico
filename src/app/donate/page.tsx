@@ -10,8 +10,10 @@ import {
 } from '@stripe/react-stripe-js';
 import Image from 'next/image';
 
-// Initialize Stripe
-const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!);
+// Initialize Stripe with debug logging
+const stripePublicKey = process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY;
+console.log('Stripe Public Key:', stripePublicKey ? 'Available' : 'Missing');
+const stripePromise = loadStripe(stripePublicKey!);
 
 // FEC contribution limits
 const MAX_CONTRIBUTION = 3300; // $3,300 per election
@@ -31,6 +33,8 @@ function DonationForm() {
     e.preventDefault();
 
     if (!stripe || !elements) {
+      setErrorMessage('Stripe has not initialized properly');
+      console.error('Stripe not initialized', { stripe, elements });
       return;
     }
 
@@ -51,9 +55,11 @@ function DonationForm() {
       });
 
       if (error) {
+        console.error('Stripe payment error:', error);
         setErrorMessage(error.message || 'An error occurred');
       }
     } catch (err) {
+      console.error('Unexpected error during payment:', err);
       setErrorMessage('An unexpected error occurred');
     }
 
@@ -189,16 +195,41 @@ function DonationForm() {
 
 export default function DonatePage() {
   const [clientSecret, setClientSecret] = useState<string>('');
+  const [pageError, setPageError] = useState<string>('');
+  const [isLoading, setIsLoading] = useState<boolean>(true);
 
   useEffect(() => {
     // Create PaymentIntent as soon as the page loads
+    setIsLoading(true);
+    console.log('Fetching payment intent...');
+    
     fetch('/api/create-payment-intent', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ amount: 50 }), // Default amount
     })
-      .then((res) => res.json())
-      .then((data) => setClientSecret(data.clientSecret));
+      .then((res) => {
+        console.log('Response status:', res.status);
+        if (!res.ok) {
+          throw new Error(`API error: ${res.status}`);
+        }
+        return res.json();
+      })
+      .then((data) => {
+        console.log('Payment intent created:', data.clientSecret ? 'Success' : 'Missing client secret');
+        if (data.clientSecret) {
+          setClientSecret(data.clientSecret);
+        } else if (data.error) {
+          setPageError(data.error || 'Failed to initialize payment');
+        }
+      })
+      .catch((err) => {
+        console.error('Error creating payment intent:', err);
+        setPageError('Failed to initialize payment system. Please try again later.');
+      })
+      .finally(() => {
+        setIsLoading(false);
+      });
   }, []);
 
   return (
@@ -230,10 +261,30 @@ export default function DonatePage() {
       {/* Donation Form */}
       <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
         <div className="mx-auto max-w-2xl">
+          {isLoading && (
+            <div className="flex justify-center py-12">
+              <div className="h-8 w-8 animate-spin rounded-full border-4 border-red-600 border-t-transparent"></div>
+            </div>
+          )}
+          
+          {pageError && (
+            <div className="rounded-md bg-red-50 p-4 my-4">
+              <div className="text-sm text-red-700">{pageError}</div>
+            </div>
+          )}
+          
           {clientSecret && (
             <Elements stripe={stripePromise} options={{ clientSecret }}>
               <DonationForm />
             </Elements>
+          )}
+          
+          {!isLoading && !clientSecret && !pageError && (
+            <div className="rounded-md bg-yellow-50 p-4 my-4">
+              <div className="text-sm text-yellow-700">
+                Unable to initialize the donation form. Please ensure you have correct API keys configured.
+              </div>
+            </div>
           )}
         </div>
       </div>
