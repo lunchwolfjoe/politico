@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { loadStripe, StripeElementsOptions } from '@stripe/stripe-js';
 import {
   Elements,
@@ -22,10 +22,12 @@ const presetAmounts = [25, 50, 100, 250, 500, 1000, 3300];
 function DonationForm({ amount, setAmount, employer, setEmployer, occupation, setOccupation }) {
   const stripe = useStripe();
   const elements = useElements();
+  const paymentElementRef = useRef(null);
   const [customAmount, setCustomAmount] = useState<string>('');
   const [isProcessing, setIsProcessing] = useState(false);
   const [errorMessage, setErrorMessage] = useState<string>('');
   const [elementsLoaded, setElementsLoaded] = useState(false);
+  const [paymentElementReady, setPaymentElementReady] = useState(false);
 
   useEffect(() => {
     // Check if elements is ready
@@ -37,6 +39,11 @@ function DonationForm({ amount, setAmount, employer, setEmployer, occupation, se
     }
   }, [elements]);
 
+  const handlePaymentElementLoad = (event) => {
+    console.log('Payment Element has loaded:', event);
+    setPaymentElementReady(true);
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
@@ -46,8 +53,9 @@ function DonationForm({ amount, setAmount, employer, setEmployer, occupation, se
       return;
     }
 
-    if (!elementsLoaded) {
+    if (!elementsLoaded || !paymentElementReady) {
       setErrorMessage('Payment form is still loading. Please wait a moment and try again.');
+      console.error('Payment Element not ready', { elementsLoaded, paymentElementReady });
       return;
     }
 
@@ -61,6 +69,12 @@ function DonationForm({ amount, setAmount, employer, setEmployer, occupation, se
 
     try {
       console.log('Attempting to confirm payment...');
+      
+      // Get elements instance
+      const element = elements.getElement(PaymentElement);
+      if (!element) {
+        throw new Error('Payment Element not found');
+      }
       
       const { error } = await stripe.confirmPayment({
         elements,
@@ -181,8 +195,8 @@ function DonationForm({ amount, setAmount, employer, setEmployer, occupation, se
 
       <div className="space-y-4">
         <h3 className="text-lg font-medium text-gray-900">Payment Details</h3>
-        <div id="payment-element">
-          <PaymentElement />
+        <div id="payment-element" ref={paymentElementRef}>
+          <PaymentElement onReady={handlePaymentElementLoad} />
         </div>
       </div>
 
@@ -206,11 +220,18 @@ function DonationForm({ amount, setAmount, employer, setEmployer, occupation, se
 
       <button
         type="submit"
-        disabled={!stripe || !elementsLoaded || isProcessing}
+        disabled={!stripe || !elementsLoaded || !paymentElementReady || isProcessing}
         className="w-full rounded-md bg-red-700 px-4 py-2 text-white hover:bg-red-800 focus:outline-none focus:ring-2 focus:ring-red-700 focus:ring-offset-2 disabled:opacity-50"
       >
         {isProcessing ? 'Processing...' : `Donate $${amount}`}
       </button>
+      
+      {!paymentElementReady && (
+        <div className="text-center text-sm text-gray-500 mt-2">
+          <div className="inline-block h-4 w-4 animate-spin rounded-full border-2 border-red-600 border-t-transparent mr-2"></div>
+          Loading payment form...
+        </div>
+      )}
     </form>
   );
 }
