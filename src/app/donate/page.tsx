@@ -7,7 +7,6 @@ import {
   PaymentElement,
   useStripe,
   useElements,
-  ApplePayButton
 } from '@stripe/react-stripe-js';
 import Image from 'next/image';
 
