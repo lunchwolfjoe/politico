@@ -1,13 +1,12 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { loadStripe, StripeElementsOptions, Appearance } from '@stripe/stripe-js';
+import { loadStripe, StripeElementsOptions, Appearance, StripeElement } from '@stripe/stripe-js';
 import {
   Elements,
   PaymentElement,
   useStripe,
-  useElements,
-  PaymentElement as PaymentElementType
+  useElements
 } from '@stripe/react-stripe-js';
 import Image from 'next/image';
 
@@ -40,7 +39,7 @@ function DonationForm({ clientSecret, amount, setAmount }) {
     }
 
     // Listen for changes in the PaymentElement and handle errors
-    const paymentElement = elements.getElement(PaymentElement) as PaymentElementType;
+    const paymentElement = elements.getElement(PaymentElement) as StripeElement;
     if (paymentElement) {
       console.log('Payment Element found in the DOM');
       
