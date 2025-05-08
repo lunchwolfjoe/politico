@@ -452,41 +452,38 @@ export default function DonatePage() {
   const [clientSecret, setClientSecret] = useState('');
   const [amount, setAmount] = useState(50);
   const [pageError, setPageError] = useState('');
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
 
-  useEffect(() => {
-    // Create PaymentIntent as soon as the page loads
+  const createPaymentIntent = async (amount: number) => {
     setIsLoading(true);
-    console.log('Fetching payment intent...');
+    console.log('Creating payment intent for amount:', amount);
     
-    fetch('/api/create-payment-intent', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ amount: 50 }), // Default amount
-    })
-      .then((res) => {
-        console.log('Response status:', res.status);
-        if (!res.ok) {
-          throw new Error(`API error: ${res.status}`);
-        }
-        return res.json();
-      })
-      .then((data) => {
-        console.log('Payment intent created:', data.clientSecret ? 'Success' : 'Missing client secret');
-        if (data.clientSecret) {
-          setClientSecret(data.clientSecret);
-        } else if (data.error) {
-          setPageError(data.error || 'Failed to initialize payment');
-        }
-      })
-      .catch((err) => {
-        console.error('Error creating payment intent:', err);
-        setPageError('Failed to initialize payment system. Please try again later.');
-      })
-      .finally(() => {
-        setIsLoading(false);
+    try {
+      const response = await fetch('/api/create-payment-intent', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ amount }),
       });
-  }, []);
+
+      if (!response.ok) {
+        throw new Error(`API error: ${response.status}`);
+      }
+
+      const data = await response.json();
+      console.log('Payment intent created:', data.clientSecret ? 'Success' : 'Missing client secret');
+      
+      if (data.clientSecret) {
+        setClientSecret(data.clientSecret);
+      } else if (data.error) {
+        setPageError(data.error || 'Failed to initialize payment');
+      }
+    } catch (err) {
+      console.error('Error creating payment intent:', err);
+      setPageError('Failed to initialize payment system. Please try again later.');
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
   const appearance: Appearance = {
     theme: 'stripe',
@@ -545,7 +542,7 @@ export default function DonatePage() {
             </div>
           )}
           
-          {clientSecret && (
+          {clientSecret ? (
             <Elements stripe={stripePromise} options={options}>
               <DonationForm 
                 clientSecret={clientSecret}
@@ -553,12 +550,55 @@ export default function DonatePage() {
                 setAmount={setAmount}
               />
             </Elements>
-          )}
-          
-          {!isLoading && !clientSecret && !pageError && (
-            <div className="rounded-md bg-yellow-50 p-4 my-4">
-              <div className="text-sm text-yellow-700">
-                Unable to initialize the donation form. Please ensure you have correct API keys configured.
+          ) : (
+            <div className="bg-white shadow sm:rounded-lg">
+              <div className="px-4 py-5 sm:p-6">
+                <h3 className="text-lg font-medium leading-6 text-gray-900">Select Donation Amount</h3>
+                <div className="mt-4 grid grid-cols-2 gap-4 sm:grid-cols-3">
+                  {[25, 50, 100, 250, 500, 1000].map((presetAmount) => (
+                    <button
+                      key={presetAmount}
+                      onClick={() => createPaymentIntent(presetAmount)}
+                      className="inline-flex items-center justify-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-red-700 focus:ring-offset-2"
+                    >
+                      ${presetAmount}
+                    </button>
+                  ))}
+                </div>
+                <div className="mt-4">
+                  <label htmlFor="custom-amount" className="sr-only">
+                    Custom Amount
+                  </label>
+                  <div className="mt-1 flex rounded-md shadow-sm">
+                    <div className="relative flex flex-grow items-stretch focus-within:z-10">
+                      <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
+                        <span className="text-gray-500 sm:text-sm">$</span>
+                      </div>
+                      <input
+                        type="number"
+                        name="custom-amount"
+                        id="custom-amount"
+                        className="block w-full rounded-none rounded-l-md border-gray-300 pl-7 focus:border-red-700 focus:ring-red-700 sm:text-sm"
+                        placeholder="Custom amount"
+                        min="1"
+                        max="3300"
+                      />
+                    </div>
+                    <button
+                      type="button"
+                      onClick={() => {
+                        const input = document.getElementById('custom-amount') as HTMLInputElement;
+                        const value = parseFloat(input.value);
+                        if (value && value > 0 && value <= 3300) {
+                          createPaymentIntent(value);
+                        }
+                      }}
+                      className="relative -ml-px inline-flex items-center space-x-2 rounded-r-md border border-gray-300 bg-gray-50 px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-100 focus:border-red-700 focus:outline-none focus:ring-1 focus:ring-red-700"
+                    >
+                      Donate
+                    </button>
+                  </div>
+                </div>
               </div>
             </div>
           )}
