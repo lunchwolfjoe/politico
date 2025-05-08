@@ -6,14 +6,18 @@ import {
   Elements,
   PaymentElement,
   useStripe,
-  useElements
+  useElements,
+  ApplePayButton
 } from '@stripe/react-stripe-js';
 import Image from 'next/image';
 
 // Initialize Stripe with debug logging
 const stripePublicKey = process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY;
 console.log('Stripe Public Key:', stripePublicKey ? 'Available' : 'Missing');
-const stripePromise = loadStripe(stripePublicKey!);
+const stripePromise = loadStripe(stripePublicKey!, {
+  apiVersion: '2023-10-16',
+  stripeAccount: process.env.NEXT_PUBLIC_STRIPE_ACCOUNT_ID,
+});
 
 // FEC contribution limits
 const MAX_CONTRIBUTION = 3300; // $3,300 per election
@@ -34,6 +38,16 @@ function DonationForm({ clientSecret, amount, setAmount }) {
   const [state, setState] = useState<string>('');
   const [zip, setZip] = useState<string>('');
   const [isPaymentElementReady, setIsPaymentElementReady] = useState(false);
+  const [isApplePayAvailable, setIsApplePayAvailable] = useState(false);
+
+  useEffect(() => {
+    if (!stripe) return;
+
+    // Check if Apple Pay is available
+    stripe.isApplePaySupported().then((supported) => {
+      setIsApplePayAvailable(supported);
+    });
+  }, [stripe]);
 
   useEffect(() => {
     if (!stripe || !elements) {
@@ -157,6 +171,49 @@ function DonationForm({ clientSecret, amount, setAmount }) {
         setErrorMessage('');
       }
     }
+  };
+
+  const handleApplePayPayment = async () => {
+    if (!stripe || !elements) {
+      setErrorMessage('Stripe is still loading. Please try again in a moment.');
+      return;
+    }
+
+    if (!employer || !occupation || !name || !email || !address || !city || !state || !zip) {
+      setErrorMessage('Please fill in all required fields');
+      return;
+    }
+
+    setIsProcessing(true);
+    setErrorMessage('');
+
+    try {
+      const { error } = await stripe.confirmApplePayPayment(clientSecret, {
+        paymentMethod: {
+          billing_details: {
+            name: name,
+            email: email,
+            address: {
+              line1: address,
+              city: city,
+              state: state,
+              postal_code: zip,
+              country: 'US',
+            },
+          },
+        },
+      });
+
+      if (error) {
+        console.error('Apple Pay payment error:', error);
+        setErrorMessage(error.message || 'An error occurred during payment processing');
+      }
+    } catch (err) {
+      console.error('Unexpected error:', err);
+      setErrorMessage('An unexpected error occurred');
+    }
+
+    setIsProcessing(false);
   };
 
   return (
@@ -312,6 +369,17 @@ function DonationForm({ clientSecret, amount, setAmount }) {
 
       <div className="space-y-4">
         <h3 className="text-lg font-medium text-gray-900">Payment Details</h3>
+        
+        {isApplePayAvailable && (
+          <div className="mb-4">
+            <ApplePayButton
+              onClick={handleApplePayPayment}
+              disabled={isProcessing}
+              className="w-full"
+            />
+          </div>
+        )}
+
         <div id="payment-element">
           <PaymentElement
             options={{

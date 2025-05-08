@@ -76,30 +76,34 @@ export async function POST(req: Request) {
     
     // Create a PaymentIntent with the order amount and currency
     const paymentIntent = await stripe.paymentIntents.create({
-      amount: Math.round(amount * 100), // Convert to cents
+      amount: amount,
       currency: 'usd',
       automatic_payment_methods: {
         enabled: true,
+        allow_redirects: 'never'
       },
-      ...(hasDonorInfo && {
-        metadata: {
-          employer: employer,
-          occupation: occupation,
-          election: '2024 General',
-          fec_reporting: amount >= 200 ? 'Yes' : 'No',
-        },
-        receipt_email: email,
-        shipping: {
-          name: name,
-          address: {
-            line1: address,
-            city: city,
-            state: state,
-            postal_code: zip,
-            country: 'US',
-          },
-        },
-      }),
+      payment_method_types: ['card', 'apple_pay'],
+      metadata: {
+        employer: employer,
+        occupation: occupation,
+        name: name,
+        email: email,
+        address: address,
+        city: city,
+        state: state,
+        zip: zip
+      },
+      receipt_email: email,
+      shipping: {
+        name: name,
+        address: {
+          line1: address,
+          city: city,
+          state: state,
+          postal_code: zip,
+          country: 'US'
+        }
+      }
     });
 
     console.log('Payment intent created successfully:', paymentIntent.id);
