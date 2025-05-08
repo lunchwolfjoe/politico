@@ -116,7 +116,7 @@ export default function PlatformPage() {
       <div className="relative isolate overflow-hidden">
         <div className="absolute inset-0">
           <Image
-            src="/images/platform-hero.jpg"
+            src="/images/personal/merica.jpg"
             alt="American flag"
             className="h-full w-full object-cover"
             width={1920}
